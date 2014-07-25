@@ -13,7 +13,7 @@
 class FirstPersonCamera : public Camera
 {
 public:
-	FirstPersonCamera(glm::vec3 position);
+	FirstPersonCamera(glm::vec3 position, glm::vec3 lookAt, glm::vec3 up);
 	virtual ~FirstPersonCamera();
 
 	virtual void Update(float dt);
@@ -24,5 +24,14 @@ private:
 	// @TODO 3 - Add every parameter you need for a first person camera
 	//           including the speed of the camera
 
-	glm::vec3 mPosition;	
+    glm::vec3 mPosition;
+    glm::vec3 mLookAt;
+    glm::vec3 mRight;
+    glm::vec3 mUp;
+
+    float hAngle;
+    float vAngle;
+
+    float moveSpeed;
+    float mouseSpeed;
 };

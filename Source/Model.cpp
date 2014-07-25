@@ -14,6 +14,14 @@ using namespace std;
 
 Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
 {
+    mParent = nullptr;
+    mGetScalingFromParent = true;
+}
+
+Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
+{
+    mParent = p;
+    mGetScalingFromParent = getScalingFromParent;
 }
 
 Model::~Model()
@@ -108,12 +116,39 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
 glm::mat4 Model::GetWorldMatrix() const
 {
 	// @TODO 2, you must build the world matrix from the position, scaling and rotation informations
+    glm::mat4 identity = glm::mat4(1.0f);
+
+    glm::mat4 position = glm::translate(identity, mPosition);
+    glm::mat4 scale = glm::scale(identity, mScaling);
+    glm::mat4 rotation = glm::rotate(identity, mRotationAngleInDegrees, mRotationAxis);
+
+    glm::mat4 worldMatrix = position * rotation * scale;
 
 	// @TODO 4 - Maybe you should use the parent world transform when you do hierarchical modeling
+    if(mParent != nullptr)
+    {
+        if(mGetScalingFromParent)
+        {
+            return mParent->GetWorldMatrix() * worldMatrix;
+        }
+        else
+        {
+            return mParent->GetWorldMatrixWithoutScaling() * worldMatrix;
+        }
+    }
+    else
+    {
+        return worldMatrix;
+    }
+}
 
-	glm::mat4 worldMatrix(1.0f);
+glm::mat4 Model::GetWorldMatrixWithoutScaling() const
+{
+    glm::mat4 identity = glm::mat4(1.0f);
+    glm::mat4 position = glm::translate(identity, mPosition);
+    glm::mat4 rotation = glm::rotate(identity, mRotationAngleInDegrees, mRotationAxis);
 
-	return worldMatrix;
+    return position * rotation;
 }
 
 void Model::SetPosition(glm::vec3 position)

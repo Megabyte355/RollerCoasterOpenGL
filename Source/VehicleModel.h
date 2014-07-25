@@ -10,6 +10,7 @@
 
 #include "Model.h"
 #include <vector>
+#include "CubeModel.h"
 
 class VehicleModel : public Model
 {
@@ -25,5 +26,10 @@ protected:
 
 private:
 	// @TODO 5 - You may want a container for all the parts of your vehicle
+	std::vector<CubeModel*> container;
+	std::vector<CubeModel*> rotatingXAxis;
+	std::vector<CubeModel*> rotatingYAxis;
 
+	float angularSpeedXAxis;
+	float angularSpeedYAxis;
 };

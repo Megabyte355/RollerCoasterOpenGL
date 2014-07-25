@@ -20,9 +20,7 @@ Camera::~Camera()
 glm::mat4 Camera::GetViewProjectionMatrix() const
 {
 	// @TODO 1 - Calculate View Projection Matrix
-	glm::mat4 viewProjection(1.0f); // identity, you need to change this
-
-	return viewProjection;
+	return GetProjectionMatrix() * GetViewMatrix();;
 }
 
 glm::mat4 Camera::GetProjectionMatrix() const

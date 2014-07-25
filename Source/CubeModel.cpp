@@ -16,7 +16,19 @@ using namespace glm;
 
 CubeModel::CubeModel(vec3 size)
 {
-	// Create Vertex Buffer for all the verices of the Cube
+    Init(size);
+}
+
+CubeModel::CubeModel(Model * parent, bool getScalingFromParent, vec3 size)
+{
+    mParent = parent;
+    mGetScalingFromParent = getScalingFromParent;
+    Init(size);
+}
+
+void CubeModel::Init(vec3 size)
+{
+    // Create Vertex Buffer for all the verices of the Cube
 	vec3 halfSize = size * 0.5f;
 	
 	Vertex vertexBuffer[] = {  // position,                normal,                  color
