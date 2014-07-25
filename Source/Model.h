@@ -20,7 +20,7 @@ class Model
 public:
 	// @TODO 4 - It could be a good idea to allow passing a parent model in the constructor
 	Model();
-    Model(Model * p, bool getScalingFromParent = true);
+    Model(Model * p);
 	virtual ~Model();
 
 	virtual void Update(float dt) = 0;
@@ -29,7 +29,6 @@ public:
 	void Load(ci_istringstream& iss);
 
 	virtual glm::mat4 GetWorldMatrix() const;
-    virtual glm::mat4 GetWorldMatrixWithoutScaling() const;
 
 	void SetPosition(glm::vec3 position);
 	void SetScaling(glm::vec3 scaling);
@@ -51,5 +50,4 @@ protected:
 
 	// @TODO 4 - You may want to add a parent object for the hierarchical modeling
     Model * mParent;
-    bool mGetScalingFromParent;
 };

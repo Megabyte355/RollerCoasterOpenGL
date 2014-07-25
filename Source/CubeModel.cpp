@@ -19,10 +19,9 @@ CubeModel::CubeModel(vec3 size)
     Init(size);
 }
 
-CubeModel::CubeModel(Model * parent, bool getScalingFromParent, vec3 size)
+CubeModel::CubeModel(Model * parent, vec3 size)
 {
     mParent = parent;
-    mGetScalingFromParent = getScalingFromParent;
     Init(size);
 }
 
