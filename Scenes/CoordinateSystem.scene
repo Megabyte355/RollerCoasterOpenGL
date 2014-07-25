@@ -1,0 +1,25 @@
+# This should draw a coordinate system with 3 colored axes
+
+[Cube]
+name = "X-axis"
+position = 0.5f 0.0f 0.0f
+rotation = 0.0f 0.0f 1.0f 0.0f
+scaling = 1.0f 0.1f 0.1f 
+
+[Cube]
+name = "Y-axis"
+position = 0.0f 0.5f 0.0f
+rotation = 0.0f 0.0f 1.0f 90.0f
+scaling = 1.0f 0.1f 0.1f 
+
+[Cube]
+name = "Z-axis"
+position = 0.0f 0.0f 0.5f
+rotation = 0.0f 1.0f 0.0f -90.0f
+scaling = 1.0f 0.1f 0.1f 
+
+[Cube]
+name = "Origin"
+position = 0.0f 0.0f 0.0f
+scaling = 0.12f 0.12f 0.12f
+
