@@ -20,6 +20,8 @@ struct GLFWwindow;
 
 enum ShaderType
 {
+    SHADER_PHONG,
+    SHADER_GOURAUD,
 	SHADER_SOLID_COLOR,
 	SHADER_BLUE,
 	NUM_SHADERS

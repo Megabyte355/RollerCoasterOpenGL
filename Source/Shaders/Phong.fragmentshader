@@ -1,0 +1,49 @@
+#version 330 core
+
+
+// Light and Material Uniform Variables
+uniform vec4 materialCoefficients; // x: ambient   y: diffuse   z: specular   w: specular exponent
+
+uniform vec3 lightColor;
+uniform vec3 lightAttenuation; // x: kC  y: kL  z: kQ
+
+
+// Inputs
+in vec3 v_color;		 // vertex color: also diffuse color
+
+in vec3 normal;          // Transformed normal in View Space
+in vec3 eyeVector;       // Vector from the vertex to the Camera in View Space
+in vec4 lightVector;     // Vector from the vertex to the Light in View Space
+						 // Length of lightVector is the distance between light and vertex
+						 // if w = 1: Point light, if w = 0: directional light
+
+// Ouput data
+out vec3 color;
+
+void main()
+{
+	// Implment Phong Shading based on the parameters above
+	// Remember that directional light don't have attenuation
+	float attenuation = 1.0f;
+    
+    if(abs(lightVector.w - 1.0f) < 0.0001f)
+    {
+        // Light attenuation for point light (w = 1)
+        float d = length(lightVector);
+        attenuation = 1 / (lightAttenuation.x + lightAttenuation.y * d + pow(lightAttenuation.z, 2));
+    }
+
+    // Normalized vectors
+    vec3 normalizedLight = normalize(lightVector.xyz);
+    vec3 normalizedNormal = normalize(normal);
+    vec3 normalizedEye = normalize(eyeVector);
+    vec3 reflected = normalize(2 * dot(normalizedNormal, normalizedLight) * normalizedNormal - normalizedLight);
+
+    // Illumination
+    float ambient = materialCoefficients.x;
+    float diffuse = materialCoefficients.y * clamp(dot(normalizedNormal, normalizedLight), 0, 1);
+    float specular = materialCoefficients.z * pow(clamp(dot(normalizedEye, reflected), 0, 1), materialCoefficients.w);
+
+    // This should be the final color on the Vertex, including the lighting
+    color = (ambient + (diffuse + specular) * attenuation) * lightColor * v_color;
+}

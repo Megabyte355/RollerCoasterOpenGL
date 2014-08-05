@@ -124,3 +124,11 @@ bool VehicleModel::ParseLine(const std::vector<ci_string> &token)
 		return Model::ParseLine(token);
 	}
 }
+
+void VehicleModel::SetLightSource(LightModel * lightSource)
+{
+	for (vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+	{
+		(*it)->SetLightSource(lightSource);
+	}
+}

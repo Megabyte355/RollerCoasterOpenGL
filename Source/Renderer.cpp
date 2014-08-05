@@ -55,6 +55,8 @@ void Renderer::Initialize()
     glDepthFunc(GL_LESS); 
 
 	// Loading Shaders
+    sShaderProgramID.push_back(LoadShaders( "../Source/Shaders/Phong.vertexshader", "../Source/Shaders/Phong.fragmentshader" ));
+    sShaderProgramID.push_back(LoadShaders( "../Source/Shaders/Gouraud.vertexshader", "../Source/Shaders/Gouraud.fragmentshader" ));
 	sShaderProgramID.push_back(LoadShaders( "../Source/Shaders/SolidColor.vertexshader", "../Source/Shaders/SolidColor.fragmentshader" ));
 	sShaderProgramID.push_back(LoadShaders( "../Source/Shaders/SolidColor.vertexshader", "../Source/Shaders/BlueColor.fragmentshader" ));
 	sCurrentShader = 0;

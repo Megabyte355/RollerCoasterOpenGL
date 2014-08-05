@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Model.h"
+#include "LightModel.h"
 #include <vector>
 #include "CubeModel.h"
 
@@ -20,6 +21,8 @@ public:
 
 	virtual void Update(float dt);
 	virtual void Draw();
+
+    virtual void SetLightSource(LightModel * lightSource);
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token);

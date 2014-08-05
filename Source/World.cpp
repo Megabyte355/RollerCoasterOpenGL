@@ -15,12 +15,17 @@
 
 #include "CubeModel.h"
 #include "VehicleModel.h"
+#include "SphereModel.h"
+#include "LightModel.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 
 using namespace std;
 using namespace glm;
+
+unsigned int World::mCurrentCamera;
+std::vector<Camera*> World::mCamera;
 
 World::World()
 {
@@ -48,6 +53,13 @@ World::~World()
 		delete *it;
 	}
 	mCamera.clear();
+
+    // Lights
+    for (vector<LightModel*>::iterator it = mLightModels.begin(); it < mLightModels.end(); ++it)
+    {
+        delete *it;
+    }
+    mLightModels.clear();
 }
 	
 void World::Update(float dt)
@@ -76,9 +88,17 @@ void World::Update(float dt)
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
-		Renderer::SetShader(SHADER_SOLID_COLOR);
+        Renderer::SetShader(SHADER_PHONG);
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
+	{
+        Renderer::SetShader(SHADER_GOURAUD);
+	}
+    else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_8 ) == GLFW_PRESS)
+	{
+		Renderer::SetShader(SHADER_SOLID_COLOR);
+	}
+    else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_7 ) == GLFW_PRESS)
 	{
 		Renderer::SetShader(SHADER_BLUE);
 	}
@@ -88,6 +108,10 @@ void World::Update(float dt)
 
 	// Update models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
+	{
+		(*it)->Update(dt);
+	}
+    for (vector<LightModel*>::iterator it = mLightModels.begin(); it < mLightModels.end(); ++it)
 	{
 		(*it)->Update(dt);
 	}
@@ -101,16 +125,20 @@ void World::Draw()
 	// In our case, all the models use a common shader
 	glUseProgram(Renderer::GetShaderProgramID());
 
-	// This looks for the MVP Uniform variable in the Vertex Program
-	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectonTransform"); 
+	// This looks for the V and P Uniform variable in the Vertex Program
+    GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
+    GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
 
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
-		// Send the view projection constants to the shader
-		mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
-		glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
-		
+		// Send the view and projection constants to the shader
+		mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
+		glUniformMatrix4fv(viewMatrix, 1, GL_FALSE, &V[0][0]);
+
+        mat4 P = mCamera[mCurrentCamera]->GetProjectionMatrix();
+		glUniformMatrix4fv(projectionMatrix, 1, GL_FALSE, &P[0][0]);
+
 		// Draw model
 		(*it)->Draw();
 	}
@@ -154,6 +182,18 @@ void World::LoadScene(const char * scene_path)
 				vehicle->Load(iss);
 				mModel.push_back(vehicle);
 			}
+            else if( result == "sphere" )
+            {
+                SphereModel* sphere = new SphereModel();
+                sphere->Load(iss);
+                mModel.push_back(sphere);
+            }
+            else if( result == "light" )
+            {
+                LightModel* light = new LightModel();
+                light->Load(iss);
+                mLightModels.push_back(light);
+            }
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line
@@ -167,4 +207,15 @@ void World::LoadScene(const char * scene_path)
 	    }
 	}
 	input.close();
+
+    for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
+	{
+        // Temporary for single light source
+		(*it)->SetLightSource(mLightModels.back());
+	}
+}
+
+Camera* World::GetCurrentCamera()
+{
+    return mCamera[mCurrentCamera];
 }

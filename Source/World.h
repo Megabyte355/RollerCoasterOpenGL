@@ -12,6 +12,7 @@
 
 class Camera;
 class Model;
+class LightModel;
 
 class World
 {
@@ -23,10 +24,12 @@ public:
 	void Draw();
 
 	void LoadScene(const char * scene_path);
+    static Camera* GetCurrentCamera();
 
 private:
 	std::vector<Model*> mModel;
+    std::vector<LightModel*> mLightModels;
 
-	std::vector<Camera*> mCamera;
-	unsigned int mCurrentCamera;
+	static std::vector<Camera*> mCamera;
+	static unsigned int mCurrentCamera;
 };

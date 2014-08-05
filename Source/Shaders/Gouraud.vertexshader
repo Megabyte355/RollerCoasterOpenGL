@@ -1,0 +1,71 @@
+#version 330 core
+
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 1) in vec3 vertexNormal_modelspace;  // You will need this when you do lighting
+layout(location = 2) in vec3 vertexColor; 
+
+// output to Fragment Shader
+out vec3 v_color;
+
+// Uniform
+// Values that stay constant for the whole mesh.
+uniform mat4 WorldTransform;
+uniform mat4 ViewTransform;
+uniform mat4 ProjectonTransform;
+
+
+// Light and Material Uniform Variables
+uniform vec4 WorldLightPosition; // if w = 1: Point light, if w = 0: directional light
+uniform vec4 materialCoefficients; // x: ambient   y: diffuse   z: specular   w: specular exponent
+
+uniform vec3 lightColor;
+uniform vec3 lightAttenuation; // x: kC  y: kL  z: kQ
+
+void main()
+{
+	mat4 MV = ViewTransform * WorldTransform;
+	mat4 MVP = ProjectonTransform * MV;
+
+	// Output position of the vertex, in clip space : MVP * position
+	gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
+	v_color = vertexColor;
+
+	// Implement Gouraud shading here...
+	// ...
+    vec3 normal = (transpose(inverse(MV)) * vec4(vertexNormal_modelspace.xyz, 1)).xyz;
+    
+    vec4 vertexPosition_viewspace = MV * vec4(vertexPosition_modelspace, 1);
+    vec3 eyeVector = vec3(0.0f, 0.0f, 0.0f) - (vertexPosition_viewspace).xyz;
+    
+    vec4 lightPosition_viewspace = ViewTransform * vec4(WorldLightPosition.xyz, 1.0f);
+    vec4 lightVector = lightPosition_viewspace - vertexPosition_viewspace;
+    
+    if(abs(WorldLightPosition.w - 1.0f) > 0.9999f)
+    {
+        lightVector = vec4(-lightVector.xyz, WorldLightPosition.w);
+    }
+
+    float attenuation = 1.0f;
+    
+    if(abs(lightVector.w - 1.0f) < 0.0001f)
+    {
+        // Light attenuation for point light (w = 1)
+        float d = length(lightVector);
+        attenuation = 1 / (lightAttenuation.x + lightAttenuation.y * d + pow(lightAttenuation.z, 2));
+    }
+
+    // Normalized vectors
+    vec3 normalizedLight = normalize(lightVector.xyz);
+    vec3 normalizedNormal = normalize(normal);
+    vec3 normalizedEye = normalize(eyeVector);
+    vec3 reflected = normalize(2 * dot(normalizedNormal, normalizedLight) * normalizedNormal - normalizedLight);
+
+    // Illumination
+    float ambient = materialCoefficients.x;
+    float diffuse = materialCoefficients.y * clamp(dot(normalizedNormal, normalizedLight), 0, 1);
+    float specular = materialCoefficients.z * pow(clamp(dot(normalizedEye, reflected), 0, 1), materialCoefficients.w);
+
+    // This should be the final color on the Vertex, including the lighting
+    v_color = (ambient + (diffuse + specular) * attenuation) * lightColor * vertexColor;
+}

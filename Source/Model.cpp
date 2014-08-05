@@ -7,6 +7,9 @@
 //
 
 #include "Model.h"
+#include "World.h"
+#include "StaticCamera.h"
+#include "FirstPersonCamera.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
 
@@ -15,11 +18,19 @@ using namespace std;
 Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
 {
     mParent = nullptr;
+    mGetScalingFromParent = true;
 }
 
 Model::Model(Model * p) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
 {
     mParent = p;
+    mGetScalingFromParent = true;
+}
+
+Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
+{
+    mParent = p;
+    mGetScalingFromParent = getScalingFromParent;
 }
 
 Model::~Model()
@@ -33,7 +44,6 @@ void Model::Update(float dt)
 void Model::Draw()
 {
 }
-
 
 void Model::Load(ci_istringstream& iss)
 {
@@ -125,12 +135,38 @@ glm::mat4 Model::GetWorldMatrix() const
 	// @TODO 4 - Maybe you should use the parent world transform when you do hierarchical modeling
     if(mParent != nullptr)
     {
-        return mParent->GetWorldMatrix() * worldMatrix;
+        if(mGetScalingFromParent)
+        {
+            return mParent->GetWorldMatrix() * worldMatrix;
+        }
+        else
+        {
+            return mParent->GetWorldMatrixWithoutScaling() * worldMatrix;
+        }
     }
     else
     {
         return worldMatrix;
     }
+}
+
+glm::mat4 Model::GetWorldMatrixWithoutScaling() const
+{
+    glm::mat4 identity = glm::mat4(1.0f);
+    glm::mat4 position = glm::translate(identity, mPosition);
+    glm::mat4 rotation = glm::rotate(identity, mRotationAngleInDegrees, mRotationAxis);
+
+    return position * rotation;
+}
+
+glm::mat4 Model::GetViewMatrix() const
+{
+    return World::GetCurrentCamera()->GetViewMatrix();
+}
+
+glm::mat4 Model::GetProjectionMatrix() const
+{
+    return World::GetCurrentCamera()->GetProjectionMatrix();
 }
 
 void Model::SetPosition(glm::vec3 position)
@@ -147,4 +183,9 @@ void Model::SetRotation(glm::vec3 axis, float angleDegrees)
 {
 	mRotationAxis = axis;
 	mRotationAngleInDegrees = angleDegrees;
+}
+
+void Model::SetLightSource(LightModel * lightSource)
+{
+    mLightSource = lightSource;
 }

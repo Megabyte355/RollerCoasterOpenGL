@@ -16,12 +16,24 @@ using namespace glm;
 
 CubeModel::CubeModel(vec3 size)
 {
+    mParent = nullptr;
+    mLightSource = nullptr;
     Init(size);
 }
 
 CubeModel::CubeModel(Model * parent, vec3 size)
 {
     mParent = parent;
+    mLightSource = nullptr;
+    mGetScalingFromParent = true;
+    Init(size);
+}
+
+CubeModel::CubeModel(Model * parent, bool getScalingFromParent, vec3 size)
+{
+    mParent = parent;
+    mLightSource = nullptr;
+    mGetScalingFromParent = getScalingFromParent;
     Init(size);
 }
 
@@ -87,6 +99,12 @@ void CubeModel::Init(vec3 size)
 	glGenBuffers(1, &mVertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);
+
+    // Set up shader constant defaults
+    ka = 0.2f;
+    kd = 0.8f;
+    ks = 0.2f;
+    n = 50.0f;
 }
 
 CubeModel::~CubeModel()
@@ -110,9 +128,14 @@ void CubeModel::Draw()
 	// The Model View Projection transforms are computed in the Vertex Shader
 	glBindVertexArray(mVertexArrayID);
 
-	GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldTransform"); 
-	glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
-	
+    GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldTransform"); 
+    glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
+
+    if(mLightSource != nullptr)
+    {
+        mLightSource->SetShaderConstants(ka, kd, ks, n);
+    }
+
 	// 1st attribute buffer : vertex Positions
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);

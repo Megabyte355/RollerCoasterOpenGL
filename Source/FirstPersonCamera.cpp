@@ -80,6 +80,14 @@ void FirstPersonCamera::Update(float dt)
     {
         mPosition -= mRight * dt * moveSpeed;
     }
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_Q) == GLFW_PRESS)
+    {
+        mPosition -= mUp * dt * moveSpeed;
+    }
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_E) == GLFW_PRESS)
+    {
+        mPosition += mUp * dt * moveSpeed;
+    }
 }
 
 glm::mat4 FirstPersonCamera::GetViewMatrix() const
