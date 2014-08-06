@@ -99,6 +99,10 @@
     <None Include="..\Scenes\CoordinateSystem.scene" />
     <None Include="..\Scenes\VehicleTest.scene" />
     <None Include="..\Source\Shaders\BlueColor.fragmentshader" />
+    <None Include="..\Source\Shaders\Gouraud.fragmentshader" />
+    <None Include="..\Source\Shaders\Gouraud.vertexshader" />
+    <None Include="..\Source\Shaders\Phong.fragmentshader" />
+    <None Include="..\Source\Shaders\Phong.vertexshader" />
     <None Include="..\Source\Shaders\SolidColor.vertexshader" />
     <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
   </ItemGroup>
