@@ -50,6 +50,9 @@
     <None Include="..\Source\Shaders\Phong.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="..\Scenes\TankModel.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\EventManager.cpp">
