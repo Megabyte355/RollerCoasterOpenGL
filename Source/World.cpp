@@ -14,7 +14,7 @@
 #include "FirstPersonCamera.h"
 
 #include "CubeModel.h"
-#include "VehicleModel.h"
+#include "TankModel.h"
 #include "SphereModel.h"
 #include "LightModel.h"
 
@@ -178,7 +178,7 @@ void World::LoadScene(const char * scene_path)
 			else if( result == "vehicle" )
 			{
 				// Box attributes
-				VehicleModel* vehicle = new VehicleModel();
+				TankModel* vehicle = new TankModel();
 				vehicle->Load(iss);
 				mModel.push_back(vehicle);
 			}
