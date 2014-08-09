@@ -4,6 +4,8 @@
 
 using namespace glm;
 
+#include "BSpline.h"
+
 SphereModel::SphereModel(vec3 size)
 {
     Init(size);
@@ -1299,6 +1301,10 @@ void SphereModel::Init(vec3 size)
     kd = 0.8f;
     ks = 0.2f;
     n = 50.0f;
+    
+    // EXPERIMENT TO BE REMOVED
+    splineProgress = 1.0f;
+    splineSpeed = 1.0f;
 
     glGenVertexArrays(1, &mVertexArrayID);
     glGenBuffers(1, &mVertexBufferID);
@@ -1308,6 +1314,17 @@ void SphereModel::Init(vec3 size)
 
 void SphereModel::Update(float dt)
 {
+    // EXPERIMENT TO BE REMOVED
+    if(spline != nullptr)
+    {
+        this->mPosition = spline->GetPoint(splineProgress);
+        splineProgress += splineSpeed * dt;
+
+        if(splineProgress > 2.0f)
+        {
+            splineProgress = 1.0f;
+        }
+    }
 }
 
 void SphereModel::Draw()

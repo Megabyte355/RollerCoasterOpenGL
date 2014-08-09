@@ -13,6 +13,7 @@
 class Camera;
 class Model;
 class LightModel;
+class BSpline;
 
 class World
 {
@@ -26,9 +27,14 @@ public:
 	void LoadScene(const char * scene_path);
     static Camera* GetCurrentCamera();
 
+    static std::vector<Model*>* GetModelsPtr();
+    static std::vector<LightModel*>* GetLightModelsPtr();
+    static std::vector<BSpline*>* GetBSplineModelsPtr();
+
 private:
-	std::vector<Model*> mModel;
-    std::vector<LightModel*> mLightModels;
+	static std::vector<Model*> mModel;
+    static std::vector<LightModel*> mLightModels;
+    static std::vector<BSpline*> mBSplineModels;
 
 	static std::vector<Camera*> mCamera;
 	static unsigned int mCurrentCamera;

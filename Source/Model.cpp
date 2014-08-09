@@ -10,6 +10,7 @@
 #include "World.h"
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
+#include "BSpline.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
 
@@ -19,18 +20,21 @@ Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1
 {
     mParent = nullptr;
     mGetScalingFromParent = true;
+    spline = nullptr;
 }
 
 Model::Model(Model * p) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
 {
     mParent = p;
     mGetScalingFromParent = true;
+    spline = nullptr;
 }
 
 Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
 {
     mParent = p;
     mGetScalingFromParent = getScalingFromParent;
+    spline = nullptr;
 }
 
 Model::~Model()
@@ -112,6 +116,23 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
 			mScaling.y = static_cast<float>(atof(token[3].c_str()));
 			mScaling.z = static_cast<float>(atof(token[4].c_str()));
 		}
+        else if (token[0] == "spline")
+        {
+            assert(token.size() > 2);
+			assert(token[1] == "=");
+
+            vector<BSpline*>* splineModels = World::GetBSplineModelsPtr();
+
+            for(vector<BSpline*>::iterator it = splineModels->begin(); it < splineModels->end(); ++it)
+            {
+                if((*it)->mName == token[2])
+                {
+                    this->spline = dynamic_cast<BSpline*>(*it);
+                    break;
+                }
+            }
+            splineModels = nullptr;
+        }
 		else
 		{
 			return false;
