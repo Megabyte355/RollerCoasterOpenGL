@@ -7,19 +7,9 @@ position = 0.0 -1.0 0.0
 rotation = 0.0 0.0 1.0 0.0
 
 [Vehicle]
-name	 = "TankOne"
-scaling  = 1.0 1.0 1.0
-position = -4.0  1.0 -1
-
-[Vehicle]
 name	 = "Tanktwo"
 scaling  = 1.0 1.0 1.0
 position = 0.0  1.0 0
-
-[Vehicle]
-name	 = "Tankthree"
-scaling  = 1.0 1.0 1.0
-position = 4.0  1.0 1
 
 [Sphere]
 name	 = "Sphere"
