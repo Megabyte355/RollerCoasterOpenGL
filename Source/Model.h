@@ -47,6 +47,7 @@ public:
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
+	ci_string texturePath;
 
 	ci_string mName; // The model name is mainly for debugging
 	glm::vec3 mPosition;
@@ -67,4 +68,6 @@ protected:
 
 	unsigned int mVertexArrayID;
 	unsigned int mVertexBufferID;
+	unsigned int uvbuffer;
+	unsigned int m;
 };

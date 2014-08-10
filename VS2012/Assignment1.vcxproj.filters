@@ -21,6 +21,12 @@
     <Filter Include="Resource Files\Scenes">
       <UniqueIdentifier>{3b2e1119-c64d-494f-9840-6ae6746aa7bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Images">
+      <UniqueIdentifier>{94029c18-867f-4117-9a83-8640638ec5a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SkyBox">
+      <UniqueIdentifier>{8a4c5a70-ac26-40dd-bc15-6eea7a88d364}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Shaders\SolidColor.vertexshader">
@@ -48,6 +54,12 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="..\Source\Shaders\Phong.vertexshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\Texture.fragmentshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\Texture.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
@@ -88,6 +100,12 @@
     <ClCompile Include="..\Source\SphereModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Source Files\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -126,5 +144,14 @@
     <ClInclude Include="..\Source\SphereModel.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Source Files\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\texture.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Pictures\Skybox\alien_skybox.jpg">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

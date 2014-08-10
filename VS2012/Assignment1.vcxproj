@@ -105,6 +105,8 @@
     <None Include="..\Source\Shaders\Phong.vertexshader" />
     <None Include="..\Source\Shaders\SolidColor.vertexshader" />
     <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
+    <None Include="..\Source\Shaders\Texture.fragmentshader" />
+    <None Include="..\Source\Shaders\Texture.vertexshader" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Camera.cpp" />
@@ -116,9 +118,11 @@
     <ClCompile Include="..\Source\main.cpp" />
     <ClCompile Include="..\Source\Model.cpp" />
     <ClCompile Include="..\Source\CubeModel.cpp" />
+    <ClCompile Include="..\Source\texture.cpp" />
     <ClCompile Include="..\Source\VehicleModel.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Camera.h" />
@@ -130,9 +134,14 @@
     <ClInclude Include="..\Source\EventManager.h" />
     <ClInclude Include="..\Source\Model.h" />
     <ClInclude Include="..\Source\CubeModel.h" />
+    <ClInclude Include="..\Source\texture.hpp" />
     <ClInclude Include="..\Source\VehicleModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\World.h" />
+    <ClInclude Include="SkyBox.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Pictures\Skybox\alien_skybox.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

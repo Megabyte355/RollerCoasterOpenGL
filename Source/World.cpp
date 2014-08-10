@@ -102,6 +102,10 @@ void World::Update(float dt)
 	{
 		Renderer::SetShader(SHADER_BLUE);
 	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_6) == GLFW_PRESS)
+	{
+		Renderer::SetShader(SHADER_TEXTURE);
+	}
 
 	// Update current Camera
 	mCamera[mCurrentCamera]->Update(dt);
