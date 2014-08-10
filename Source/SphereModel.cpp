@@ -1303,7 +1303,7 @@ void SphereModel::Init(vec3 size)
     n = 50.0f;
     
     // EXPERIMENT TO BE REMOVED
-    splineProgress = 1.0f;
+    splineProgress = 0.0f;
     splineSpeed = 1.0f;
 
     glGenVertexArrays(1, &mVertexArrayID);
@@ -1320,9 +1320,9 @@ void SphereModel::Update(float dt)
         this->mPosition = spline->GetPoint(splineProgress);
         splineProgress += splineSpeed * dt;
 
-        if(splineProgress > 2.0f)
+        if(splineProgress > 1.0f)
         {
-            splineProgress = 1.0f;
+            splineProgress = 0.0f;
         }
     }
 }
