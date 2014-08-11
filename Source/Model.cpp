@@ -43,6 +43,11 @@ Model::~Model()
 
 void Model::Update(float dt)
 {
+    if(spline != nullptr)
+    {
+        this->mPosition = spline->GetPosition() + spline->GetNextPoint();
+        spline->Update(dt);
+    }
 }
 
 void Model::Draw()
@@ -157,6 +162,18 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
             {
                 int degree = static_cast<int>(atof(token[2].c_str()));
                 s->SetDegree(degree);
+            }
+        }
+        else if (token[0] == "splinespeed")
+        {
+            assert(token.size() > 2);
+			assert(token[1] == "=");
+
+            BSpline* s = dynamic_cast<BSpline*>(this);
+            if(this != nullptr)
+            {
+                float speed = static_cast<float>(atof(token[2].c_str()));
+                s->SetSpeed(speed);
             }
         }
 		else

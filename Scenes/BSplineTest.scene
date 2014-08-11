@@ -1,21 +1,53 @@
 # This is a comment
 
 [BSpline]
-name     = "B-Spline"
-position = 0.0 3.0 0.0
+name     = "SplineA"
+position = 0.0 2.0 0.0
 splinedegree = 3
+splinespeed = 0.25
 splinepoint = 0.0 0.0 0.0
-splinepoint = 2.0 0.0 0.0
-splinepoint = 4.0 1.0 0.0
-splinepoint = 6.0 2.0 0.0
-splinepoint = 8.0 3.0 0.0
-splinepoint = 7.0 5.0 0.0
-splinepoint = 5.0 6.0 0.0
-splinepoint = 3.0 5.0 0.0
-splinepoint = 2.0 4.0 0.0
-splinepoint = 0.0 3.0 0.0
+splinepoint = 2.0 0.0 1.0
+splinepoint = 4.0 1.0 2.0
+splinepoint = 6.0 3.0 3.0
+splinepoint = 8.0 4.0 4.0
+splinepoint = 7.0 7.0 5.0
+splinepoint = 5.0 6.0 4.0
+splinepoint = 3.0 5.0 3.0
+splinepoint = 2.0 4.0 2.0
+splinepoint = 0.0 3.0 1.0
 splinepoint = -2.0 1.0 0.0
 splinepoint = 0.0 0.0 0.0
+
+[BSpline]
+name     = "SplineB"
+position = 0.0 0.0 -6.0
+splinedegree = 3
+splinespeed = 0.5
+splinepoint = 0.0 0.0 0.0
+splinepoint = 2.0 0.0 1.0
+splinepoint = 2.0 2.0 2.0
+splinepoint = 0.0 2.0 3.0
+splinepoint = 0.0 0.0 4.0
+splinepoint = 2.0 0.0 3.0
+splinepoint = 2.0 2.0 2.0
+splinepoint = 0.0 2.0 1.0
+splinepoint = 0.0 0.0 0.0
+
+[BSpline]
+name     = "SplineC"
+position = 0.0 -1.0 0.0
+splinedegree = 3
+splinespeed = 0.15
+splinepoint = 0.0 0.0 10.0
+splinepoint = 7.0 0.0 7.0
+splinepoint = 10.0 0.0 0.0
+splinepoint = 7.0 0.0 -7.0
+splinepoint = 0.0 0.0 -10.0
+splinepoint = -7.0 0.0 -7.0
+splinepoint = -10.0 0.0 0.0
+splinepoint = -7.0 0.0 7.0
+splinepoint = 0.0 0.0 10.0
+
 
 [Cube]
 name     = "Ground"
@@ -23,9 +55,23 @@ scaling  = 100.0 1.0 100.0
 position = 0.0 -2.5 0.0
 rotation = 0.0 0.0 1.0 0.0
 
+[Cube]
+name     = "SplineBoxB"
+spline   = "SplineB"
+scaling  = 1.0 1.0 1.0
+position = 0.0 2.5 0.0
+rotation = 0.0 0.0 1.0 0.0
+
+[Cube]
+name     = "SplineBoxC"
+spline   = "SplineC"
+scaling  = 1.0 1.0 1.0
+position = 0.0 2.5 0.0
+rotation = 0.0 0.0 1.0 0.0
+
 [Sphere]
 name     = "Sphere"
-spline   = "B-Spline"
+spline   = "SplineA"
 scaling  = 1.0 1.0 1.0
 position = 0.0 5.0 -12.0
 

@@ -6,6 +6,8 @@ BSpline::BSpline(void)
 {
     n = 0;
     p = 0;
+    progress = 0.0f;
+    speed = 0.0f;
     initialized = false;
 }
 
@@ -33,7 +35,7 @@ void BSpline::Init()
     }
 }
 
-vec3 BSpline::GetPoint(float t)
+vec3 BSpline::GetNextPoint()
 {
     //float b0;
     //float b1;
@@ -69,13 +71,18 @@ vec3 BSpline::GetPoint(float t)
 
     for(int i = 0; i < points.size(); i++)
     {
-        acc += points[i] * BasisFunction(i, p, t);
+        acc += points[i] * BasisFunction(i, p, progress);
     }
     return acc;
 }
 
 void BSpline::Update(float dt)
 {
+    progress += speed * dt;
+    if(progress > 1.0f)
+    {
+        progress = 0.0f;
+    }
 }
 
 void BSpline::Draw()
@@ -90,6 +97,11 @@ void BSpline::AddPoint(glm::vec3 p)
 void BSpline::SetDegree(int degree)
 {
     p = degree;
+}
+
+void BSpline::SetSpeed(float speed)
+{
+    this->speed = speed;
 }
 
 bool BSpline::ParseLine(const std::vector<ci_string> &token)

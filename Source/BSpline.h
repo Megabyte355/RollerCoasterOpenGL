@@ -7,13 +7,14 @@ public:
     BSpline(void);
     ~BSpline(void);
 
-    glm::vec3 GetPoint(float t);
+    glm::vec3 GetNextPoint();
     virtual void Update(float dt);
 	virtual void Draw();
 
     void Init();
     void AddPoint(glm::vec3 p);
     void SetDegree(int degree);
+    void SetSpeed(float speed);
 
 protected:
     std::vector<glm::vec3> points;
@@ -27,4 +28,8 @@ private:
     int n;
     int p;
     bool initialized;
+
+    float progress;
+    float speed;
+
 };
