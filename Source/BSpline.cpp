@@ -11,30 +11,80 @@ BSpline::BSpline(void)
     //points.push_back(vec3(3.0f, 1.0f, 0.0f));
     //points.push_back(vec3(3.0f, -1.0f, 0.0f));
 
-    points.push_back(vec3(0.0f, -1.0f, 0.0f));
-    points.push_back(vec3(1.0f, -3.0f, 0.0f));
-    points.push_back(vec3(2.0f, -1.0f, 0.0f));
-    points.push_back(vec3(3.0f, 1.0f, 0.0f));
-    points.push_back(vec3(4.0f, -1.0f, 0.0f));
+    //points.push_back(vec3(0.0f, 0.0f, 0.0f));
+    //points.push_back(vec3(3.0f, 0.0f, 0.0f));
+    //points.push_back(vec3(3.0f, 3.0f, 0.0f));
+    //points.push_back(vec3(0.0f, 3.0f, 0.0f));
+    //points.push_back(vec3(0.0f, 0.0f, 2.0f));
+    //points.push_back(vec3(3.0f, 0.0f, 2.0f));
+    //points.push_back(vec3(3.0f, 3.0f, 2.0f));
+    //points.push_back(vec3(0.0f, 3.0f, 2.0f));
+    //points.push_back(vec3(0.0f, 0.0f, 4.0f));
+    //points.push_back(vec3(3.0f, 0.0f, 4.0f));
 
-    //int size = points.size();
-    //float knotIncrement = 1.0f / (size - 1);
+    //points.push_back(vec3(0.0f, 0.0f, 0.0f));
+    //points.push_back(vec3(3.0f, 0.0f, 0.0f));
+    //points.push_back(vec3(3.0f, 3.0f, 0.0f));
+    //points.push_back(vec3(0.0f, 3.0f, 0.0f));
+    //points.push_back(vec3(0.0f, 0.0f, 0.0f));
+    //points.push_back(vec3(3.0f, 0.0f, 0.0f));
+    //points.push_back(vec3(0.0f, 3.0f, 0.0f));
+    //points.push_back(vec3(3.0f, 3.0f, 0.0f));
+    //points.push_back(vec3(3.0f, 0.0f, 0.0f));
+    //points.push_back(vec3(0.0f, 0.0f, 0.0f));
 
-    //for(int i = 0; i < size; i++)
-    //{
-    //    knots.push_back(knotIncrement * i);
-    //}
+
+    // Cool path from OneNote
+    //points.push_back(vec3(0.0f, 0.0f, 0.0f));
+    //points.push_back(vec3(2.0f, 0.0f, 0.0f));
+    //points.push_back(vec3(4.0f, 1.0f, 0.0f));
+    //points.push_back(vec3(6.0f, 2.0f, 0.0f));
+    //points.push_back(vec3(8.0f, 3.0f, 0.0f));
+    //points.push_back(vec3(7.0f, 5.0f, 0.0f));
+    //points.push_back(vec3(5.0f, 6.0f, 0.0f));
+    //points.push_back(vec3(3.0f, 5.0f, 0.0f));
+    //points.push_back(vec3(2.0f, 4.0f, 0.0f));
+    //points.push_back(vec3(0.0f, 3.0f, 0.0f));
+    //points.push_back(vec3(-2.0f, 1.0f, 0.0f));
+    //points.push_back(vec3(0.0f, 0.0f, 0.0f));
+
+
+    points.push_back(vec3(0.0f, 0.0f, 0.0f));
+    points.push_back(vec3(5.0f, 0.0f, 10.0f));
+    points.push_back(vec3(10.0f, 0.0f, 0.0f));
+    // n + 1 control points
+    // points.size() = n + 1
     n = points.size() - 1;
-    d = n + 1;
-    numKnots = n + d + 2;
 
+    // try with this degree for now (degree is chosen)
+    //p = n - 1;
+    p = 3;
+
+    // m + 1 knots, m = n + p + 1
+    numKnots = n + p + 2;
+    //int clampedKnots = p + 1;
     float knotIncrement = 1.0f / (numKnots - 1);
 
     for(int i = 0; i < numKnots; i++)
     {
         knots.push_back(knotIncrement * i);
     }
-    
+    //knots.push_back(0.00f);
+    //knots.push_back(0.01f);
+    //knots.push_back(0.02f);
+    //knots.push_back(0.03f);
+    //knots.push_back(0.14f);
+    //knots.push_back(0.28f);
+    //knots.push_back(0.42f);
+    //knots.push_back(0.57f);
+    //knots.push_back(0.71f);
+    //knots.push_back(0.85f);
+    //knots.push_back(0.97f);
+    //knots.push_back(0.98f);
+    //knots.push_back(0.99f);
+    //knots.push_back(1.0f);
+
+    // a set of n+1 control points, a knot vector of m+1 knots, and a degree p
 
     // m = n + p + 1
     // degree: p = m - n - 1
@@ -85,7 +135,7 @@ vec3 BSpline::GetPoint(float t)
 
     for(int i = 0; i < points.size(); i++)
     {
-        acc += points[i] * BasisFunction(i, d, t);
+        acc += points[i] * BasisFunction(i, p, t);
     }
     return acc;
 }
@@ -112,7 +162,6 @@ bool BSpline::ParseLine(const std::vector<ci_string> &token)
 
 float BSpline::BasisFunction(int i, int p, float t)
 {
-    // EXPERIMENT
     if(p == 0)
     {
         if(knots[i] <= t && t < knots[i + 1] && knots[i] < knots[i+1])
@@ -123,7 +172,8 @@ float BSpline::BasisFunction(int i, int p, float t)
     }
     else
     {
-        return ((t - knots[i])/(knots[i+p] - knots[i]) * BasisFunction(i, p - 1, t)) + 
-            ((knots[i + p + 1] - t)/(knots[i+p+1] - knots[i+1])*BasisFunction(i + 1, p - 1, t));
+        float slope = (t - knots[i])/(knots[i+p] - knots[i]) * BasisFunction(i, p - 1, t);
+        float intercept = (knots[i + p + 1] - t)/(knots[i + p + 1] - knots[i + 1]) * BasisFunction(i + 1, p - 1, t);
+        return (slope) + (intercept);
     }
 }

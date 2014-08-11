@@ -28,7 +28,7 @@ private:
     //int d = n + 1;
     //int numKnots = n + d + 2;
     int n;
-    int d;
+    int p;
     int numKnots;
     
 };

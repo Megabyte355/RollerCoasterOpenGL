@@ -1304,7 +1304,7 @@ void SphereModel::Init(vec3 size)
     
     // EXPERIMENT TO BE REMOVED
     splineProgress = 0.0f;
-    splineSpeed = 1.0f;
+    splineSpeed = 0.25f;
 
     glGenVertexArrays(1, &mVertexArrayID);
     glGenBuffers(1, &mVertexBufferID);
