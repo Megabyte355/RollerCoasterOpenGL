@@ -11,6 +11,10 @@ public:
     virtual void Update(float dt);
 	virtual void Draw();
 
+    void Init();
+    void AddPoint(glm::vec3 p);
+    void SetDegree(int degree);
+
 protected:
     std::vector<glm::vec3> points;
     virtual bool ParseLine(const std::vector<ci_string> &token);
@@ -19,16 +23,8 @@ protected:
     std::vector<float> knots;
 
 private:
-
-    // i: index of point
-    // p: degree
-    // x: progression
-
-    //int n = points.size() - 1;
-    //int d = n + 1;
-    //int numKnots = n + d + 2;
+    // n + 1 points, degree p
     int n;
     int p;
-    int numKnots;
-    
+    bool initialized;
 };

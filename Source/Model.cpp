@@ -133,6 +133,32 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
             }
             splineModels = nullptr;
         }
+        else if (token[0] == "splinepoint")
+        {
+            assert(token.size() > 2);
+			assert(token[1] == "=");
+
+            BSpline* s = dynamic_cast<BSpline*>(this);
+            if(this != nullptr)
+            {
+			    float x = static_cast<float>(atof(token[2].c_str()));
+			    float y = static_cast<float>(atof(token[3].c_str()));
+			    float z = static_cast<float>(atof(token[4].c_str()));
+                s->AddPoint(glm::vec3(x, y, z));
+            }
+        }
+        else if (token[0] == "splinedegree")
+        {
+            assert(token.size() > 2);
+			assert(token[1] == "=");
+
+            BSpline* s = dynamic_cast<BSpline*>(this);
+            if(this != nullptr)
+            {
+                int degree = static_cast<int>(atof(token[2].c_str()));
+                s->SetDegree(degree);
+            }
+        }
 		else
 		{
 			return false;
