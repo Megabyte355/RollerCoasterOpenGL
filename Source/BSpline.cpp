@@ -25,14 +25,70 @@ void BSpline::Init()
     // m + 1 knots, m = n + p + 1
     // Need to supply n + p + 2 knots (m + 1 knots minimum)
 
+    // Constants
     n = points.size() - 1;
-    int numKnots = n + p + 2;
-    float knotIncrement = 1.0f / (numKnots - 1);
+    int m = n + p + 1;
+    int numKnots = m + 1;
 
-    for(int i = 0; i < numKnots; i++)
+    for(int i = 0; i <= p; i++)
     {
-        knots.push_back(knotIncrement * i);
+        knots.push_back(0.0f);
     }
+
+    for(int i = 1; i <= n - p; i++)
+    {
+        knots.push_back(i / (float)(n - p + 1));
+    }
+    //knots.push_back(0.166666667);
+    //knots.push_back(0.333333333);
+    //knots.push_back(0.5);
+    //knots.push_back(0.666666667);
+    //knots.push_back(0.833333333);
+
+    for(int i = m - p; i <= m; i++)
+    {
+        knots.push_back(1.0f);
+    }
+    //for(int j = 0; j <= m; j++)
+    //{
+    //    if(j <= p)
+    //    {
+    //        knots.push_back(0.0f);
+    //    }
+    //    else if (j >= m - p - 1)
+    //    {
+    //        knots.push_back(1.0f);
+    //    }
+    //    else
+    //    {
+    //        knots.push_back(j / (n - p + 1));
+    //    }
+
+    //}
+
+
+//knots.push_back(0.0f);
+//knots.push_back(0.083333333f);
+//knots.push_back(0.166666667f);
+//knots.push_back(0.25f);
+//knots.push_back(0.333333333f);
+//knots.push_back(0.416666667f);
+//knots.push_back(0.5f);
+//knots.push_back(0.583333333f);
+//knots.push_back(0.666666667f); 
+//knots.push_back(0.75f);
+//knots.push_back(0.833333333f);
+//knots.push_back(0.916666667f);
+//knots.push_back(1.0f);
+
+    //float knotIncrement = 1.0f / (numKnots - 1);
+
+    //for(int i = 0; i < numKnots; i++)
+    //{
+    //    knots.push_back(knotIncrement * i);
+    //}
+
+    //int x = 0;
 }
 
 vec3 BSpline::GetNextPoint()
