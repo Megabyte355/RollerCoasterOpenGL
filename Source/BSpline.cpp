@@ -128,8 +128,17 @@ float BSpline::BasisFunction(int i, int p, float t)
     }
     else
     {
-        float slope = (t - knots[i])/(knots[i+p] - knots[i]) * BasisFunction(i, p - 1, t);
-        float intercept = (knots[i + p + 1] - t)/(knots[i + p + 1] - knots[i + 1]) * BasisFunction(i + 1, p - 1, t);
-        return (slope) + (intercept);
+        float term1 = 0.0f;
+        if(abs(knots[i + p] - knots[i]) > 0.000001)
+        {
+            term1 = (t - knots[i])/(knots[i + p] - knots[i]) * BasisFunction(i, p - 1, t);
+        }
+
+        float term2 = 0.0f;
+        if(abs(knots[i + p + 1] - knots[i + 1]) > 0.000001)
+        {
+            term2 = (knots[i + p + 1] - t)/(knots[i + p + 1] - knots[i + 1]) * BasisFunction(i + 1, p - 1, t);
+        }
+        return term1 + term2;
     }
 }
