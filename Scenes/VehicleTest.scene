@@ -9,31 +9,31 @@ rotation = 0.0 0.0 1.0 0.0
 [Tank]
 name     = "Tank"
 scaling  = 1.0 1.0 1.0
-position = 0.0 -1.5 0.0
+position = 0.0 1.5 0.0
 rotation = 0.0 0.0 1.0 0.0
 
 [Vehicle]
 name	 = "BigPlane"
 scaling  = 1.5 1.5 1.5
-position = -3.5 1.0 1.0
+position = -3.5 6.0 1.0
 rotation = 1.0 0.0 -1.0 25
 
 [Vehicle]
 name	 = "SmallPlane"
 scaling  = 0.8 0.8 0.8
-position = 1.0 1.8 0.5
+position = 1.0 6.8 0.5
 rotation = 1.0 0.0 -1.0 30
 
 [Vehicle]
 name	 = "BabyPlane"
 scaling  = 0.4 0.4 0.4
-position = 3.5 2.5 0.0
+position = 3.5 7.5 0.0
 rotation = 1.0 0.0 -1.0 35
 
 [Sphere]
 name     = "Sphere"
 scaling  = 1.0 1.0 1.0
-position = 0.0 5.0 -12.0
+position = 0.0 8.0 -12.0
 
 [Light]
 name     = "Light"

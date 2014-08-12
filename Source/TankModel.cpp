@@ -20,7 +20,7 @@ TankModel::TankModel()
 	// @TODO 5 - Layout your vehicle in a hierarchy
 	CubeModel * mBase = new CubeModel(this);
 	CubeModel * mFrame = new CubeModel(mBase);
-	CubeModel * mCanon = new CubeModel(mBase);
+	CubeModel * mCanon = new CubeModel(mFrame);
 
 	// Body
 	container.push_back(mBase);
@@ -31,13 +31,13 @@ TankModel::TankModel()
     container.push_back(mFrame);
 
 	// Tank Canon
-    mCanon->SetPosition(glm::vec3(0.0f, 0.0f, 1.5f));
-    mCanon->SetScaling(glm::vec3(0.25f, 0.25f, 3.0f));
+    mCanon->SetPosition(glm::vec3(0.0f, 1.0f, 0.5f));
+    mCanon->SetScaling(glm::vec3(0.15f, 0.25f, 0.8f));
     container.push_back(mCanon);
 }
 TankModel::~TankModel()
 {
-	for (vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+	for (std::vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
 	{
 		delete *it;
 	}
@@ -91,7 +91,7 @@ void TankModel::Draw()
 	// Draw the Vertex Buffer
 	// Note this draws a unit Cube
 	// @TODO 5 - Draw Each part of your vehicle here
-	for (vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+	for (std::vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
 	{
 		(*it)->Draw();
 	}
@@ -111,7 +111,7 @@ bool TankModel::ParseLine(const std::vector<ci_string> &token)
 
 void TankModel::SetLightSource(LightModel * lightSource)
 {
-	for (vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+	for (std::vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
 	{
 		(*it)->SetLightSource(lightSource);
 	}

@@ -26,7 +26,6 @@ public:
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token);
-    virtual void Init(glm::vec3 size);
 
 private:
 	// @TODO 5 - You may want a container for all the parts of your vehicle

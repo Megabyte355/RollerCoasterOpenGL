@@ -14,10 +14,10 @@
 using namespace glm;
 
 
-FirstPersonCamera::FirstPersonCamera(glm::vec3 position, glm::vec3 lookAtPoint, glm::vec3 upVector) 
+FirstPersonCamera::FirstPersonCamera(glm::vec3 offset, glm::vec3 lookAtPoint, glm::vec3 upVector) 
 	: Camera()
 {
-	mPosition = position;
+	mOffset = offset;
 	mLookAtPoint = lookAtPoint;
 	mUpVector = upVector;
 }
@@ -28,22 +28,17 @@ FirstPersonCamera::~FirstPersonCamera()
 
 void FirstPersonCamera::Update(float dt)
 {
-	//EventManager::EnableMouseCursor();
 	EventManager::DisableMouseCursor();
 
+	//Get postion and turned angle from the attached object
 	glm::vec3 parentPosition = mParent -> GetPosition();
-	mPosition = parentPosition - vec3(0.0f, -1.5f, 0.0f) + vec3(0.0f, 1.5f, -5.0f);
-	mLookAtPoint = parentPosition - vec3(0.0f, -1.5f, 0.0f);
-
 	float mHorizontalAngle = mParent -> GetRotationAngle();
-	float theta = radians(mHorizontalAngle);
-	glm::vec3 mLookAt = vec3(cosf(theta), 0, -sinf(theta));
+	float mHorizontalRadians = radians(mHorizontalAngle);
 
-	mLookAtPoint = mLookAtPoint + vec3(sinf(theta) , 0, -cosf(theta));
+	//update postion and lookat for the camera
+	mPosition = parentPosition + vec3(mOffset.x + sinf(mHorizontalRadians) * mOffset.z, mOffset.y, cosf(mHorizontalRadians) * mOffset.z);
+	mLookAtPoint = parentPosition;
 
-
-	//std::cout<<"position"<<mPosition.x<<mPosition.y<<mPosition.z<<std::endl;
-	//std::cout<<mLookAtPoint.x<<mLookAtPoint.y<<mLookAtPoint.z<<std::endl;
 }
 
 glm::mat4 FirstPersonCamera::GetViewMatrix() const

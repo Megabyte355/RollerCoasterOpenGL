@@ -14,7 +14,7 @@
 class FirstPersonCamera : public Camera
 {
 public:
-	FirstPersonCamera(glm::vec3 position, glm::vec3 lookAtPoint, glm::vec3 upVector);
+	FirstPersonCamera(glm::vec3 offset, glm::vec3 lookAtPoint, glm::vec3 upVector);
 	virtual ~FirstPersonCamera();
 
 	virtual void Update(float dt);
@@ -25,6 +25,7 @@ public:
 
 private:
 	glm::vec3 mPosition;
+	glm::vec3 mOffset;
 	glm::vec3 mLookAtPoint;
 	glm::vec3 mUpVector;
 
