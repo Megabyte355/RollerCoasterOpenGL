@@ -172,6 +172,7 @@ bool BSpline::ParseLine(const std::vector<ci_string> &token)
 	}
 }
 
+// EXPERIMENT TO BE REMOVED
 float BSpline::BasisFunction(int i, int p, float t)
 {
     if(p == 0)
@@ -197,4 +198,13 @@ float BSpline::BasisFunction(int i, int p, float t)
         }
         return term1 + term2;
     }
+}
+
+vec4 BSpline::BSplineFunction(vec3 p1, vec3 p2, vec3 p3, vec3 p4, float t)
+{
+    vec4 parametric(pow(t,3), pow(t,2), t, 1);
+    mat4 coefficients(vec4(-1,3,-3,1), vec4(3,-6,0,4), vec4(-3,3,3,1), vec4(1,0,0,0));
+    vec4 points(p1, p2, p3, p4);
+
+    return (1.0f/6.0f) * parametric * coefficients * points;
 }

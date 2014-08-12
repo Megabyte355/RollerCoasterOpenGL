@@ -21,6 +21,7 @@ protected:
     virtual bool ParseLine(const std::vector<ci_string> &token);
     float BasisFunction(int i, int p, float t);
 
+    vec4 BSplineFunction(vec3 p1, vec3 p2, vec3 p3, vec3 p4, float t);
     std::vector<float> knots;
 
 private:
