@@ -97,6 +97,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="..\Scenes\CoordinateSystem.scene" />
+    <None Include="..\Scenes\TankVehicle.scene" />
     <None Include="..\Scenes\VehicleTest.scene" />
     <None Include="..\Source\Shaders\BlueColor.fragmentshader" />
     <None Include="..\Source\Shaders\Gouraud.fragmentshader" />

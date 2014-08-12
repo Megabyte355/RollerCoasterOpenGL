@@ -10,29 +10,25 @@
 
 #include "Model.h"
 #include "LightModel.h"
+#include <vector>
+#include "CubeModel.h"
 
 class TankModel : public Model
 {
 public:
-	// @TODO 4 - It could be a good idea to allow passing a parent model in the constructor
-	TankModel(glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
-    TankModel(Model * parent, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
-    TankModel(Model * parent, bool getScalingFromParent, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
+	TankModel();
 	virtual ~TankModel();
 
 	virtual void Update(float dt);
 	virtual void Draw();
+
+	virtual void SetLightSource(LightModel * lightSource);
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token);
     virtual void Init(glm::vec3 size);
 
 private:
-	// The vertex format could be different for different types of models
-	struct Vertex
-	{
-		glm::vec3 position;
-		glm::vec3 normal;
-		glm::vec3 color;
-	};
+	// @TODO 5 - You may want a container for all the parts of your vehicle
+	std::vector<CubeModel*> container;
 };
