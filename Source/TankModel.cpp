@@ -15,22 +15,51 @@ using namespace glm;
 
 TankModel::TankModel()
 {
+
+	// Alternative 1, with mTurret as the cube parent works incorectly during control, cannot be implemented to mFrame parenting
+	// due to incorect rescalling proportions.
+
+	//// @TODO 5 - Layout your vehicle in a hierarchy
+	//CubeModel * mTurret = new CubeModel(this);
+	//CubeModel * mFrame = new CubeModel(mTurret);
+	//CubeModel * mCanon = new CubeModel(mTurret);
+
+	//// Tank Frame
+	//container.push_back(mTurret);
+
+	//// Tank Turret
+ //   mFrame->SetPosition(glm::vec3(0.0f, -1.0f, 0.0f));
+ //   mFrame->SetScaling(glm::vec3(2.5f, 1.0f, 3.75f));
+ //   container.push_back(mFrame);
+
+	//// Tank Canon
+ //   mCanon->SetPosition(glm::vec3(0.0f, 1.0f, 0.5f));
+ //   mCanon->SetScaling(glm::vec3(0.15f, 0.35f, 0.8f));
+ //   container.push_back(mCanon);
+
+	// Alternative 2, parenting where there is a uniform hidden cube parent
 	// @TODO 5 - Layout your vehicle in a hierarchy
-	CubeModel * mFrame = new CubeModel(this);
-	CubeModel * mBase = new CubeModel(mFrame);
-	CubeModel * mCanon = new CubeModel(mBase);
+	CubeModel * mCube = new CubeModel(this);
+	CubeModel * mFrame = new CubeModel(mCube);
+	CubeModel * mTurret = new CubeModel(mCube);
+	CubeModel * mCanon = new CubeModel(mTurret);
 
-	// Body
-	container.push_back(mFrame);
+	// Hidden cube parrent
+	container.push_back(mCube);
 
-	// Tank Base
-    mBase->SetPosition(glm::vec3(0.0f, -1.0f, 0.0f));
-    mBase->SetScaling(glm::vec3(2.5f, 1.0f, 3.75f));
-    container.push_back(mBase);
+	// Tank Frame
+    mFrame->SetPosition(glm::vec3(0.0f, -1.0f, 0.0f));
+    mFrame->SetScaling(glm::vec3(2.7f, 1.0f, 4.5f));
+    container.push_back(mFrame);
+
+	// Tank Turret
+    mTurret->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+    mTurret->SetScaling(glm::vec3(1.25f, 1.25f, 1.25f));
+    container.push_back(mTurret);
 
 	// Tank Canon
-    mCanon->SetPosition(glm::vec3(0.0f, 1.0f, 0.5f));
-    mCanon->SetScaling(glm::vec3(0.15f, 0.35f, 0.8f));
+    mCanon->SetPosition(glm::vec3(0.0f, 0.0f, 1.25f));
+    mCanon->SetScaling(glm::vec3(0.35f, 0.35f, 3.00f));
     container.push_back(mCanon);
 }
 
