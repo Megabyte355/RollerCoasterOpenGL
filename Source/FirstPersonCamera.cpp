@@ -7,26 +7,19 @@
 //
 
 #include "FirstPersonCamera.h"
-#include "EventManager.h"
-#include <GLM/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <GLFW/glfw3.h>
-#include <algorithm>
+#include "EventManager.h"
 
 using namespace glm;
 
-FirstPersonCamera::FirstPersonCamera(glm::vec3 position, glm::vec3 lookAt, glm::vec3 up) : Camera()
-{
-    mPosition = position;
-    mLookAt = lookAt;
-    mUp = up;
-    mRight = glm::cross(mLookAt, mUp);
 
-    hAngle = radians(180.0f);
-    vAngle = 0.0f;
-    moveSpeed = 4.0f;
-    mouseSpeed = 0.10f;
+FirstPersonCamera::FirstPersonCamera(glm::vec3 position, glm::vec3 lookAtPoint, glm::vec3 upVector) 
+	: Camera()
+{
+	mPosition = position;
+	mLookAtPoint = lookAtPoint;
+	mUpVector = upVector;
 }
 
 FirstPersonCamera::~FirstPersonCamera()
@@ -35,63 +28,32 @@ FirstPersonCamera::~FirstPersonCamera()
 
 void FirstPersonCamera::Update(float dt)
 {
-	// Prevent from having the camera move only when the cursor is within the windows
+	//EventManager::EnableMouseCursor();
 	EventManager::DisableMouseCursor();
 
-	// @TODO 3 : You need to move the Camera based on the User inputs
-	// - You can access the mouse motion with EventManager::GetMouseMotionXY()
-	// - For mapping A S D W, you can look in World.cpp for an example of accessing key states
-	// - Don't forget to use dt to control the speed of the camera motion
+	glm::vec3 parentPosition = mParent -> GetPosition();
+	mPosition = parentPosition - vec3(0.0f, -1.5f, 0.0f) + vec3(0.0f, 1.5f, -5.0f);
+	mLookAtPoint = parentPosition - vec3(0.0f, -1.5f, 0.0f);
 
-	// Update orientation
-    hAngle += mouseSpeed * dt * - EventManager::GetMouseMotionX();
-    vAngle += mouseSpeed * dt * - EventManager::GetMouseMotionY();
+	float mHorizontalAngle = mParent -> GetRotationAngle();
+	float theta = radians(mHorizontalAngle);
+	glm::vec3 mLookAt = vec3(cosf(theta), 0, -sinf(theta));
 
-    // Clamping and Wrap-around angles
-    vAngle = glm::clamp(vAngle, glm::radians(-85.0f), glm::radians(85.0f));
-    if (degrees(hAngle) > 180.0f)
-    {
-        hAngle -= radians(360.0f);
-    }
-    else if (degrees(hAngle) < -180.0f)
-    {
-        hAngle += radians(360.0f);
-    }
+	mLookAtPoint = mLookAtPoint + vec3(sinf(theta) , 0, -cosf(theta));
 
-    // Update direction vectors
-    mLookAt = glm::vec3(cos(vAngle) * sin(hAngle), sin(vAngle), cos(vAngle) * cos(hAngle));
-    mRight = glm::vec3(sin(hAngle - radians(180.0f)/2.0f), 0, cos(hAngle - radians(180.0f)/2.0f));
-    mUp = glm::cross(mRight, mLookAt);
 
-    // Update camera position
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
-    {
-        mPosition += mLookAt * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
-    {
-        mPosition -= mLookAt * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_D) == GLFW_PRESS)
-    {
-        mPosition += mRight * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_A) == GLFW_PRESS)
-    {
-        mPosition -= mRight * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_Q) == GLFW_PRESS)
-    {
-        mPosition -= mUp * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_E) == GLFW_PRESS)
-    {
-        mPosition += mUp * dt * moveSpeed;
-    }
+	//std::cout<<"position"<<mPosition.x<<mPosition.y<<mPosition.z<<std::endl;
+	//std::cout<<mLookAtPoint.x<<mLookAtPoint.y<<mLookAtPoint.z<<std::endl;
 }
 
 glm::mat4 FirstPersonCamera::GetViewMatrix() const
 {
-	// @TODO 3 : Calculate the View Matrix
-    return glm::lookAt(mPosition, mPosition + mLookAt, mUp);
+	return glm::lookAt(		mPosition,		// Camera position
+							mLookAtPoint,	// Look towards this point
+							mUpVector		// Up vector
+						);
+}
+
+void FirstPersonCamera::setParent(Model* parent){
+	mParent = parent;
 }

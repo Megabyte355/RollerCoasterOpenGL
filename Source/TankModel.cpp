@@ -124,20 +124,21 @@ void TankModel::Update(float dt)
 	// mRotationAngleInDegrees += 90 * dt; // spins by 90 degrees per second
 
 	float moveSpeed = 4.0f;
+	float pi = 3.1415926f;
     glm::vec3 xDirection(1.0f, 0.0f, 0.0f);
-    glm::vec3 yDirection(0.0f, 1.0f, 0.0f);
     glm::vec3 zDirection(0.0, 0.0f, 1.0f);
 
     // Update camera position
     vec3 delta = vec3(0.0f, 0.0f, 0.0f);
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_UP) == GLFW_PRESS)
     {
-        delta = delta + zDirection * (dt * moveSpeed * cos(-mRotationAngleInDegrees)) 
-					+ xDirection * (dt * moveSpeed * sin(-mRotationAngleInDegrees));
+        delta = delta + zDirection * (dt * moveSpeed * cos(mRotationAngleInDegrees*pi/180.0f)) 
+					+ xDirection * (dt * moveSpeed * sin(mRotationAngleInDegrees*pi/180.0f));
     }
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_DOWN) == GLFW_PRESS)
     {
-        delta -= zDirection * dt * moveSpeed;
+        delta = delta - zDirection * (dt * moveSpeed * cos(mRotationAngleInDegrees*pi/180.0f)) 
+					- xDirection * (dt * moveSpeed * sin(mRotationAngleInDegrees*pi/180.0f));
     }
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_LEFT) == GLFW_PRESS)
     {

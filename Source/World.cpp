@@ -33,7 +33,9 @@ World::World()
 {
 	// Setup Camera
 	mCamera.push_back( new StaticCamera( vec3(3.0f, 4.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
-	mCamera.push_back( new FirstPersonCamera( vec3(0.5f, 0.5f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
+	//mCamera.push_back( new FirstPersonCamera( vec3(0.5f, 0.5f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
+	//mCamera.push_back( new FirstPersonCamera( vec3(0.0f, 0.5f, 10.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
+	mCamera.push_back( new FirstPersonCamera( vec3(0.0f, 1.5f, -5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCamera.push_back( new FreeLookCamera( vec3(1.0f, 1.0f, 20.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCurrentCamera = 0;
 
@@ -184,6 +186,7 @@ void World::LoadScene(const char * scene_path)
 				TankModel* tank = new TankModel();
 				tank->Load(iss);
 				mModel.push_back(tank);
+				mCamera.at(1)->setParent(tank);
 			}
 			else if( result == "vehicle" )
 			{

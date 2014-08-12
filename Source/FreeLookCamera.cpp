@@ -90,3 +90,8 @@ glm::mat4 FreeLookCamera::GetViewMatrix() const
 	// @TODO 3 : Calculate the View Matrix
     return glm::lookAt(mPosition, mPosition + mLookAt, mUp);
 }
+
+void FreeLookCamera::setParent(Model* parent)
+{
+
+}
