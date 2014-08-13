@@ -7,6 +7,7 @@
 //
 
 #include "TankModel.h"
+<<<<<<< HEAD
 #include "Renderer.h"
 #include "EventManager.h"
 #include "CubeModel.h"
@@ -16,11 +17,38 @@
 #include <math.h>
 
 
+=======
+#include "CubeModel.h"
+
+
 using namespace std;
+>>>>>>> origin/tank-model
 using namespace glm;
 
 TankModel::TankModel()
 {
+<<<<<<< HEAD
+	//tank bottom
+	CubeModel * mBase = new CubeModel(this,vec3(2.0f, 1.0f, 4.0f));
+	container.push_back(mBase);
+
+	// Tank Top
+	CubeModel * mTop = new CubeModel(mBase, vec3(1.0f, 1.5f, 1.0f));
+	mTop->SetPosition(vec3(0.0f, 0.75f, 0.0f));
+    container.push_back(mTop);
+
+	// Tank Canon
+	CubeModel * mCanon = new CubeModel(mTop, vec3(0.3f, 0.3f, 2.0f));
+	mCanon->SetPosition(glm::vec3(0.0f, 0.25f, 1.5f));
+	container.push_back(mCanon);
+
+	canonHorizontalAngle = 0.0f;
+	canonVerticalAngle = 0.0f;
+}
+TankModel::~TankModel()
+{
+	for (std::vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+=======
 
 	// Alternative 1, with mTurret as the cube parent works incorectly during control, cannot be implemented to mFrame parenting
 	// due to incorect rescalling proportions.
@@ -30,6 +58,7 @@ TankModel::TankModel()
 	//CubeModel * mFrame = new CubeModel(mTurret);
 	//CubeModel * mCanon = new CubeModel(mTurret);
 
+	//// Tank Frame
 	//container.push_back(mTurret);
 
 	//// Tank Turret
@@ -66,14 +95,12 @@ TankModel::TankModel()
     mCanon->SetPosition(glm::vec3(0.0f, 0.0f, 1.25f));
     mCanon->SetScaling(glm::vec3(0.35f, 0.35f, 3.00f));
     container.push_back(mCanon);
-
-	canonHorizontalAngle = 0.0f;
-	canonVerticalAngle = 0.0f;
 }
 
 TankModel::~TankModel()
 {
-	for (std::vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+	for (vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+>>>>>>> origin/tank-model
 	{
 		delete *it;
 	}
@@ -81,6 +108,7 @@ TankModel::~TankModel()
 }
 
 void TankModel::Update(float dt)
+<<<<<<< HEAD
 {
 	glm::vec3 xAxis = glm::vec3(1.0f, 0.0f, 0.0f);
     glm::vec3 yAxis = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -158,17 +186,30 @@ void TankModel::Update(float dt)
 	container.at(1) -> SetRotation(totalRotationAxis, totalRotationAngle);
 	*/
 	// @TODO 6 (Optional) - Here is where you can add some code if you want your vehicle to animate
+	/*glm::vec3 zAxis = glm::vec3(0.0f, 0.0f, 1.0f); yRotationMatrix
     
 	mCanonBullet->SetRotation(zAxis, mCanonBullet->GetRotationAngle() + 360 * dt);*/
 	
+=======
+{	
+	// @TODO 6 (Optional) - Here is where you can add some code if you want your vehicle to animate
+	/*glm::vec3 zAxis = glm::vec3(0.0f, 0.0f, 1.0f);
+    
+	mCanonBullet->SetRotation(zAxis, mCanonBullet->GetRotationAngle() + 360 * dt);*/
+>>>>>>> origin/tank-model
 }
 
 void TankModel::Draw()
 {
+<<<<<<< HEAD
 	// Draw the Vertex Buffer
 	// Note this draws a unit Cube
 	// @TODO 5 - Draw Each part of your vehicle here
 	for (std::vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+=======
+	// @TODO 5 - Draw Each part of your vehicle here
+	for (vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+>>>>>>> origin/tank-model
 	{
 		(*it)->Draw();
 	}
@@ -188,7 +229,11 @@ bool TankModel::ParseLine(const std::vector<ci_string> &token)
 
 void TankModel::SetLightSource(LightModel * lightSource)
 {
+<<<<<<< HEAD
 	for (std::vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+=======
+	for (vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+>>>>>>> origin/tank-model
 	{
 		(*it)->SetLightSource(lightSource);
 	}
