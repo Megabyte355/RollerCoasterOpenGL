@@ -153,18 +153,6 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
                 s->AddPoint(glm::vec4(x, y, z, w));
             }
         }
-        else if (token[0] == "splinedegree")
-        {
-            assert(token.size() > 2);
-			assert(token[1] == "=");
-
-            BSpline* s = dynamic_cast<BSpline*>(this);
-            if(this != nullptr)
-            {
-                int degree = static_cast<int>(atof(token[2].c_str()));
-                s->SetDegree(degree);
-            }
-        }
         else if (token[0] == "splinespeed")
         {
             assert(token.size() > 2);
@@ -177,6 +165,18 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
                 s->SetSpeed(speed);
             }
         }
+		else if (token[0] == "splineclosedloop")
+		{
+			assert(token.size() > 2);
+			assert(token[1] == "=");
+
+			BSpline* s = dynamic_cast<BSpline*>(this);
+			if (this != nullptr)
+			{
+				bool loop = static_cast<bool>(atof(token[2].c_str()));
+				s->SetClosedLoop(loop);
+			}
+		}
 		else
 		{
 			return false;
