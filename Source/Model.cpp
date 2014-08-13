@@ -78,7 +78,7 @@ void Model::Load(ci_istringstream& iss)
 
 bool Model::ParseLine(const std::vector<ci_string> &token)
 {
-		if (token.empty() == false)
+	if (token.empty() == false)
 	{
 		if (token[0].empty() == false && token[0][0] == '#')
 		{

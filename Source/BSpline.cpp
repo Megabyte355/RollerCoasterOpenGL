@@ -103,7 +103,12 @@ vec3 BSpline::GetNextPoint()
 void BSpline::Update(float dt)
 {
     //progress = (speed * dt) / length(BSplineF1(points[0], points[1], points[2], points[3], progress));
-    float velocity = length(BSplineF1(points[GetPointIndex(0)], points[GetPointIndex(1)], points[GetPointIndex(2)], points[GetPointIndex(3)], t));
+    glm::vec4 p1(points[GetPointIndex(0)]);
+    glm::vec4 p2(points[GetPointIndex(1)]);
+    glm::vec4 p3(points[GetPointIndex(2)]);
+    glm::vec4 p4(points[GetPointIndex(3)]);
+
+    float velocity = length(BSplineF1(p1, p2, p3, p4, t));
     t += (speed * dt) / velocity;
     if (t > 1.0f)
     {
