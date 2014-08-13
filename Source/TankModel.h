@@ -30,4 +30,6 @@ protected:
 private:
 	// @TODO 5 - You may want a container for all the parts of your vehicle
 	std::vector<CubeModel*> container;
+	float canonHorizontalAngle;
+	float canonVerticalAngle;
 };

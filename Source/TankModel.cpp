@@ -12,28 +12,30 @@
 #include "CubeModel.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <math.h>
+
 
 using namespace glm;
 
 TankModel::TankModel()
 {
-	// @TODO 5 - Layout your vehicle in a hierarchy
-	CubeModel * mBase = new CubeModel(this);
-	CubeModel * mFrame = new CubeModel(mBase);
-	CubeModel * mCanon = new CubeModel(mFrame);
-
-	// Body
+	//tank bottom
+	CubeModel * mBase = new CubeModel(this,vec3(2.0f, 1.0f, 4.0f));
 	container.push_back(mBase);
 
-	// Tank Base
-    mFrame->SetPosition(glm::vec3(0.0f, -1.0f, 0.0f));
-    mFrame->SetScaling(glm::vec3(2.5f, 1.0f, 3.75f));
-    container.push_back(mFrame);
+	// Tank Top
+	CubeModel * mTop = new CubeModel(mBase, vec3(1.0f, 1.5f, 1.0f));
+	mTop->SetPosition(vec3(0.0f, 0.75f, 0.0f));
+    container.push_back(mTop);
 
 	// Tank Canon
-    mCanon->SetPosition(glm::vec3(0.0f, 1.0f, 0.5f));
-    mCanon->SetScaling(glm::vec3(0.15f, 0.25f, 0.8f));
-    container.push_back(mCanon);
+	CubeModel * mCanon = new CubeModel(mTop, vec3(0.3f, 0.3f, 2.0f));
+	mCanon->SetPosition(glm::vec3(0.0f, 0.25f, 1.5f));
+	container.push_back(mCanon);
+
+	canonHorizontalAngle = 0.0f;
+	canonVerticalAngle = 0.0f;
 }
 TankModel::~TankModel()
 {
@@ -46,44 +48,86 @@ TankModel::~TankModel()
 
 void TankModel::Update(float dt)
 {
-	// If you are curious, un-comment this line to have spinning cubes!
-	// That will only work if your world transform is correct...
-	// mRotationAngleInDegrees += 90 * dt; // spins by 90 degrees per second
+	glm::vec3 xAxis = glm::vec3(1.0f, 0.0f, 0.0f);
+    glm::vec3 yAxis = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 zAxis = glm::vec3(0.0f, 0.0f, 1.0f);
 
-	float moveSpeed = 4.0f;
-	float pi = 3.1415926f;
-    glm::vec3 xDirection(1.0f, 0.0f, 0.0f);
-    glm::vec3 zDirection(0.0, 0.0f, 1.0f);
-
-    // Update camera position
+    // Update body position
     vec3 delta = vec3(0.0f, 0.0f, 0.0f);
+	float moveSpeed = 4.0f;
+	float bodyAngularSpeed = 90.0f;
+
+	if (mRotationAngleInDegrees > 360)
+	{
+		mRotationAngleInDegrees -= 360;
+	}
+	else if (mRotationAngleInDegrees < -360)
+	{
+		mRotationAngleInDegrees += 360;
+	}
+	float rotationAngleInRadian = radians(mRotationAngleInDegrees);
+
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_UP) == GLFW_PRESS)
     {
-        delta = delta + zDirection * (dt * moveSpeed * cos(mRotationAngleInDegrees*pi/180.0f)) 
-					+ xDirection * (dt * moveSpeed * sin(mRotationAngleInDegrees*pi/180.0f));
+        delta = delta + zAxis * (dt * moveSpeed * cos(rotationAngleInRadian)) 
+					+ xAxis * (dt * moveSpeed * sin(rotationAngleInRadian));
     }
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_DOWN) == GLFW_PRESS)
     {
-        delta = delta - zDirection * (dt * moveSpeed * cos(mRotationAngleInDegrees*pi/180.0f)) 
-					- xDirection * (dt * moveSpeed * sin(mRotationAngleInDegrees*pi/180.0f));
+        delta = delta - zAxis * (dt * moveSpeed * cos(rotationAngleInRadian)) 
+					- xAxis * (dt * moveSpeed * sin(rotationAngleInRadian));
     }
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_LEFT) == GLFW_PRESS)
     {
-		mRotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-		mRotationAngleInDegrees += 90 * dt;
+		mRotationAxis = yAxis;
+		mRotationAngleInDegrees += bodyAngularSpeed * dt;
     }
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS)
     {
-        mRotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-		mRotationAngleInDegrees -= 90 * dt;
+        mRotationAxis = yAxis;
+		mRotationAngleInDegrees -= bodyAngularSpeed * dt;
     }
-
     mPosition += delta;
+	
+	//update cannon position
+	float cannonAngularSpeed = 2.5f;
+	
+	//float canonRotationAngle = container.at(1)->GetRotationAngle();
+    
+	canonHorizontalAngle -= EventManager::GetMouseMotionX() * cannonAngularSpeed * dt;
+	canonVerticalAngle   += EventManager::GetMouseMotionY() * cannonAngularSpeed * dt;
+
+	canonVerticalAngle = std::max(-55.0f, std::min(10.0f, canonVerticalAngle));
+	canonHorizontalAngle = std::max(-75.0f, std::min(75.0f, canonHorizontalAngle));
+	
+	container.at(1) -> SetRotation(xAxis, canonVerticalAngle);
+	//vec3 a = container.at(1)->GetRotationAxis();
+	//std::cout<<a.x<<","<<a.y<<","<<a.z<<":"<<canonVerticalAngle<<":"<<canonHorizontalAngle<<std::endl;
+
+	//container.at(1) -> SetSecondRotation(yAxis,canonHorizontalAngle);
+	
+	//vec3 b = container.at(1)->GetRotationAxis();
+	//std::cout<<b.x<<","<<b.y<<","<<b.z<<":"<<canonVerticalAngle<<":"<<canonHorizontalAngle<<std::endl;
+	//float canonHorizontalRadians = radians(canonHorizontalAngle);
+	//float canonVerticalRadians = radians(canonVerticalAngle);
+	/*
+	mat4 identityMatrix(1.0f);
+	mat4 xRotationMatrix = glm::rotate(identityMatrix, canonVerticalAngle, xAxis);
+	mat4 yRotationMatrix = glm::rotate(identityMatrix, canonHorizontalAngle, yAxis);
+	mat4 totalRotationMartix = xRotationMatrix * yRotationMatrix;
+	float totalRotationAngle = acos(( totalRotationMartix[0][0] + totalRotationMartix[1][1] + totalRotationMartix[2][2] - 1)/2);
+	float x = (totalRotationMartix[2][1] - totalRotationMartix[1][2])/sqrtf(powf((totalRotationMartix[2][1] - totalRotationMartix[1][2]), 2) + powf((totalRotationMartix[0][2] - totalRotationMartix[2][0]), 2) + powf((totalRotationMartix[1][0] - totalRotationMartix[0][1]), 2));
+    float y = (totalRotationMartix[0][2] - totalRotationMartix[2][0])/sqrtf(powf((totalRotationMartix[2][1] - totalRotationMartix[1][2]), 2) + powf((totalRotationMartix[0][2] - totalRotationMartix[2][0]), 2) + powf((totalRotationMartix[1][0] - totalRotationMartix[0][1]), 2));
+	float z = (totalRotationMartix[1][0] - totalRotationMartix[0][1])/sqrtf(powf((totalRotationMartix[2][1] - totalRotationMartix[1][2]), 2) + powf((totalRotationMartix[0][2] - totalRotationMartix[2][0]), 2) + powf((totalRotationMartix[1][0] - totalRotationMartix[0][1]), 2));
+	vec3 totalRotationAxis = vec3(x, y, z);
+
+	container.at(1) -> SetRotation(totalRotationAxis, totalRotationAngle);
+	*/
 	// @TODO 6 (Optional) - Here is where you can add some code if you want your vehicle to animate
-	/*glm::vec3 zAxis = glm::vec3(0.0f, 0.0f, 1.0f);
+	/*glm::vec3 zAxis = glm::vec3(0.0f, 0.0f, 1.0f); yRotationMatrix
     
 	mCanonBullet->SetRotation(zAxis, mCanonBullet->GetRotationAngle() + 360 * dt);*/
-
+	
 }
 
 void TankModel::Draw()
