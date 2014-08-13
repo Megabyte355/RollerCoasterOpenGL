@@ -10,6 +10,7 @@
 #include "World.h"
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
+#include "BSpline.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
 
@@ -19,18 +20,21 @@ Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1
 {
     mParent = nullptr;
     mGetScalingFromParent = true;
+    spline = nullptr;
 }
 
 Model::Model(Model * p) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
 {
     mParent = p;
     mGetScalingFromParent = true;
+    spline = nullptr;
 }
 
 Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
 {
     mParent = p;
     mGetScalingFromParent = getScalingFromParent;
+    spline = nullptr;
 }
 
 Model::~Model()
@@ -39,6 +43,11 @@ Model::~Model()
 
 void Model::Update(float dt)
 {
+    if(spline != nullptr)
+    {
+        this->mPosition = spline->GetPosition() + spline->GetNextPoint();
+        spline->Update(dt);
+    }
 }
 
 void Model::Draw()
@@ -69,7 +78,7 @@ void Model::Load(ci_istringstream& iss)
 
 bool Model::ParseLine(const std::vector<ci_string> &token)
 {
-		if (token.empty() == false)
+	if (token.empty() == false)
 	{
 		if (token[0].empty() == false && token[0][0] == '#')
 		{
@@ -111,6 +120,62 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
 			mScaling.x = static_cast<float>(atof(token[2].c_str()));
 			mScaling.y = static_cast<float>(atof(token[3].c_str()));
 			mScaling.z = static_cast<float>(atof(token[4].c_str()));
+		}
+        else if (token[0] == "spline")
+        {
+            assert(token.size() > 2);
+			assert(token[1] == "=");
+
+            vector<BSpline*>* splineModels = World::GetBSplineModelsPtr();
+
+            for(vector<BSpline*>::iterator it = splineModels->begin(); it < splineModels->end(); ++it)
+            {
+                if((*it)->mName == token[2])
+                {
+                    this->spline = dynamic_cast<BSpline*>(*it);
+                    break;
+                }
+            }
+            splineModels = nullptr;
+        }
+        else if (token[0] == "splinepoint")
+        {
+            assert(token.size() > 2);
+			assert(token[1] == "=");
+
+            BSpline* s = dynamic_cast<BSpline*>(this);
+            if(this != nullptr)
+            {
+			    float x = static_cast<float>(atof(token[2].c_str()));
+			    float y = static_cast<float>(atof(token[3].c_str()));
+			    float z = static_cast<float>(atof(token[4].c_str()));
+                float w = static_cast<float>(atof(token[5].c_str()));
+                s->AddPoint(glm::vec4(x, y, z, w));
+            }
+        }
+        else if (token[0] == "splinespeed")
+        {
+            assert(token.size() > 2);
+			assert(token[1] == "=");
+
+            BSpline* s = dynamic_cast<BSpline*>(this);
+            if(this != nullptr)
+            {
+                float speed = static_cast<float>(atof(token[2].c_str()));
+                s->SetSpeed(speed);
+            }
+        }
+		else if (token[0] == "splineclosedloop")
+		{
+			assert(token.size() > 2);
+			assert(token[1] == "=");
+
+			BSpline* s = dynamic_cast<BSpline*>(this);
+			if (this != nullptr)
+			{
+				bool loop = static_cast<bool>(atof(token[2].c_str()));
+				s->SetClosedLoop(loop);
+			}
 		}
 		else
 		{

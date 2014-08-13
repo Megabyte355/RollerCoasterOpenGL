@@ -15,7 +15,6 @@ public:
 protected:
     virtual bool ParseLine(const std::vector<ci_string> &token);
     virtual void Init(glm::vec3 size);
-
 private:
     // The vertex format could be different for different types of models
     struct Vertex

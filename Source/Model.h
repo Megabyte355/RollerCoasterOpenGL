@@ -15,6 +15,7 @@
 #include <GLM/glm.hpp>
 
 class LightModel;
+class BSpline;
 
 class Model
 {
@@ -67,4 +68,6 @@ protected:
 
 	unsigned int mVertexArrayID;
 	unsigned int mVertexBufferID;
+
+    BSpline* spline;
 };

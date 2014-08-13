@@ -1308,6 +1308,7 @@ void SphereModel::Init(vec3 size)
 
 void SphereModel::Update(float dt)
 {
+    Model::Update(dt);
 }
 
 void SphereModel::Draw()

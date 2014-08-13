@@ -25,7 +25,8 @@ int main(int argc, char*argv[])
 	else
 	{
 		//world.LoadScene("../Scenes/CoordinateSystem.scene");
-		world.LoadScene("../Scenes/VehicleTest.scene");
+		//world.LoadScene("../Scenes/VehicleTest.scene");
+        world.LoadScene("../Scenes/BSplineTest.scene");
 	}
 
 	// Main Loop
