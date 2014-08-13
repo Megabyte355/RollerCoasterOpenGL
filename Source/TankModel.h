@@ -23,13 +23,15 @@ public:
 	virtual void Draw();
 
 	virtual void SetLightSource(LightModel * lightSource);
+	float GetChildHorizontalAngle() { return mChildHorizontalAngle; }
+	float GetChildVerticalAngle() { return mChildVerticalAngle; }
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token);
 
 private:
-	// @TODO 5 - You may want a container for all the parts of your vehicle
 	std::vector<CubeModel*> container;
-	float canonHorizontalAngle;
-	float canonVerticalAngle;
+	//Hold the rotation angle value in degree
+	float mChildHorizontalAngle;
+	float mChildVerticalAngle;
 };

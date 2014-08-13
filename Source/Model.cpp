@@ -10,12 +10,13 @@
 #include "World.h"
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
+#include "FreeLookCamera.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
 
 using namespace std;
 
-Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
+Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f), mSecondRotationAxis(1.0f, 0.0f, 0.0f), mSecondRotationAngleInDegrees(0.0f)
 {
     mParent = nullptr;
     mGetScalingFromParent = true;
@@ -128,7 +129,7 @@ glm::mat4 Model::GetWorldMatrix() const
 
     glm::mat4 position = glm::translate(identity, mPosition);
     glm::mat4 scale = glm::scale(identity, mScaling);
-    glm::mat4 rotation = glm::rotate(identity, mRotationAngleInDegrees, mRotationAxis);
+    glm::mat4 rotation = glm::rotate(identity, mRotationAngleInDegrees, mRotationAxis) * glm::rotate(identity, mSecondRotationAngleInDegrees, mSecondRotationAxis);
 
     glm::mat4 worldMatrix = position * rotation * scale;
 
@@ -183,6 +184,12 @@ void Model::SetRotation(glm::vec3 axis, float angleDegrees)
 {
 	mRotationAxis = axis;
 	mRotationAngleInDegrees = angleDegrees;
+}
+
+void Model::SetSecondRotation(glm::vec3 axis, float angleDegrees)
+{
+	mSecondRotationAxis = axis;
+	mSecondRotationAngleInDegrees = angleDegrees;
 }
 
 void Model::SetLightSource(LightModel * lightSource)

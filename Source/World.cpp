@@ -12,6 +12,7 @@
 
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
+#include "ThirdPersonCamera.h"
 #include "FreeLookCamera.h"
 
 #include "CubeModel.h"
@@ -32,8 +33,9 @@ std::vector<Camera*> World::mCamera;
 World::World()
 {
 	// Setup Camera
-	mCamera.push_back( new StaticCamera( vec3(3.0f, 4.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
-	mCamera.push_back( new FirstPersonCamera( vec3(0.0f, 2.5f, -9.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
+	//mCamera.push_back( new StaticCamera( vec3(3.0f, 4.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
+	mCamera.push_back( new FirstPersonCamera( vec3(0.0f, 0.0f, 0.6f), vec3(0.0f, 0.0f, 1.6f), vec3(0.0f, 1.0f, 0.0f) ) );
+	mCamera.push_back( new ThirdPersonCamera( vec3(0.0f, 4.5f, -9.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCamera.push_back( new FreeLookCamera( vec3(1.0f, 1.0f, 20.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCurrentCamera = 0;
 
@@ -85,6 +87,13 @@ void World::Update(float dt)
 		if (mCamera.size() > 2)
 		{
 			mCurrentCamera = 2;
+		}
+	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4 ) == GLFW_PRESS)
+	{
+		if (mCamera.size() > 3)
+		{
+			mCurrentCamera = 3;
 		}
 	}
 
@@ -184,6 +193,7 @@ void World::LoadScene(const char * scene_path)
 				TankModel* tank = new TankModel();
 				tank->Load(iss);
 				mModel.push_back(tank);
+				mCamera.at(0)->setParent(tank);
 				mCamera.at(1)->setParent(tank);
 			}
 			else if( result == "vehicle" )
