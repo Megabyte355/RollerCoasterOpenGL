@@ -149,7 +149,8 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
 			    float x = static_cast<float>(atof(token[2].c_str()));
 			    float y = static_cast<float>(atof(token[3].c_str()));
 			    float z = static_cast<float>(atof(token[4].c_str()));
-                s->AddPoint(glm::vec3(x, y, z));
+                float w = static_cast<float>(atof(token[5].c_str()));
+                s->AddPoint(glm::vec4(x, y, z, w));
             }
         }
         else if (token[0] == "splinedegree")

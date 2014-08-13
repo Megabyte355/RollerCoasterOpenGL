@@ -9,6 +9,8 @@ BSpline::BSpline(void)
     progress = 0.0f;
     speed = 0.0f;
     initialized = false;
+    pointSetIndex = 0;
+    t = 0;
 }
 
 
@@ -26,69 +28,26 @@ void BSpline::Init()
     // Need to supply n + p + 2 knots (m + 1 knots minimum)
 
     // Constants
-    n = points.size() - 1;
-    int m = n + p + 1;
-    int numKnots = m + 1;
+    //n = points.size() - 1;
+    //int m = n + p + 1;
+    //int numKnots = m + 1;
 
-    for(int i = 0; i <= p; i++)
-    {
-        knots.push_back(0.0f);
-    }
-
-    for(int i = 1; i <= n - p; i++)
-    {
-        knots.push_back(i / (float)(n - p + 1));
-    }
-    //knots.push_back(0.166666667);
-    //knots.push_back(0.333333333);
-    //knots.push_back(0.5);
-    //knots.push_back(0.666666667);
-    //knots.push_back(0.833333333);
-
-    for(int i = m - p; i <= m; i++)
-    {
-        knots.push_back(1.0f);
-    }
-    //for(int j = 0; j <= m; j++)
+    //for(int i = 0; i <= p; i++)
     //{
-    //    if(j <= p)
-    //    {
-    //        knots.push_back(0.0f);
-    //    }
-    //    else if (j >= m - p - 1)
-    //    {
-    //        knots.push_back(1.0f);
-    //    }
-    //    else
-    //    {
-    //        knots.push_back(j / (n - p + 1));
-    //    }
+    //    knots.push_back(0.0f);
+    //}
 
+    //for(int i = 1; i <= n - p; i++)
+    //{
+    //    knots.push_back(i / (float)(n - p + 1));
+    //}
+
+    //for(int i = m - p; i <= m; i++)
+    //{
+    //    knots.push_back(1.0f);
     //}
 
 
-//knots.push_back(0.0f);
-//knots.push_back(0.083333333f);
-//knots.push_back(0.166666667f);
-//knots.push_back(0.25f);
-//knots.push_back(0.333333333f);
-//knots.push_back(0.416666667f);
-//knots.push_back(0.5f);
-//knots.push_back(0.583333333f);
-//knots.push_back(0.666666667f); 
-//knots.push_back(0.75f);
-//knots.push_back(0.833333333f);
-//knots.push_back(0.916666667f);
-//knots.push_back(1.0f);
-
-    //float knotIncrement = 1.0f / (numKnots - 1);
-
-    //for(int i = 0; i < numKnots; i++)
-    //{
-    //    knots.push_back(knotIncrement * i);
-    //}
-
-    //int x = 0;
 }
 
 vec3 BSpline::GetNextPoint()
@@ -117,35 +76,55 @@ vec3 BSpline::GetNextPoint()
     //}
 
     //return points[0]*b0 + points[1]*b1 + points[2]*b2 + points[3]*b3 + points[4]*b4;
-    if(!initialized)
-    {
-        Init();
-        initialized = true;
-    }
 
-    vec3 acc = vec3(0.0f, 0.0f, 0.0f);
 
-    for(int i = 0; i < points.size(); i++)
-    {
-        acc += points[i] * BasisFunction(i, p, progress);
-    }
-    return acc;
+    //if(!initialized)
+    //{
+    //    Init();
+    //    initialized = true;
+    //}
+
+    //vec3 acc = vec3(0.0f, 0.0f, 0.0f);
+
+    //for(int i = 0; i < points.size(); i++)
+    //{
+    //    acc += points[i] * BasisFunction(i, p, progress);
+    //}
+    //return acc;
+    glm::vec4 p1(points[GetPointIndex(0)]);
+    glm::vec4 p2(points[GetPointIndex(1)]);
+    glm::vec4 p3(points[GetPointIndex(2)]);
+    glm::vec4 p4(points[GetPointIndex(3)]);
+
+    glm::vec4 nextPoint = BSplineF0(p1, p2, p3, p4, t);
+    return glm::vec3(nextPoint.x, nextPoint.y, nextPoint.z);
 }
 
 void BSpline::Update(float dt)
 {
-    progress += speed * dt;
-    if(progress > 1.0f)
+    //progress = (speed * dt) / length(BSplineF1(points[0], points[1], points[2], points[3], progress));
+    float velocity = length(BSplineF1(points[GetPointIndex(0)], points[GetPointIndex(1)], points[GetPointIndex(2)], points[GetPointIndex(3)], t));
+    t += (speed * dt) / velocity;
+    if (t > 1.0f)
     {
-        progress = 0.0f;
+        t = 0.0f;
+        pointSetIndex++;
+        if (pointSetIndex == points.size())
+        {
+            pointSetIndex = 0;
+        }
     }
+    //if(progress > 1.0f)
+    //{
+    //    progress = 0.0f;
+    //}
 }
 
 void BSpline::Draw()
 {
 }
 
-void BSpline::AddPoint(glm::vec3 p)
+void BSpline::AddPoint(glm::vec4 p)
 {
     points.push_back(p);
 }
@@ -200,29 +179,95 @@ float BSpline::BasisFunction(int i, int p, float t)
     }
 }
 
-vec4 BSpline::BSplineF0(vec3 p1, vec3 p2, vec3 p3, vec3 p4, float t)
+glm::vec4 BSpline::BSplineF0(glm::vec4 p1, glm::vec4 p2, glm::vec4 p3, glm::vec4 p4, float t)
 {
     vec4 parametric(pow(t,3), pow(t,2), t, 1);
-    mat4 coefficients(vec4(-1,3,-3,1), vec4(3,-6,0,4), vec4(-3,3,3,1), vec4(1,0,0,0));
-    vec4 points(p1, p2, p3, p4);
-
-    return (1.0f/6.0f) * parametric * coefficients * points;
+    mat4 coefficients(vec4(-1, 3, -3, 1), vec4(3, -6, 0, 4), vec4(-3, 3, 3, 1), vec4(1, 0, 0, 0));
+    vec4 product = (1.0f / 6.0f) * parametric * coefficients;
+    return product.x * p1 + product.y * p2 + product.z * p3 + product.w * p4;
 }
 
-vec4 BSpline::BSplineF1(vec3 p1, vec3 p2, vec3 p3, vec3 p4, float t)
+glm::vec4 BSpline::BSplineF1(glm::vec4 p1, glm::vec4 p2, glm::vec4 p3, glm::vec4 p4, float t)
 {
-    vec4 parametric(3*pow(t,2), 2*t, 1, 0);
-    mat4 coefficients(vec4(-1,3,-3,1), vec4(3,-6,0,4), vec4(-3,3,3,1), vec4(1,0,0,0));
-    vec4 points(p1, p2, p3, p4);
+    vec4 parametric(3 * pow(t, 2), 2 * t, 1, 0);
+    mat4 coefficients(vec4(-1, 3, -3, 1), vec4(3, -6, 0, 4), vec4(-3, 3, 3, 1), vec4(1, 0, 0, 0));
+    vec4 product = (1.0f / 6.0f) * parametric * coefficients;
+    return product.x * p1 + product.y * p2 + product.z * p3 + product.w * p4;
 
-    return (1.0f/6.0f) * parametric * coefficients * points;
 }
 
-vec4 BSpline::BSplineF2(vec3 p1, vec3 p2, vec3 p3, vec3 p4, float t)
+glm::vec4 BSpline::BSplineF2(glm::vec4 p1, glm::vec4 p2, glm::vec4 p3, glm::vec4 p4, float t)
 {
     vec4 parametric(6*t, 2, 0, 0);
-    mat4 coefficients(vec4(-1,3,-3,1), vec4(3,-6,0,4), vec4(-3,3,3,1), vec4(1,0,0,0));
-    vec4 points(p1, p2, p3, p4);
+    mat4 coefficients(vec4(-1, 3, -3, 1), vec4(3, -6, 0, 4), vec4(-3, 3, 3, 1), vec4(1, 0, 0, 0));
+    vec4 product = (1.0f / 6.0f) * parametric * coefficients;
+    return product.x * p1 + product.y * p2 + product.z * p3 + product.w * p4;
+}
 
-    return (1.0f/6.0f) * parametric * coefficients * points;
+int BSpline::GetPointIndex(int i)
+{
+    // i = 0,1,2,3
+    // Compute wraparound
+    if (pointSetIndex == points.size() - 3)
+    {
+        if (i == 3)
+        {
+            return 0;
+        }
+        else if (i == 2)
+        {
+            return points.size() - 1;
+        }
+        else if (i == 1)
+        {
+            return points.size() - 2;
+        }
+        else
+        {
+            return points.size() - 3;
+        }
+    }
+    else if (pointSetIndex == points.size() - 2)
+    {
+        if (i == 3)
+        {
+            return 1;
+        }
+        else if (i == 2)
+        {
+            return 0;
+        }
+        else if (i == 1)
+        {
+            return points.size() - 1;
+        }
+        else
+        {
+            return points.size() - 2;
+        }
+
+    }
+    else if (pointSetIndex == points.size() - 1)
+    {
+        if (i == 3)
+        {
+            return 2;
+        }
+        else if (i == 2)
+        {
+            return 1;
+        }
+        else if (i == 1)
+        {
+            return 0;
+        }
+        else
+        {
+            return points.size() - 1;
+        }
+    }
+    else
+    {
+        return pointSetIndex + i;
+    }
 }
