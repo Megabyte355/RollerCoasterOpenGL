@@ -116,7 +116,15 @@ void TankModel::Update(float dt)
 		mChildVerticalAngle   += EventManager::GetMouseMotionY() * cannonAngularSpeed * dt;
 
 		mChildVerticalAngle = std::max(-40.0f, std::min(7.0f, mChildVerticalAngle));
-		mChildHorizontalAngle = std::max(-70.0f, std::min(70.0f, mChildHorizontalAngle));
+		//mChildHorizontalAngle = std::max(-70.0f, std::min(70.0f, mChildHorizontalAngle));
+		if (mRotationAngleInDegrees > 360)
+		{
+			mRotationAngleInDegrees -= 360;
+		}
+		else if (mRotationAngleInDegrees < -360)
+		{
+			mRotationAngleInDegrees += 360;
+		}
 	
 		//set y-axis rotation to turret
 		container.at(2) -> SetRotation(yAxis,mChildHorizontalAngle);

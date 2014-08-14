@@ -41,8 +41,8 @@ void ThirdPersonCamera::Update(float dt)
 	float canonVAngleRadian = radians(-canonVerticalAngle);
 
 	//update postion and lookat for the camera
-	mPosition = targetPosition + vec3(mOffset.x + sinf(tankHAngleRadians) * mOffset.z, mOffset.y, cosf(tankHAngleRadians) * mOffset.z);
-	mLookAtPoint = targetPosition; 
+	mPosition = targetPosition + vec3(mOffset.x + sinf(tankHAngleRadians + canonHAngleRadian) * mOffset.z, mOffset.y - 5 * sinf(canonVAngleRadian), cosf(tankHAngleRadians + canonHAngleRadian) * mOffset.z);
+	mLookAtPoint = targetPosition + vec3(0.0f, 5 * sinf(canonVAngleRadian), 0.0f); 
 	
 }
 
