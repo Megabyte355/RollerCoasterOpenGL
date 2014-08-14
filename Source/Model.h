@@ -26,6 +26,7 @@ public:
     Model(Model * p, bool getScalingFromParent);
 	virtual ~Model();
 
+    virtual void Init();
 	virtual void Update(float dt) = 0;
 	virtual void Draw() = 0;
 	void Load(ci_istringstream& iss);
@@ -54,6 +55,11 @@ protected:
 	glm::vec3 mScaling;
 	glm::vec3 mRotationAxis;
 	float     mRotationAngleInDegrees;
+    bool      lookForward;
+
+    glm::vec3 mForward;
+    glm::vec3 mRight;
+    glm::vec3 mUp;
 
 	// @TODO 4 - You may want to add a parent object for the hierarchical modeling
     Model * mParent;
