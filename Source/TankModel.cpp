@@ -75,7 +75,7 @@ void TankModel::Update(float dt)
 		// Update body(tank) position and rotation
 		vec3 delta = vec3(0.0f, 0.0f, 0.0f);
 		float moveSpeed = 4.0f;
-		float bodyAngularSpeed = 90.0f;
+		float bodyAngularSpeed = 20.0f;
 
 		if (mRotationAngleInDegrees > 360)
 		{
@@ -115,7 +115,7 @@ void TankModel::Update(float dt)
 		mChildHorizontalAngle -= EventManager::GetMouseMotionX() * cannonAngularSpeed * dt;
 		mChildVerticalAngle   += EventManager::GetMouseMotionY() * cannonAngularSpeed * dt;
 
-		mChildVerticalAngle = std::max(-40.0f, std::min(5.0f, mChildVerticalAngle));
+		mChildVerticalAngle = std::max(-40.0f, std::min(7.0f, mChildVerticalAngle));
 		mChildHorizontalAngle = std::max(-70.0f, std::min(70.0f, mChildHorizontalAngle));
 	
 		//set y-axis rotation to turret

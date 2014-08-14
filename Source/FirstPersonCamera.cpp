@@ -20,7 +20,6 @@ FirstPersonCamera::FirstPersonCamera(glm::vec3 offset, glm::vec3 lookAtPoint, gl
 	mOffset = offset;
 	mLookAtPoint = lookAtPoint;
 	mUpVector = upVector;
-	mPosition = offset;
 }
 
 FirstPersonCamera::~FirstPersonCamera()
@@ -31,23 +30,21 @@ void FirstPersonCamera::Update(float dt)
 {
 	EventManager::DisableMouseCursor();
 
+	float pi = radians(180.0f);
 	//Get postion and turned angle from the attached object(tank)
-	glm::vec3 parentPosition = mParent -> GetPosition();
-	float tankHorizontalAngle = mParent -> GetRotationAngle();
+	glm::vec3 targetPosition = mTarget -> GetPosition();
+	float tankHorizontalAngle = mTarget -> GetRotationAngle();
 	float tankHAngleRadians = radians(tankHorizontalAngle);
 
 	//Get turned angle from the canon
-	float canonHorizontalAngle = mParent -> GetChildHorizontalAngle();
-	float canonVerticalAngle = mParent -> GetChildVerticalAngle();
+	float canonHorizontalAngle = mTarget -> GetChildHorizontalAngle();
+	float canonVerticalAngle = mTarget -> GetChildVerticalAngle();
 	float canonHAngleRadian = radians(canonHorizontalAngle);
 	float canonVAngleRadian = radians(-canonVerticalAngle);
-	std::cout<<length(mOffset)<<":"<<canonVerticalAngle<<":"<<canonHorizontalAngle<<std::endl;
 
 	//update postion and lookat for the camera
-	//mPosition = parentPosition + mOffset;//vec3(mOffset.x - sinf(tankHAngleRadians) * mOffset.z, mOffset.y, cosf(tankHAngleRadians) * mOffset.z);
-	//mLookAtPoint = parentPosition; //+ glm::vec3(length(mOffset)*cos(canonVAngleRadian) * sin(canonHAngleRadian), length(mOffset)*sin(canonVAngleRadian), length(mOffset)*cos(canonVAngleRadian) * cos(canonHAngleRadian));
-	//vec3 mRight = glm::vec3(sin(canonHAngleRadian - radians(180.0f)/2.0f), 0, cos(canonHAngleRadian - radians(180.0f)/2.0f));
-	//mUpVector = glm::cross(mRight, mLookAtPoint);
+	mPosition = targetPosition + vec3(sinf(tankHAngleRadians + canonHAngleRadian) * cosf(atan2(mOffset.y, mOffset.z) + canonVAngleRadian) * (sqrtf(powf(mOffset.y, 2) + powf(mOffset.z, 2))), sinf(atan2(mOffset.y, mOffset.z) + canonVAngleRadian) * (sqrtf(powf(mOffset.y, 2) + powf(mOffset.z, 2))), cosf(tankHAngleRadians + canonHAngleRadian) * cosf(atan2(mOffset.y, mOffset.z) + canonVAngleRadian) * (sqrtf(powf(mOffset.y, 2) + powf(mOffset.z, 2))));
+	mLookAtPoint = mPosition + vec3(sinf(tankHAngleRadians + canonHAngleRadian) * cosf(canonVAngleRadian), sinf(canonVAngleRadian), cosf(tankHAngleRadians + canonHAngleRadian)*cosf(canonVAngleRadian)); 
 }
 
 glm::mat4 FirstPersonCamera::GetViewMatrix() const
@@ -58,6 +55,6 @@ glm::mat4 FirstPersonCamera::GetViewMatrix() const
 						);
 }
 
-void FirstPersonCamera::setParent(Model* parent){
-	mParent = parent;
+void FirstPersonCamera::setTarget(Model* target){
+	mTarget = target;
 }

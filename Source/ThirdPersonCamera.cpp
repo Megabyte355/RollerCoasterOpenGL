@@ -31,13 +31,19 @@ void ThirdPersonCamera::Update(float dt)
 	EventManager::DisableMouseCursor();
 
 	//Get postion and turned angle from the attached object(tank)
-	glm::vec3 parentPosition = mParent -> GetPosition();
-	float tankHorizontalAngle = mParent -> GetRotationAngle();
+	glm::vec3 targetPosition = mTarget -> GetPosition();
+	float tankHorizontalAngle = mTarget -> GetRotationAngle();
 	float tankHAngleRadians = radians(tankHorizontalAngle);
 
+	float canonHorizontalAngle = mTarget -> GetChildHorizontalAngle();
+	float canonVerticalAngle = mTarget -> GetChildVerticalAngle();
+	float canonHAngleRadian = radians(canonHorizontalAngle);
+	float canonVAngleRadian = radians(-canonVerticalAngle);
+
 	//update postion and lookat for the camera
-	mPosition = parentPosition + vec3(mOffset.x + sinf(tankHAngleRadians) * mOffset.z, mOffset.y, cosf(tankHAngleRadians) * mOffset.z);
-	mLookAtPoint = parentPosition; 
+	mPosition = targetPosition + vec3(mOffset.x + sinf(tankHAngleRadians) * mOffset.z, mOffset.y, cosf(tankHAngleRadians) * mOffset.z);
+	mLookAtPoint = targetPosition; 
+	
 }
 
 glm::mat4 ThirdPersonCamera::GetViewMatrix() const
@@ -48,6 +54,6 @@ glm::mat4 ThirdPersonCamera::GetViewMatrix() const
 						);
 }
 
-void ThirdPersonCamera::setParent(Model* parent){
-	mParent = parent;
+void ThirdPersonCamera::setTarget(Model* target){
+	mTarget = target;
 }

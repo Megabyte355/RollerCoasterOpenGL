@@ -91,7 +91,7 @@ glm::mat4 FreeLookCamera::GetViewMatrix() const
     return glm::lookAt(mPosition, mPosition + mLookAt, mUp);
 }
 
-void FreeLookCamera::setParent(Model* parent)
+void FreeLookCamera::setTarget(Model* parent)
 {
 
 }

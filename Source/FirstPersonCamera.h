@@ -21,7 +21,7 @@ public:
 
 	virtual glm::mat4 GetViewMatrix() const;
 
-	virtual void setParent(Model* parent);
+	virtual void setTarget(Model* target);
 
 private:
 	glm::vec3 mPosition;
@@ -29,5 +29,5 @@ private:
 	glm::vec3 mLookAtPoint;
 	glm::vec3 mUpVector;
 
-	Model* mParent;
+	Model* mTarget;
 };

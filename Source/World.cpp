@@ -34,9 +34,11 @@ World::World()
 {
 	// Setup Camera
 	//mCamera.push_back( new StaticCamera( vec3(3.0f, 4.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
-	mCamera.push_back( new FirstPersonCamera( vec3(0.0f, 0.0f, 0.6f), vec3(0.0f, 0.0f, 1.6f), vec3(0.0f, 1.0f, 0.0f) ) );
-	mCamera.push_back( new ThirdPersonCamera( vec3(0.0f, 4.5f, -9.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
+	mCamera.push_back( new FirstPersonCamera( vec3(0.0f, 0.5f, 0.6f), vec3(0.0f, 0.0f, 1.6f), vec3(0.0f, 1.0f, 0.0f) ) );
+	mCamera.push_back( new ThirdPersonCamera( vec3(0.0f, 5.0f, -10.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCamera.push_back( new FreeLookCamera( vec3(1.0f, 1.0f, 20.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
+	mCamera.push_back( new StaticCamera( vec3(3.0f, 4.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
+
 	mCurrentCamera = 0;
 
 	// The geometry should be loaded from a scene file
@@ -193,8 +195,8 @@ void World::LoadScene(const char * scene_path)
 				TankModel* tank = new TankModel();
 				tank->Load(iss);
 				mModel.push_back(tank);
-				mCamera.at(0)->setParent(tank);
-				mCamera.at(1)->setParent(tank);
+				mCamera.at(0)->setTarget(tank);
+				mCamera.at(1)->setTarget(tank);
 			}
 			else if( result == "vehicle" )
 			{

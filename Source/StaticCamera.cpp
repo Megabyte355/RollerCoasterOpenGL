@@ -37,7 +37,7 @@ glm::mat4 StaticCamera::GetViewMatrix() const
 						);
 }
 
-void StaticCamera::setParent(Model* parent)
+void StaticCamera::setTarget(Model* parent)
 {
 
 }

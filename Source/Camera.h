@@ -22,7 +22,7 @@ public:
 	virtual glm::mat4 GetViewMatrix() const = 0;
 	virtual glm::mat4 GetProjectionMatrix() const;
 	glm::mat4 GetViewProjectionMatrix() const;
-	virtual void setParent(Model* parent) = 0;
+	virtual void setTarget(Model* parent) = 0;
 
 private:
 

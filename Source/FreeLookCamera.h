@@ -20,7 +20,7 @@ public:
 
 	virtual glm::mat4 GetViewMatrix() const;
 
-	virtual void setParent(Model* parent);
+	virtual void setTarget(Model* parent);
 
 private:
 	// @TODO 3 - Add every parameter you need for a first person camera
