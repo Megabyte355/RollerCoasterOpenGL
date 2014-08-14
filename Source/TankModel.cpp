@@ -27,7 +27,7 @@ TankModel::TankModel()
 {
 
 	// Alternative 2, parenting where there is a uniform hidden cube parent
-	CubeModel * mCube = new CubeModel(this);
+	CubeModel * mCube = new CubeModel(this, vec3(0.5, 0.5, 0.5));
 	CubeModel * mFrame = new CubeModel(mCube);
 	CubeModel * mTurret = new CubeModel(mCube);
 	CubeModel * mCanon = new CubeModel(mTurret);
