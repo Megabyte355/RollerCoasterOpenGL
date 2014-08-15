@@ -21,7 +21,6 @@ public:
 
 	virtual glm::mat4 GetViewMatrix() const;
 
-	virtual void setTarget(Model* parent);
 private:
 	glm::vec3 mPosition;
 	glm::vec3 mLookAtPoint;

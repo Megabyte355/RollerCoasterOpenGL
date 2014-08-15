@@ -10,6 +10,7 @@
 #include "World.h"
 #include "EventManager.h"
 
+//push dada
 
 int main(int argc, char*argv[])
 {
@@ -26,9 +27,8 @@ int main(int argc, char*argv[])
 	{
 		//world.LoadScene("../Scenes/CoordinateSystem.scene");
 		//world.LoadScene("../Scenes/VehicleTest.scene");
-		//world.LoadScene("../Scenes/TankVehicle.scene");
-		//world.LoadScene("../Scenes/VehicleTest.scene");
-        world.LoadScene("../Scenes/BSplineTest.scene");
+        //world.LoadScene("../Scenes/BSplineTest.scene");
+		world.LoadScene("../Scenes/AlienTest.scene");
 	}
 
 	// Main Loop

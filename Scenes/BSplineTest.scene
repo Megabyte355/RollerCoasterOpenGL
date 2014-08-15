@@ -1,11 +1,5 @@
 # This is a comment
 
-[Tank]
-name     = "Tank"
-scaling  = 1.0 1.0 1.0
-position = 0.0 -0.5 0.0
-rotation = 0.0 0.0 1.0 0.0
-
 [BSpline]
 name     = "SplineA"
 position = 0.0 2.0 0.0

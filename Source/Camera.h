@@ -9,7 +9,6 @@
 #pragma once
 
 #include <GLM/glm.hpp>
-#include "Model.h"
 
 class Camera
 {
@@ -22,7 +21,6 @@ public:
 	virtual glm::mat4 GetViewMatrix() const = 0;
 	virtual glm::mat4 GetProjectionMatrix() const;
 	glm::mat4 GetViewProjectionMatrix() const;
-	virtual void setTarget(Model* parent) = 0;
 
 private:
 

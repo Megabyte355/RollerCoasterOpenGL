@@ -12,12 +12,10 @@
 
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
-#include "ThirdPersonCamera.h"
-#include "FreeLookCamera.h"
 
 #include "CubeModel.h"
-#include "TankModel.h"
 #include "VehicleModel.h"
+#include "AlienModel.h"
 #include "SphereModel.h"
 #include "LightModel.h"
 #include "BSpline.h"
@@ -37,11 +35,8 @@ std::vector<BSpline*> World::mBSplineModels;
 World::World()
 {
 	// Setup Camera
-	mCamera.push_back( new FirstPersonCamera( vec3(0.0f, 0.5f, 0.6f), vec3(0.0f, 0.0f, 1.6f), vec3(0.0f, 1.0f, 0.0f) ) );
-	mCamera.push_back( new ThirdPersonCamera( vec3(0.0f, 5.0f, -10.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
-	mCamera.push_back( new FreeLookCamera( vec3(1.0f, 1.0f, 20.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
-	mCamera.push_back( new StaticCamera( vec3(20.0f, 30.0f, 20.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
-
+	mCamera.push_back( new StaticCamera( vec3(3.0f, 4.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
+	mCamera.push_back( new FirstPersonCamera( vec3(0.5f, 0.5f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCurrentCamera = 0;
 
 	// The geometry should be loaded from a scene file
@@ -94,13 +89,6 @@ void World::Update(float dt)
 			mCurrentCamera = 2;
 		}
 	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4 ) == GLFW_PRESS)
-	{
-		if (mCamera.size() > 3)
-		{
-			mCurrentCamera = 3;
-		}
-	}
 
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
@@ -118,6 +106,13 @@ void World::Update(float dt)
     else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_7 ) == GLFW_PRESS)
 	{
 		Renderer::SetShader(SHADER_BLUE);
+	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_P) == GLFW_PRESS)
+	{
+		Renderer::SetShader(SHADER_ALIEN);
+	}
+	else{
+		Renderer::SetShader(SHADER_PHONG);
 	}
 
 	// Update current Camera
@@ -149,12 +144,24 @@ void World::Draw()
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
+		AlienModel* m = dynamic_cast<AlienModel*>(*it);
+		if (m != nullptr)
+		{
+			Renderer::SetShader(SHADER_ALIEN);
+			glUseProgram(Renderer::GetShaderProgramID());
+
+			// This looks for the V and P Uniform variable in the Vertex Program
+			GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
+			GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+		}
+		
 		// Send the view and projection constants to the shader
 		mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
 		glUniformMatrix4fv(viewMatrix, 1, GL_FALSE, &V[0][0]);
 
-        mat4 P = mCamera[mCurrentCamera]->GetProjectionMatrix();
+		mat4 P = mCamera[mCurrentCamera]->GetProjectionMatrix();
 		glUniformMatrix4fv(projectionMatrix, 1, GL_FALSE, &P[0][0]);
+
 
 		// Draw model
 		(*it)->Draw();
@@ -192,14 +199,12 @@ void World::LoadScene(const char * scene_path)
 				cube->Load(iss);
 				mModel.push_back(cube);
 			}
-			else if( result == "tank" )
+			else if (result == "alien")
 			{
 				// Box attributes
-				TankModel* tank = new TankModel();
-				tank->Load(iss);
-				mModel.push_back(tank);
-				mCamera.at(0)->setTarget(tank);
-				mCamera.at(1)->setTarget(tank);
+				AlienModel* alien = new AlienModel();
+				alien->Load(iss);
+				mModel.push_back(alien);
 			}
 			else if( result == "vehicle" )
 			{

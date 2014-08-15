@@ -9,25 +9,29 @@
 #pragma once
 
 #include "Camera.h"
-#include "Model.h"
 
 class FirstPersonCamera : public Camera
 {
 public:
-	FirstPersonCamera(glm::vec3 offset, glm::vec3 lookAtPoint, glm::vec3 upVector);
+	FirstPersonCamera(glm::vec3 position, glm::vec3 lookAt, glm::vec3 up);
 	virtual ~FirstPersonCamera();
 
 	virtual void Update(float dt);
 
 	virtual glm::mat4 GetViewMatrix() const;
 
-	virtual void setTarget(Model* target);
-
 private:
-	glm::vec3 mPosition;
-	glm::vec3 mOffset;
-	glm::vec3 mLookAtPoint;
-	glm::vec3 mUpVector;
+	// @TODO 3 - Add every parameter you need for a first person camera
+	//           including the speed of the camera
 
-	Model* mTarget;
+    glm::vec3 mPosition;
+    glm::vec3 mLookAt;
+    glm::vec3 mRight;
+    glm::vec3 mUp;
+
+    float hAngle;
+    float vAngle;
+
+    float moveSpeed;
+    float mouseSpeed;
 };

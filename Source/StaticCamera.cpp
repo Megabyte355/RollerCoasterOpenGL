@@ -26,7 +26,6 @@ StaticCamera::~StaticCamera()
 void StaticCamera::Update(float dt)
 {
 	EventManager::EnableMouseCursor();
-	//EventManager::DisableMouseCursor();
 }
 
 glm::mat4 StaticCamera::GetViewMatrix() const
@@ -35,9 +34,4 @@ glm::mat4 StaticCamera::GetViewMatrix() const
 							mLookAtPoint,	// Look towards this point
 							mUpVector		// Up vector
 						);
-}
-
-void StaticCamera::setTarget(Model* parent)
-{
-
 }
