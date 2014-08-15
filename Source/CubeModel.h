@@ -13,11 +13,12 @@
 
 class CubeModel : public Model
 {
+
 public:
 	// @TODO 4 - It could be a good idea to allow passing a parent model in the constructor
 	CubeModel(glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
-    CubeModel(Model * parent, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
-    CubeModel(Model * parent, bool getScalingFromParent, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
+	CubeModel(Model * parent, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
+	CubeModel(Model * parent, bool getScalingFromParent, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
 	virtual ~CubeModel();
 
 	virtual void Update(float dt);
@@ -25,7 +26,7 @@ public:
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token);
-    virtual void Init(glm::vec3 size);
+	virtual void Init(glm::vec3 size);
 
 private:
 	// The vertex format could be different for different types of models
@@ -35,4 +36,8 @@ private:
 		glm::vec3 normal;
 		glm::vec3 color;
 	};
+
+	std::vector<Vertex> vertexBuffer;
+	 
+	void draw_bbox();
 };
