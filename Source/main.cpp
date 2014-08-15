@@ -10,7 +10,6 @@
 #include "World.h"
 #include "EventManager.h"
 
-//test
 
 int main(int argc, char*argv[])
 {
