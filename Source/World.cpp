@@ -20,6 +20,7 @@
 #include "VehicleModel.h"
 #include "SphereModel.h"
 #include "LightModel.h"
+#include "BSpline.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -29,6 +30,9 @@ using namespace glm;
 
 unsigned int World::mCurrentCamera;
 std::vector<Camera*> World::mCamera;
+std::vector<Model*> World::mModel;
+std::vector<LightModel*> World::mLightModels;
+std::vector<BSpline*> World::mBSplineModels;
 
 World::World()
 {
@@ -216,6 +220,12 @@ void World::LoadScene(const char * scene_path)
                 light->Load(iss);
                 mLightModels.push_back(light);
             }
+            else if( result == "bspline" )
+            {
+                BSpline* bSpline = new BSpline();
+                bSpline->Load(iss);
+                mBSplineModels.push_back(bSpline);
+            }
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line
@@ -240,4 +250,19 @@ void World::LoadScene(const char * scene_path)
 Camera* World::GetCurrentCamera()
 {
     return mCamera[mCurrentCamera];
+}
+
+std::vector<Model*>* World::GetModelsPtr()
+{
+    return &mModel;
+}
+
+std::vector<LightModel*>* World::GetLightModelsPtr()
+{
+    return &mLightModels;
+}
+
+std::vector<BSpline*>* World::GetBSplineModelsPtr()
+{
+    return &mBSplineModels;
 }
