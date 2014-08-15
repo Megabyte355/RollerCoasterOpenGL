@@ -50,6 +50,10 @@
     <None Include="..\Source\Shaders\Phong.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="..\Scenes\BSplineTest.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
+    <None Include="..\Scenes\TankVehicle.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
   </ItemGroup>
