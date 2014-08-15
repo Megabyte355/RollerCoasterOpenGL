@@ -18,6 +18,7 @@
 #include "SphereModel.h"
 #include "LightModel.h"
 #include "BSpline.h"
+#include "TriangleModel.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -204,6 +205,12 @@ void World::LoadScene(const char * scene_path)
                 bSpline->Load(iss);
                 mBSplineModels.push_back(bSpline);
             }
+			else if (result == "triangle")
+			{
+				TriangleModel* triangle = new TriangleModel();
+				triangle->Load(iss);
+				mModel.push_back(triangle);
+			}
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line

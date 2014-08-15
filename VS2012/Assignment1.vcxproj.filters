@@ -21,6 +21,9 @@
     <Filter Include="Resource Files\Scenes">
       <UniqueIdentifier>{3b2e1119-c64d-494f-9840-6ae6746aa7bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{fd963a90-fe74-4e16-ad41-8d59ef9ef53b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Shaders\SolidColor.vertexshader">
@@ -51,6 +54,9 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="..\Scenes\BSplineTest.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
+    <None Include="..\Scenes\RayCastTest.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
   </ItemGroup>
@@ -94,6 +100,12 @@
     <ClCompile Include="..\Source\BSpline.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\RayCast.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\TriangleModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -135,5 +147,16 @@
     <ClInclude Include="..\Source\BSpline.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\RayCast.h">
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\TriangleModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Assignment1.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
