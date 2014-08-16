@@ -10,8 +10,8 @@
 
 #include "ParsingHelper.h"
 #include "Renderer.h"
-#include "StateMachine.h"
 #include <vector>
+
 #include <GLM/glm.hpp>
 
 class LightModel;
@@ -83,6 +83,4 @@ protected:
 	unsigned int mVertexBufferID;
 
     BSpline* spline;
-    StateMachine* state;
-
 };
