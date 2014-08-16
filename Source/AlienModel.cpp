@@ -35,7 +35,6 @@ AlienModel::~AlienModel()
 void AlienModel::Update(float dt)
 {	
 	// @TODO 6 (Optional) - Here is where you can add some code if you want your vehicle to animate
-  
 }
 
 void AlienModel::Draw()

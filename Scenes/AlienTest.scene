@@ -1,15 +1,32 @@
 # This is a comment
 
+[BSpline]
+name     = "SplineA"
+position = 0.0 2.0 0.0
+splinespeed = 15.0
+splinepoint = 0.0 0.0 0.0 1.0
+splinepoint = 2.0 0.0 1.0 1.0
+splinepoint = 4.0 1.0 2.0 1.0
+splinepoint = 6.0 3.0 3.0 1.0
+splinepoint = 8.0 4.0 4.0 1.0
+splinepoint = 7.0 7.0 5.0 1.0
+splinepoint = 5.0 6.0 4.0 1.0
+splinepoint = 3.0 5.0 3.0 1.0
+splinepoint = 2.0 4.0 2.0 1.0
+splinepoint = 0.0 3.0 1.0 1.0
+splinepoint = -2.0 1.0 0.0 1.0
+
+
 [Cube]
 name     = "Ground"
 scaling  = 100.0 1.0 100.0
 position = 0.0 -2.5 0.0
 rotation = 0.0 0.0 1.0 0.0
 
-[Sphere]
+[Sphere] 
 name     = "Sphere"
 scaling  = 1.0 1.0 1.0
-position = 0.0 5.0 -12.0
+position = 0.0 5.0 -12.0e 
 
 [Light]
 name     = "Light"
@@ -17,4 +34,9 @@ position = 0.0 7.0 -5.0
 
 [Alien]
 name     = "dada"
+position = 100.0 -2.0 0.0
+
+[Alien]
+name     = "dada"
+spline   = "SplineA"
 position = 0.0 -2.0 0.0

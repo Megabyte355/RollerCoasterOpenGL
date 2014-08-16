@@ -127,6 +127,10 @@
     <ClCompile Include="..\Source\VehicleModel.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
+    <ClCompile Include="..\Source\xml\tinystr.cpp" />
+    <ClCompile Include="..\Source\xml\tinyxml.cpp" />
+    <ClCompile Include="..\Source\xml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\Source\xml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\AlienModel.h" />
@@ -146,6 +150,8 @@
     <ClInclude Include="..\Source\VehicleModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\World.h" />
+    <ClInclude Include="..\Source\xml\tinystr.h" />
+    <ClInclude Include="..\Source\xml\tinyxml.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
