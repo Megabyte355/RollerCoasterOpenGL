@@ -203,7 +203,10 @@ void World::LoadScene(const char * scene_path)
 			{
 				// Box attributes
 				AlienModel* alien = new AlienModel();
+				CubeModel* pos = new CubeModel();
+				pos->Load(iss);
 				alien->Load(iss);
+				mModel.push_back(pos);
 				mModel.push_back(alien);
 			}
 			else if( result == "vehicle" )
