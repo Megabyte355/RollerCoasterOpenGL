@@ -1,0 +1,36 @@
+#version 330 core
+
+layout(location = 0) in vec3 vertex;
+layout(location = 1) in vec2 UV;
+//in vec3 vertex;
+//in vec3 normal;
+//in vec3 tangent;
+//in vec3 color;
+//in vec2 UV;
+
+//out vec3 outNormal;
+//out vec3 outTangent;
+//out vec3 outColor;
+out vec2 outUV;
+
+// Uniform
+// Values that stay constant for the whole mesh.
+uniform mat4 WorldTransform;
+uniform mat4 ViewTransform;
+uniform mat4 ProjectonTransform;
+
+void main()
+{
+	mat4 MV = ViewTransform * WorldTransform;
+	mat4 MVP = ProjectonTransform * MV;
+	
+	mat4 normalTransform = transpose( inverse(MV) ); // From World to View
+
+	gl_Position = MVP * vec4(vertex,1.0);
+
+	//outNormal = (normalTransform * vec4(normal, 0.0f)).xyz;
+	//outTangent = (normalTransform * vec4(tangent, 0.0f)).xyz;
+	//outColor=color;
+	
+	outUV = UV;
+}
