@@ -9,6 +9,8 @@
 #pragma once
 
 #include "Camera.h"
+#include "RayCast.h"
+#include "World.h"
 
 class FirstPersonCamera : public Camera
 {

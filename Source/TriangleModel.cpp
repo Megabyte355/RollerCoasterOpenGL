@@ -36,12 +36,10 @@ void TriangleModel::Init(vec3 size)
 {
 	// Create Vertex Buffer for all the verices of the Cube
 	vec3 halfSize = size * 0.5f;
-
-	Vertex vertexBuffer[] = {  // position,                normal,                  color
-			{ vec3(-halfSize.x, -halfSize.y, -halfSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) }, //left - red
-			{ vec3(-halfSize.x, -halfSize.y, halfSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) },
-			{ vec3(-halfSize.x, halfSize.y, halfSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) }
-	};
+											// position,		            normal,			            color
+	vertexBuffer[0] = { vec3(-halfSize.x, -halfSize.y, -halfSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) }; 
+	vertexBuffer[1] = { vec3(-halfSize.x, -halfSize.y, halfSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) };
+	vertexBuffer[2] = { vec3(-halfSize.x, halfSize.y, halfSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) };
 
 	// Create a vertex array
 	glGenVertexArrays(1, &mVertexArrayID);
@@ -123,7 +121,7 @@ void TriangleModel::Draw()
 		);
 
 	// Draw the triangles !
-	glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices: 3 * 2 * 6 (3 per triangle, 2 triangles per face, 6 faces)
+	glDrawArrays(GL_TRIANGLES, 0, 3); // 3 vertices
 
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
@@ -140,4 +138,41 @@ bool TriangleModel::ParseLine(const std::vector<ci_string> &token)
 	{
 		return Model::ParseLine(token);
 	}
+}
+
+std::vector<Model::Vertex> TriangleModel::GetModelVertices() {
+	glm::mat4 worldMatrix = this->GetWorldMatrix();
+	vec4 p1 = worldMatrix * vec4(vertexBuffer[0].position, 1.0f);
+	vec4 p2 = worldMatrix * vec4(vertexBuffer[1].position, 1.0f);
+	vec4 p3 = worldMatrix * vec4(vertexBuffer[2].position, 1.0f);
+	
+	vec4 n1 = worldMatrix * vec4(vertexBuffer[0].normal, 1.0f);
+	vec4 n2 = worldMatrix * vec4(vertexBuffer[1].normal, 1.0f);
+	vec4 n3 = worldMatrix * vec4(vertexBuffer[2].normal, 1.0f);
+
+	Model::Vertex v1 = {
+		vec3(p1),
+		vec3(n1),
+		vertexBuffer[0].color,
+	};
+	
+	Model::Vertex v2 = {
+		vec3(p2),
+		vec3(n2),
+		vertexBuffer[1].color,
+	};
+
+	Model::Vertex v3 = {
+		vec3(p3),
+		vec3(n3),
+		vertexBuffer[2].color,
+	};
+
+	std::vector<Model::Vertex> tempVec;
+
+	tempVec.push_back(v1);
+	tempVec.push_back(v2);
+	tempVec.push_back(v3);
+
+	return tempVec;
 }

@@ -88,6 +88,16 @@ void FirstPersonCamera::Update(float dt)
     {
         mPosition += mUp * dt * moveSpeed;
     }
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
+		//vec4 originPoint, vec4 directionVector, vec4 p1, vec4 p2, vec4 p3
+		std::vector<Model::Vertex> tempVec = (*World::GetModelsPtr())[2]->GetModelVertices();
+		vec4 p1 = vec4(tempVec[0].position, 1.0f);
+		vec4 p2 = vec4(tempVec[1].position, 1.0f);
+		vec4 p3 = vec4(tempVec[2].position, 1.0f);
+
+		bool testResult = RayCast::LinePlaneIntersection(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
+	}
 }
 
 glm::mat4 FirstPersonCamera::GetViewMatrix() const

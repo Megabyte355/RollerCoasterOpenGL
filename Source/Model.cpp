@@ -254,3 +254,8 @@ void Model::SetLightSource(LightModel * lightSource)
 {
     mLightSource = lightSource;
 }
+
+std::vector<Model::Vertex> Model::GetModelVertices() {
+	std::vector<Vertex> vec;
+	return vec;
+}
