@@ -7,26 +7,19 @@
 //
 
 #include "FirstPersonCamera.h"
-#include "EventManager.h"
-#include <GLM/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <GLFW/glfw3.h>
-#include <algorithm>
+#include "EventManager.h"
 
 using namespace glm;
 
-FirstPersonCamera::FirstPersonCamera(glm::vec3 position, glm::vec3 lookAt, glm::vec3 up) : Camera()
-{
-    mPosition = position;
-    mLookAt = lookAt;
-    mUp = up;
-    mRight = glm::cross(mLookAt, mUp);
 
-    hAngle = radians(180.0f);
-    vAngle = 0.0f;
-    moveSpeed = 4.0f;
-    mouseSpeed = 0.10f;
+FirstPersonCamera::FirstPersonCamera(glm::vec3 offset, glm::vec3 lookAtPoint, glm::vec3 upVector) 
+	: Camera()
+{
+	mOffset = offset;
+	mLookAtPoint = lookAtPoint;
+	mUpVector = upVector;
 }
 
 FirstPersonCamera::~FirstPersonCamera()
@@ -35,63 +28,33 @@ FirstPersonCamera::~FirstPersonCamera()
 
 void FirstPersonCamera::Update(float dt)
 {
-	// Prevent from having the camera move only when the cursor is within the windows
 	EventManager::DisableMouseCursor();
 
-	// @TODO 3 : You need to move the Camera based on the User inputs
-	// - You can access the mouse motion with EventManager::GetMouseMotionXY()
-	// - For mapping A S D W, you can look in World.cpp for an example of accessing key states
-	// - Don't forget to use dt to control the speed of the camera motion
+	float pi = radians(180.0f);
+	//Get postion and turned angle from the attached object(tank)
+	glm::vec3 targetPosition = mTarget -> GetPosition();
+	float tankHorizontalAngle = mTarget -> GetRotationAngle();
+	float tankHAngleRadians = radians(tankHorizontalAngle);
 
-	// Update orientation
-    hAngle += mouseSpeed * dt * - EventManager::GetMouseMotionX();
-    vAngle += mouseSpeed * dt * - EventManager::GetMouseMotionY();
+	//Get turned angle from the canon
+	float canonHorizontalAngle = mTarget -> GetChildHorizontalAngle();
+	float canonVerticalAngle = mTarget -> GetChildVerticalAngle();
+	float canonHAngleRadian = radians(canonHorizontalAngle);
+	float canonVAngleRadian = radians(-canonVerticalAngle);
 
-    // Clamping and Wrap-around angles
-    vAngle = glm::clamp(vAngle, glm::radians(-85.0f), glm::radians(85.0f));
-    if (degrees(hAngle) > 180.0f)
-    {
-        hAngle -= radians(360.0f);
-    }
-    else if (degrees(hAngle) < -180.0f)
-    {
-        hAngle += radians(360.0f);
-    }
-
-    // Update direction vectors
-    mLookAt = glm::vec3(cos(vAngle) * sin(hAngle), sin(vAngle), cos(vAngle) * cos(hAngle));
-    mRight = glm::vec3(sin(hAngle - radians(180.0f)/2.0f), 0, cos(hAngle - radians(180.0f)/2.0f));
-    mUp = glm::cross(mRight, mLookAt);
-
-    // Update camera position
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
-    {
-        mPosition += mLookAt * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
-    {
-        mPosition -= mLookAt * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_D) == GLFW_PRESS)
-    {
-        mPosition += mRight * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_A) == GLFW_PRESS)
-    {
-        mPosition -= mRight * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_Q) == GLFW_PRESS)
-    {
-        mPosition -= mUp * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_E) == GLFW_PRESS)
-    {
-        mPosition += mUp * dt * moveSpeed;
-    }
+	//update postion and lookat for the camera
+	mPosition = targetPosition + vec3(sinf(tankHAngleRadians + canonHAngleRadian) * cosf(atan2(mOffset.y, mOffset.z) + canonVAngleRadian) * (sqrtf(powf(mOffset.y, 2) + powf(mOffset.z, 2))), sinf(atan2(mOffset.y, mOffset.z) + canonVAngleRadian) * (sqrtf(powf(mOffset.y, 2) + powf(mOffset.z, 2))), cosf(tankHAngleRadians + canonHAngleRadian) * cosf(atan2(mOffset.y, mOffset.z) + canonVAngleRadian) * (sqrtf(powf(mOffset.y, 2) + powf(mOffset.z, 2))));
+	mLookAtPoint = mPosition + vec3(sinf(tankHAngleRadians + canonHAngleRadian) * cosf(canonVAngleRadian), sinf(canonVAngleRadian), cosf(tankHAngleRadians + canonHAngleRadian)*cosf(canonVAngleRadian)); 
 }
 
 glm::mat4 FirstPersonCamera::GetViewMatrix() const
 {
-	// @TODO 3 : Calculate the View Matrix
-    return glm::lookAt(mPosition, mPosition + mLookAt, mUp);
+	return glm::lookAt(		mPosition,		// Camera position
+							mLookAtPoint,	// Look towards this point
+							mUpVector		// Up vector
+						);
+}
+
+void FirstPersonCamera::setTarget(Model* target){
+	mTarget = target;
 }

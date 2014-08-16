@@ -136,8 +136,6 @@ void CubeModel::Draw()
     {
         mLightSource->SetShaderConstants(ka, kd, ks, n);
     }
-	glEnable(GL_BLEND); //Enable blending.
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //Set blending function.
 
 	// 1st attribute buffer : vertex Positions
 	glEnableVertexAttribArray(0);
