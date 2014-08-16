@@ -245,7 +245,7 @@ void World::LoadScene(const char * scene_path)
 			{
 				// Box attributes
 				AlienModel* alien = new AlienModel();
-				CubeModel* pos = new CubeModel();
+				CubeModel* pos = new CubeModel(glm::vec3(0.01f,0.01f,0.01f));
 				pos->Load(iss);
 				alien->Load(iss);
 				mModel.push_back(pos);
