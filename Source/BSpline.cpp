@@ -42,7 +42,7 @@ void BSpline::Update(float dt)
     t += (speed * dt) / velocity;
     if (t > 1.0f)
     {
-        t = 0.0f;
+        t -= 1.0f;
         pointSetIndex++;
         if (pointSetIndex == points.size())
         {
@@ -68,6 +68,15 @@ void BSpline::SetSpeed(float speed)
 void BSpline::SetClosedLoop(bool loop)
 {
 	this->closedLoop = loop;
+}
+
+glm::vec4 BSpline::GetVelocityUnitVector()
+{
+    glm::vec4 p1(points[GetPointIndex(0)]);
+    glm::vec4 p2(points[GetPointIndex(1)]);
+    glm::vec4 p3(points[GetPointIndex(2)]);
+    glm::vec4 p4(points[GetPointIndex(3)]);
+    return normalize(BSplineF1(p1, p2, p3, p4, t));
 }
 
 bool BSpline::ParseLine(const std::vector<ci_string> &token)

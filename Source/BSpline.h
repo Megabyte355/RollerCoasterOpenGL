@@ -3,8 +3,7 @@
 
 using namespace glm;
 
-class BSpline :
-    public Model
+class BSpline : public Model
 {
 public:
     BSpline(void);
@@ -18,6 +17,8 @@ public:
     void AddPoint(glm::vec4 p);
     void SetSpeed(float speed);
     void SetClosedLoop(bool loop);
+
+    glm::vec4 GetVelocityUnitVector();
 
 protected:
     std::vector<glm::vec4> points;
