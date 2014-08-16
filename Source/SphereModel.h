@@ -11,6 +11,7 @@ public:
 
     virtual void Update(float dt);
     virtual void Draw();
+
     
 protected:
     virtual bool ParseLine(const std::vector<ci_string> &token);

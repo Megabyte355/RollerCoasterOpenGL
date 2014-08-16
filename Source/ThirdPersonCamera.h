@@ -11,11 +11,11 @@
 #include "Camera.h"
 #include "Model.h"
 
-class FirstPersonCamera : public Camera
+class ThirdPersonCamera : public Camera
 {
 public:
-	FirstPersonCamera(glm::vec3 offset, glm::vec3 lookAtPoint, glm::vec3 upVector);
-	virtual ~FirstPersonCamera();
+	ThirdPersonCamera(glm::vec3 offset, glm::vec3 lookAtPoint, glm::vec3 upVector);
+	virtual ~ThirdPersonCamera();
 
 	virtual void Update(float dt);
 
