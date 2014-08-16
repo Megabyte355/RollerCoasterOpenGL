@@ -10,7 +10,6 @@
 #include "World.h"
 #include "EventManager.h"
 
-
 int main(int argc, char*argv[])
 {
 	EventManager::Initialize();
@@ -26,8 +25,8 @@ int main(int argc, char*argv[])
 	{
 		//world.LoadScene("../Scenes/CoordinateSystem.scene");
 		//world.LoadScene("../Scenes/VehicleTest.scene");
-		//world.LoadScene("../Scenes/TankVehicle.scene");
-		//world.LoadScene("../Scenes/VehicleTest.scene");
+        //world.LoadScene("../Scenes/TankVehicle.scene");
+		//world.LoadScene("../Scenes/AlienTest.scene");
         world.LoadScene("../Scenes/BSplineTest.scene");
 	}
 
