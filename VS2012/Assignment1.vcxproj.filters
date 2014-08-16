@@ -21,6 +21,9 @@
     <Filter Include="Resource Files\Scenes">
       <UniqueIdentifier>{3b2e1119-c64d-494f-9840-6ae6746aa7bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\StateMachine">
+      <UniqueIdentifier>{758a98b9-ae52-4351-a787-e5bbf99869bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Shaders\SolidColor.vertexshader">
@@ -54,6 +57,9 @@
       <Filter>Resource Files\Scenes</Filter>
     </None>
     <None Include="..\Scenes\TankVehicle.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
+    <None Include="..\Scenes\StateMachineTest.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
   </ItemGroup>
@@ -106,6 +112,9 @@
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\StateMachine.cpp">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -155,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\BSpline.h">
       <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\StateMachine.h">
+      <Filter>Source Files\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
