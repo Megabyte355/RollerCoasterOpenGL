@@ -110,6 +110,7 @@
   <ItemGroup>
     <ClCompile Include="..\Source\BSpline.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
+    <ClCompile Include="..\Source\CubeModel.cpp" />
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
     <ClCompile Include="..\Source\LightModel.cpp" />
     <ClCompile Include="..\Source\SphereModel.cpp" />
@@ -117,14 +118,15 @@
     <ClCompile Include="..\Source\EventManager.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
     <ClCompile Include="..\Source\Model.cpp" />
-    <ClCompile Include="..\Source\CubeModel.cpp" />
     <ClCompile Include="..\Source\VehicleModel.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
+    <ClCompile Include="BoundingBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\BSpline.h" />
     <ClInclude Include="..\Source\Camera.h" />
+    <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
     <ClInclude Include="..\Source\LightModel.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
@@ -132,10 +134,10 @@
     <ClInclude Include="..\Source\StaticCamera.h" />
     <ClInclude Include="..\Source\EventManager.h" />
     <ClInclude Include="..\Source\Model.h" />
-    <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\VehicleModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\World.h" />
+    <ClInclude Include="BoundingBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

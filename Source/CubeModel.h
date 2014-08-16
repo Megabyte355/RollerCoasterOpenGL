@@ -38,6 +38,4 @@ private:
 	};
 
 	std::vector<Vertex> vertexBuffer;
-	 
-	void draw_bbox();
 };
