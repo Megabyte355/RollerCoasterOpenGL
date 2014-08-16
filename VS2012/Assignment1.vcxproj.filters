@@ -21,9 +21,6 @@
     <Filter Include="Resource Files\Scenes">
       <UniqueIdentifier>{3b2e1119-c64d-494f-9840-6ae6746aa7bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\xml">
-      <UniqueIdentifier>{914f01d5-a24f-4e45-a3e1-89d8aeb14dc2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Shaders\SolidColor.vertexshader">
@@ -115,18 +112,6 @@
     <ClCompile Include="..\Source\AlienModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\xml\tinystr.cpp">
-      <Filter>Source Files\xml</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\xml\tinyxml.cpp">
-      <Filter>Source Files\xml</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\xml\tinyxmlerror.cpp">
-      <Filter>Source Files\xml</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\xml\tinyxmlparser.cpp">
-      <Filter>Source Files\xml</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -179,12 +164,6 @@
     </ClInclude>
     <ClInclude Include="..\Source\AlienModel.h">
       <Filter>Source Files\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\xml\tinystr.h">
-      <Filter>Source Files\xml</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\xml\tinyxml.h">
-      <Filter>Source Files\xml</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
