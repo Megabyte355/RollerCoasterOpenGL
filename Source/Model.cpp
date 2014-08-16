@@ -15,6 +15,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
 
+#include <iostream>
+
 using namespace std;
 
 Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f), mSecondRotationAxis(1.0f, 0.0f, 0.0f), mSecondRotationAngleInDegrees(0.0f)
@@ -22,6 +24,7 @@ Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1
     mParent = nullptr;
     mGetScalingFromParent = true;
     spline = nullptr;
+    Init();
 }
 
 Model::Model(Model * p) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
@@ -29,6 +32,7 @@ Model::Model(Model * p) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScalin
     mParent = p;
     mGetScalingFromParent = true;
     spline = nullptr;
+    Init();
 }
 
 Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
@@ -36,10 +40,19 @@ Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition
     mParent = p;
     mGetScalingFromParent = getScalingFromParent;
     spline = nullptr;
+    Init();
 }
 
 Model::~Model()
 {
+}
+
+void Model::Init()
+{
+    mForward = glm::vec3(0.0f, 0.0f, 1.0f);
+    mUp = glm::vec3(0.0f, 1.0f, 0.0f);
+    mRight = glm::cross(mForward, mUp);
+    lookForward = true;
 }
 
 void Model::Update(float dt)
@@ -47,6 +60,13 @@ void Model::Update(float dt)
     if(spline != nullptr)
     {
         this->mPosition = spline->GetPosition() + spline->GetNextPoint();
+
+        if (lookForward)
+        {
+            glm::vec3 velocity = glm::vec3(spline->GetVelocityUnitVector());
+            mRotationAxis = glm::cross(mForward, velocity);
+            mRotationAngleInDegrees = degrees(glm::acos(glm::dot(mForward, velocity) / (length(mForward) * length(velocity))));
+        }
         spline->Update(dt);
     }
 }
