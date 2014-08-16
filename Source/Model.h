@@ -46,8 +46,11 @@ public:
 	float     GetRotationAngle() const	{ return mRotationAngleInDegrees; }
     LightModel* GetLightSource() { return mLightSource; }
 
+	bool mGetScalingFromParent;
+
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
+	void DrawBoundingBox();
 
 	ci_string mName; // The model name is mainly for debugging
 	glm::vec3 mPosition;
@@ -58,7 +61,7 @@ protected:
 	// @TODO 4 - You may want to add a parent object for the hierarchical modeling
     Model * mParent;
     LightModel * mLightSource;
-    bool mGetScalingFromParent;
+
 
     // Shader coefficients
     float ka;

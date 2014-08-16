@@ -5,9 +5,16 @@
 #include <vector>
 #include "../../Source/CubeModel.h"
 
-class BoundingBox : public Model
+class BoundingBox
 {
+public:
+	BoundingBox(Model* parent);
+	void CalculateBoundingBoxCoordinates();
+	bool HasObjectCollidedWithAnotherAABB(BoundingBox* OtherBox);
+
 private:
+	glm::vec3 GetModelScalingFactor();
+
 	struct Vertex
 	{
 		glm::vec3 position;
@@ -15,11 +22,6 @@ private:
 		glm::vec3 color;
 	};
 	std::vector<Vertex> vertexBuffer;
-
-public:
-	BoundingBox(std::vector<Vertex> vertexBuffer);
-	BoundingBox(Model * parent, bool getScalingFromParent, glm::vec3 size);
-	void createBoundingBox();
-	void CalculateBoundingBoxCoordinates();
-	bool HasObjectCollidedWithAnotherAABB(BoundingBox* OtherBox);
+	float scalingFactor;
+	Model* model;
 };

@@ -254,3 +254,8 @@ void Model::SetLightSource(LightModel * lightSource)
 {
     mLightSource = lightSource;
 }
+
+void Model::DrawBoundingBox()
+{
+
+}
