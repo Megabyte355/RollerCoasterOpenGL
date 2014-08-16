@@ -52,6 +52,16 @@ public:
 	float     GetSecondRotationAngle() const	{ return mSecondRotationAngleInDegrees; }
     LightModel* GetLightSource() { return mLightSource; }
 
+    // The vertex format could be different for different types of models
+    struct Vertex
+    {
+        glm::vec3 position;
+        glm::vec3 normal;
+        glm::vec3 color;
+    };
+
+    virtual std::vector<Vertex> GetWorldVertices();
+
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
 

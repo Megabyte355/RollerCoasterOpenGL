@@ -25,6 +25,7 @@
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
+#include "TriangleModel.h"
 
 using namespace std;
 using namespace glm;
@@ -275,6 +276,12 @@ void World::LoadScene(const char * scene_path)
                 BSpline* bSpline = new BSpline();
                 bSpline->Load(iss);
                 mBSplineModels.push_back(bSpline);
+            }
+            else if (result == "triangle")
+            {
+                TriangleModel* triangle = new TriangleModel();
+                triangle->Load(iss);
+                mModel.push_back(triangle);
             }
 			else if ( result.empty() == false && result[0] == '#')
 			{
