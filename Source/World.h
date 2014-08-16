@@ -38,4 +38,5 @@ private:
 
 	static std::vector<Camera*> mCamera;
 	static unsigned int mCurrentCamera;
+	static unsigned int mShader;
 };

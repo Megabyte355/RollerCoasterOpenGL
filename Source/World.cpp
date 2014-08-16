@@ -27,6 +27,7 @@ using namespace std;
 using namespace glm;
 
 unsigned int World::mCurrentCamera;
+unsigned int World::mShader;
 std::vector<Camera*> World::mCamera;
 std::vector<Model*> World::mModel;
 std::vector<LightModel*> World::mLightModels;
@@ -38,6 +39,7 @@ World::World()
 	mCamera.push_back( new StaticCamera( vec3(3.0f, 4.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCamera.push_back( new FirstPersonCamera( vec3(0.5f, 0.5f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCurrentCamera = 0;
+	mShader = 0;
 
 	// The geometry should be loaded from a scene file
 }
@@ -94,25 +96,44 @@ void World::Update(float dt)
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
         Renderer::SetShader(SHADER_PHONG);
+		mShader = 0;
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
 	{
         Renderer::SetShader(SHADER_GOURAUD);
+		mShader = 1;
 	}
     else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_8 ) == GLFW_PRESS)
 	{
 		Renderer::SetShader(SHADER_SOLID_COLOR);
+		mShader = 2;
 	}
     else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_7 ) == GLFW_PRESS)
 	{
 		Renderer::SetShader(SHADER_BLUE);
+		mShader = 3;
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_P) == GLFW_PRESS)
 	{
 		Renderer::SetShader(SHADER_ALIEN);
 	}
 	else{
-		Renderer::SetShader(SHADER_PHONG);
+		if (mShader == 0)
+		{
+			Renderer::SetShader(SHADER_PHONG);
+		}
+		else if (mShader == 1)
+		{
+			Renderer::SetShader(SHADER_GOURAUD);
+		}
+		else if (mShader == 2)
+		{
+			Renderer::SetShader(SHADER_SOLID_COLOR);
+		}
+		else if (mShader == 3)
+		{
+			Renderer::SetShader(SHADER_BLUE);
+		}
 	}
 
 	// Update current Camera
@@ -150,7 +171,7 @@ void World::Draw()
 			Renderer::SetShader(SHADER_ALIEN);
 			glUseProgram(Renderer::GetShaderProgramID());
 
-			// This looks for the V and P Uniform variable in the Vertex Program
+			 //This looks for the V and P Uniform variable in the Vertex Program
 			GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
 			GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
 		}
