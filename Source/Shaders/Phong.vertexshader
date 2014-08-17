@@ -4,6 +4,7 @@
 layout(location = 0) in vec3 vertexPosition_modelspace;
 layout(location = 1) in vec3 vertexNormal_modelspace;  // You will need this when you do lighting
 layout(location = 2) in vec3 vertexColor; 
+layout(location = 3) in vec2 vertexUV;
 
 // output to Fragment Shader
 out vec3 v_color;
@@ -13,11 +14,15 @@ out vec3 eyeVector;       // Vector from the vertex to the Camera in View Space
 out vec4 lightVector;     // Vector from the vertex to the Light in View Space
 						  // Length of lightVector is the distance between light and vertex
 
+out vec2 UV;
+
 // Uniform
 // Values that stay constant for the whole mesh.
 uniform mat4 WorldTransform;
 uniform mat4 ViewTransform;
 uniform mat4 ProjectonTransform;
+
+
 
 // light position
 uniform vec4 WorldLightPosition; // if w = 1: Point light, if w = 0: directional light
@@ -30,6 +35,7 @@ void main()
 
 	// Output position of the vertex, in clip space : MVP * position
 	gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
+
 	v_color = vertexColor;
 
 	// Prepare Data for Fragment Shader
@@ -46,4 +52,6 @@ void main()
     {
         lightVector = vec4(-lightVector.xyz, WorldLightPosition.w);
     }
+
+	UV = vertexUV;
 }

@@ -54,7 +54,6 @@ void CubeModel::Init(vec3 size)
 {
 	// Load the texture using any two methods
 	Texture = loadBMP_custom("../Source/Textures/uvtemplate.bmp");
-	//GLuint Texture = loadDDS("../Source/Textures/uvtemplate.DDS");
 
 	// Get a handle for our "myTextureSampler" uniform
 	TextureID = glGetUniformLocation(Renderer::GetShaderProgramID(), "myTextureSampler");
@@ -244,17 +243,18 @@ void CubeModel::Draw()
 	glEnableVertexAttribArray(3);
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
 	glVertexAttribPointer(
-		3,                                // attribute. No particular reason for 1, but must match the layout in the shader.
-		2,                                // size : U+V => 2
-		GL_FLOAT,                         // type
-		GL_FALSE,                         // normalized?
-		0,                                // stride
-		(void*)0                          // array buffer offset
+		3,                                
+		2,                                
+		GL_FLOAT,                         
+		GL_FALSE,                         
+		0,                                
+		(void*)0                          
 		);
 
 	// Draw the triangles !
 	glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices: 3 * 2 * 6 (3 per triangle, 2 triangles per face, 6 faces)
 
+	glDisableVertexAttribArray(3);
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
