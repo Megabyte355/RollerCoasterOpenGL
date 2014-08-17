@@ -17,7 +17,7 @@ sceneLoader* scene;
 
 AlienModel::AlienModel()
 {
-	string filePath = "../Source/Models/alien/Predator_Youngblood.obj";
+	string filePath = "../Source/Models/alien/Drone.obj";
 	scene = new sceneLoader(&filePath[0]);
 }
 

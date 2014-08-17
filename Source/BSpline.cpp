@@ -1,3 +1,6 @@
+// Contributors:
+//      Gary Chang
+
 #include "BSpline.h"
 
 using namespace glm;
@@ -18,6 +21,7 @@ void BSpline::Init()
 	pointSetIndex = 0;
 	t = 0;
 	closedLoop = true;
+    finished = false;
 }
 
 vec3 BSpline::GetNextPoint()
@@ -33,20 +37,24 @@ vec3 BSpline::GetNextPoint()
 
 void BSpline::Update(float dt)
 {
-    glm::vec4 p1(points[GetPointIndex(0)]);
-    glm::vec4 p2(points[GetPointIndex(1)]);
-    glm::vec4 p3(points[GetPointIndex(2)]);
-    glm::vec4 p4(points[GetPointIndex(3)]);
-
-    float velocity = length(BSplineF1(p1, p2, p3, p4, t));
-    t += (speed * dt) / velocity;
-    if (t > 1.0f)
+    if (!finished)
     {
-        t -= 1.0f;
-        pointSetIndex++;
-        if (pointSetIndex == points.size())
+        glm::vec4 p1(points[GetPointIndex(0)]);
+        glm::vec4 p2(points[GetPointIndex(1)]);
+        glm::vec4 p3(points[GetPointIndex(2)]);
+        glm::vec4 p4(points[GetPointIndex(3)]);
+
+        float velocity = length(BSplineF1(p1, p2, p3, p4, t));
+        t += (speed * dt) / velocity;
+        if (t > 1.0f)
         {
-            pointSetIndex = 0;
+            t = 0.0f;
+            pointSetIndex++;
+            if (pointSetIndex == points.size() && closedLoop)
+            {
+                pointSetIndex = 0;
+            }
+            finished = pointSetIndex == points.size() - 3 && !closedLoop;
         }
     }
 }
@@ -70,6 +78,13 @@ void BSpline::SetClosedLoop(bool loop)
 	this->closedLoop = loop;
 }
 
+void BSpline::Reset()
+{
+    pointSetIndex = 0;
+    t = 0.0f;
+    finished = false;
+}
+
 glm::vec4 BSpline::GetVelocityUnitVector()
 {
     glm::vec4 p1(points[GetPointIndex(0)]);
@@ -77,6 +92,11 @@ glm::vec4 BSpline::GetVelocityUnitVector()
     glm::vec4 p3(points[GetPointIndex(2)]);
     glm::vec4 p4(points[GetPointIndex(3)]);
     return normalize(BSplineF1(p1, p2, p3, p4, t));
+}
+
+bool BSpline::LastPointReached()
+{
+    return finished;
 }
 
 bool BSpline::ParseLine(const std::vector<ci_string> &token)
