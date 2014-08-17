@@ -16,6 +16,7 @@
 
 class LightModel;
 class BSpline;
+class BoundingBox;
 
 class Model
 {
@@ -73,4 +74,5 @@ protected:
 	unsigned int mVertexBufferID;
 
     BSpline* spline;
+	BoundingBox* boundingBox;
 };

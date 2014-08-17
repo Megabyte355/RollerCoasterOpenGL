@@ -12,16 +12,16 @@ public:
 
 	struct BoundingCube
 	{
-		std::vector < glm::vec3 > frontFace;
-		std::vector < glm::vec3 > rightFace;
-		std::vector < glm::vec3 > leftFace;
-		std::vector < glm::vec3 > backFace;
-		std::vector < glm::vec3 > topFace;
-		std::vector < glm::vec3 > downFace;
+		std::vector<std::vector < glm::vec3 >> frontFace;
+		std::vector<std::vector < glm::vec3 >> rightFace;
+		std::vector<std::vector < glm::vec3 >> leftFace;
+		std::vector<std::vector < glm::vec3 >> backFace;
+		std::vector<std::vector < glm::vec3 >> topFace;
+		std::vector<std::vector < glm::vec3 >> downFace;
 	};
 	
 	bool HasObjectCollidedWithAnotherAABB(BoundingBox* OtherBox);
-	//BoundingCube CalculateBoundingBoxCoordinates();
+	BoundingCube CalculateBoundingBoxCoordinates();
 
 private:
 	glm::vec3 GetModelScalingFactor();

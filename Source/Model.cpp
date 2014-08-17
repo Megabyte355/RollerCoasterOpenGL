@@ -13,6 +13,7 @@
 #include "BSpline.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
+#include "BoundingBox.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1
     mParent = nullptr;
     mGetScalingFromParent = true;
     spline = nullptr;
+	boundingBox = new BoundingBox(this);
 }
 
 Model::Model(Model * p) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
@@ -28,6 +30,7 @@ Model::Model(Model * p) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScalin
     mParent = p;
     mGetScalingFromParent = true;
     spline = nullptr;
+	boundingBox = new BoundingBox(this);
 }
 
 Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
@@ -35,6 +38,7 @@ Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition
     mParent = p;
     mGetScalingFromParent = getScalingFromParent;
     spline = nullptr;
+	boundingBox = new BoundingBox(this);
 }
 
 Model::~Model()
