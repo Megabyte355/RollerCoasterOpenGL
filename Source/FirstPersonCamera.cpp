@@ -1,14 +1,13 @@
 //
-// COMP 371 Assignment Framework
+// 
 //
-// Created by Nicolas Bergeron on 8/7/14.
+// Contribution of Ly and Alin
 //
-// Copyright (c) 2014 Concordia University. All rights reserved.
+// 
 //
 
 #include "FirstPersonCamera.h"
 #include <glm/gtc/matrix_transform.hpp>
-
 #include "EventManager.h"
 
 using namespace glm;
@@ -20,6 +19,10 @@ FirstPersonCamera::FirstPersonCamera(glm::vec3 offset, glm::vec3 lookAtPoint, gl
 	mOffset = offset;
 	mLookAtPoint = lookAtPoint;
 	mUpVector = upVector;
+
+	// camera shake
+	amplitude = 10.0f;
+	adjustAmplitudePerSecond = -1.0f;
 }
 
 FirstPersonCamera::~FirstPersonCamera()
@@ -53,6 +56,19 @@ glm::mat4 FirstPersonCamera::GetViewMatrix() const
 							mLookAtPoint,	// Look towards this point
 							mUpVector		// Up vector
 						);
+}
+
+void FirstPersonCamera::StartCameraShake(float dt)
+{
+	timeElapsed += dt;
+	amplitude += adjustAmplitudePerSecond * dt;
+	mPosition.y += +sin(timeElapsed);
+}
+
+void FirstPersonCamera::SetCameraShake(float amplitude, float adjustAmplitudePerSecond)
+{
+	this->amplitude = amplitude;
+	this->adjustAmplitudePerSecond = adjustAmplitudePerSecond;
 }
 
 void FirstPersonCamera::setTarget(Model* target){

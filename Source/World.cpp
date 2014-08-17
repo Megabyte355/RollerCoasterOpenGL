@@ -38,7 +38,7 @@ std::vector<BSpline*> World::mBSplineModels;
 
 World::World()
 {
-	// Setup Camera
+	// Set First Person Camera
 	mCamera.push_back( new FirstPersonCamera( vec3(0.0f, 0.5f, 0.6f), vec3(0.0f, 0.0f, 1.6f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCamera.push_back( new ThirdPersonCamera( vec3(0.0f, 5.0f, -10.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCamera.push_back( new FreeLookCamera( vec3(1.0f, 1.0f, 20.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
@@ -159,6 +159,15 @@ void World::Update(float dt)
     for (vector<LightModel*>::iterator it = mLightModels.begin(); it < mLightModels.end(); ++it)
 	{
 		(*it)->Update(dt);
+	}
+}
+
+void World::StartCameraShake()
+{
+	FirstPersonCamera* c = dynamic_cast<FirstPersonCamera*>(mCamera[mCurrentCamera]);
+	if (c != nullptr)
+	{
+		c->StartCameraShake(5);
 	}
 }
 

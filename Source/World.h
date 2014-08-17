@@ -9,6 +9,7 @@
 #pragma once
 
 #include <vector>
+#include "FirstPersonCamera.h"
 
 class Camera;
 class Model;
@@ -31,6 +32,8 @@ public:
     static std::vector<Model*>* GetModelsPtr();
     static std::vector<LightModel*>* GetLightModelsPtr();
     static std::vector<BSpline*>* GetBSplineModelsPtr();
+
+	void StartCameraShake();
 
 private:
 	static std::vector<Model*> mModel;
