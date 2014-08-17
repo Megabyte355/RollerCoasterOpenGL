@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -58,13 +58,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm;../ThirdParty/AssImp/Include;../ThirdParty/FreeImage/Include;../ThirdParty/DevIL/DevILx86-1.7.8/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../ThirdParty/glew-1.10.0/lib/Release/Win32;../ThirdParty/glfw-3.0.4/lib/Win32/lib-msvc110</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../ThirdParty/glew-1.10.0/lib/Release/Win32;../ThirdParty/glfw-3.0.4/lib/Win32/lib-msvc110;../ThirdParty/AssImp/Lib;../ThirdParty/FreeImage/Lib;../ThirdParty/DevIL/DevILx86-1.7.8/lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp.lib;FreeImage.lib;DevIL.lib;ILU.lib;ILUT.lib;opengl32.lib;glew32s.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
       <Path>
@@ -96,6 +96,7 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\Scenes\AlienTest.scene" />
     <None Include="..\Scenes\BSplineTest.scene" />
     <None Include="..\Scenes\CoordinateSystem.scene" />
     <None Include="..\Scenes\TankVehicle.scene" />
@@ -105,15 +106,20 @@
     <None Include="..\Source\Shaders\Gouraud.vertexshader" />
     <None Include="..\Source\Shaders\Phong.fragmentshader" />
     <None Include="..\Source\Shaders\Phong.vertexshader" />
+    <None Include="..\Source\Shaders\SimpleTransform.vertexshader" />
+    <None Include="..\Source\Shaders\SingleColor.fragmentshader" />
     <None Include="..\Source\Shaders\SolidColor.vertexshader" />
     <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\AlienModel.cpp" />
     <ClCompile Include="..\Source\BSpline.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
     <ClCompile Include="..\Source\FreeLookCamera.cpp" />
     <ClCompile Include="..\Source\LightModel.cpp" />
+    <ClCompile Include="..\Source\mesh.cpp" />
+    <ClCompile Include="..\Source\sceneLoader.cpp" />
     <ClCompile Include="..\Source\SphereModel.cpp" />
     <ClCompile Include="..\Source\StaticCamera.cpp" />
     <ClCompile Include="..\Source\EventManager.cpp" />
@@ -127,12 +133,16 @@
     <ClCompile Include="..\Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\AlienModel.h" />
     <ClInclude Include="..\Source\BSpline.h" />
     <ClInclude Include="..\Source\Camera.h" />
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
     <ClInclude Include="..\Source\FreeLookCamera.h" />
     <ClInclude Include="..\Source\LightModel.h" />
+    <ClInclude Include="..\Source\mesh.h" />
+    <ClInclude Include="..\Source\meshData.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
+    <ClInclude Include="..\Source\sceneLoader.h" />
     <ClInclude Include="..\Source\SphereModel.h" />
     <ClInclude Include="..\Source\StaticCamera.h" />
     <ClInclude Include="..\Source\EventManager.h" />
