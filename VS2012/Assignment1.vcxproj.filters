@@ -94,7 +94,7 @@
     <ClCompile Include="..\Source\CubeModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
-    <ClCompile Include="BoundingBox.cpp">
+    <ClCompile Include="..\Source\BoundingBox.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
   </ItemGroup>
@@ -138,7 +138,7 @@
     <ClInclude Include="..\Source\CubeModel.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
-    <ClInclude Include="BoundingBox.h">
+    <ClInclude Include="..\Source\BoundingBox.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
   </ItemGroup>

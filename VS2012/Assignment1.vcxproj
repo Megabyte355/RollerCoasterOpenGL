@@ -108,6 +108,7 @@
     <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\BoundingBox.cpp" />
     <ClCompile Include="..\Source\BSpline.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
     <ClCompile Include="..\Source\CubeModel.cpp" />
@@ -121,9 +122,9 @@
     <ClCompile Include="..\Source\VehicleModel.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
-    <ClCompile Include="BoundingBox.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\BoundingBox.h" />
     <ClInclude Include="..\Source\BSpline.h" />
     <ClInclude Include="..\Source\Camera.h" />
     <ClInclude Include="..\Source\CubeModel.h" />
@@ -137,7 +138,6 @@
     <ClInclude Include="..\Source\VehicleModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\World.h" />
-    <ClInclude Include="BoundingBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
