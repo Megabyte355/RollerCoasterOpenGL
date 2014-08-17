@@ -89,12 +89,12 @@ void FreeLookCamera::Update(float dt)
     {
         //vec4 originPoint, vec4 directionVector, vec4 p1, vec4 p2, vec4 p3
         std::vector<Model::Vertex> tempVec = (*World::GetModelsPtr())[2]->GetWorldVertices();
-        vec4 p1 = vec4(tempVec[0].position, 1.0f);
-        vec4 p2 = vec4(tempVec[1].position, 1.0f);
-        vec4 p3 = vec4(tempVec[2].position, 1.0f);
+        vec3 p1 = tempVec[0].position;
+        vec3 p2 = tempVec[1].position;
+        vec3 p3 = tempVec[2].position;
 
-        //bool testResult = RayCast::IsPlaneIntersecting(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
-        int distanceResult = RayCast::LinePlaneIntersection(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), tempVec[0].position, tempVec[1].position, tempVec[2].position);
+        int testResult = RayCast::IsPlaneIntersecting(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
+        //int distanceResult = RayCast::LinePlaneIntersection(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
     }
 }
 

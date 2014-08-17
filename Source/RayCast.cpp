@@ -6,34 +6,49 @@ RayCast::RayCast()
 {
 }
 
-bool RayCast::IsPlaneIntersecting(vec4 originPoint, vec4 directionVector, vec4 p1, vec4 p2, vec4 p3) {
+int RayCast::IsPlaneIntersecting(vec4 originPoint, vec4 directionVector, vec3 p1, vec3 p2, vec3 p3) {
 
-	vec3 p1p2Vector = vec3(p2 - p1);
-	vec3 p1p3Vector = vec3(p3 - p1);
-	vec4 normal = normalize(vec4(glm::cross(p1p2Vector, p1p3Vector), 0.0f));
+    std::cout << "p1 {" << p1.x << " " << p1.y << " " << p1.z << "}" << std::endl;
+    std::cout << "p2 {" << p2.x << " " << p2.y << " " << p2.z << "}" << std::endl;
+    std::cout << "p3 {" << p3.x << " " << p3.y << " " << p3.z << "}" << std::endl;
 
-	// calculate plane
-	float d = glm::dot(normal, p1);
-	
-	float numerator = glm::dot(originPoint, normal) + d;
-	float denomerator = glm::dot(glm::normalize(directionVector), normal);
-	float t = -(numerator / denomerator);
-	std::cout << t << std::endl;
-	
-	if (t > 0) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-int RayCast::LinePlaneIntersection(vec4 originPoint, vec4 directionVector, vec3 p1, vec3 p2, vec3 p3) {
+    vec4 w = originPoint - vec4(p1, 1.0f);
 
     vec3 p1p2Vector = p2 - p1;
     vec3 p1p3Vector = p3 - p1;
     vec4 normal = vec4(glm::cross(p1p2Vector, p1p3Vector), 0.0f);
-    vec4 normalizedNormal = normalize(vec4(glm::cross(p1p2Vector, p1p3Vector), 0.0f));
+    std::cout << "normal {" << normal.x << " " << normal.y << " " << normal.z << "}" << std::endl;
+    vec4 normalizedNormal = normalize(normal);
+    std::cout << "normalizedNormal {" << normalizedNormal.x << " " << normalizedNormal.y << " " << normalizedNormal.z << "}" << std::endl;
+
+    float numerator = -glm::dot(normalizedNormal, glm::normalize(w));
+    float denominator = glm::dot(normalizedNormal, directionVector);    
+    
+    // Line is parallel to plane
+    if (fabs(denominator) < 0.0001f ) {           
+        return false;
+    }
+    //Continue to compute intersecting point
+    float t = numerator / denominator;
+    std::cout << "t {" << t << "}" << std::endl;
+    
+    // no intersection
+    if (t < 0 || t > 1) {
+        return 0;
+    }
+    
+    vec4 intersectionPoint = originPoint + t * directionVector;
+    std::cout << "intersectionPoint {" << intersectionPoint.x << " " << intersectionPoint.y << " " << intersectionPoint.z << "}" << std::endl;
+    return 1;
+}
+
+int RayCast::LinePlaneIntersection(vec4 originPoint, vec4 directionVector, vec3 p1, vec3 p2, vec3 p3)
+{
+
+    vec3 p1p2Vector = p2 - p1;
+    vec3 p1p3Vector = p3 - p1;
+    vec4 normal = vec4(glm::cross(p1p2Vector, p1p3Vector), 0.0f);
+    vec4 normalizedNormal = normalize(normal);
 
     std::cout << "p1 {" << p1.x << " " << p1.y << " " << p1.z << "}" << std::endl;
     std::cout << "p2 {" << p2.x << " " << p2.y << " " << p2.z << "}" << std::endl;
@@ -43,12 +58,12 @@ int RayCast::LinePlaneIntersection(vec4 originPoint, vec4 directionVector, vec3 
     std::cout << "originalTriangleArea {" << originalTriangleArea << "}" << std::endl;
 
     // calculate distance offset from origin
-    //float d = glm::dot(normalizedNormal, vec4(p1, 1.0f));
+    float d = - glm::dot(normalizedNormal, vec4(p1, 1.0f));
 
     //Calculating t value in t = - (originPoint * normal + d)/ (directionVector * normal)
-    float numerator = glm::dot(originPoint, normalizedNormal);
+    float numerator = glm::dot(originPoint, normalizedNormal) + d;
     float denomerator = glm::dot(glm::normalize(directionVector), normalizedNormal);
-    float t = -(numerator / denomerator);
+    float t = -(numerator)  / denomerator;
     std::cout << "t {" << t << "}" << std::endl;
 
     //Finding resulting point on plane: P = originPoint + tv
