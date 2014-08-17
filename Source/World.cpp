@@ -16,6 +16,8 @@
 #include "FreeLookCamera.h"
 
 #include "CubeModel.h"
+#include "AlienCubeModel.h"
+#include "Missile.h"
 #include "TankModel.h"
 #include "VehicleModel.h"
 #include "AlienModel.h"
@@ -35,6 +37,7 @@ std::vector<Camera*> World::mCamera;
 std::vector<Model*> World::mModel;
 std::vector<LightModel*> World::mLightModels;
 std::vector<BSpline*> World::mBSplineModels;
+TankModel* tank;
 
 World::World()
 {
@@ -244,7 +247,7 @@ void World::LoadScene(const char * scene_path)
 			else if( result == "tank" )
 			{
 				// Box attributes
-				TankModel* tank = new TankModel();
+				tank = new TankModel();
 				tank->Load(iss);
 				mModel.push_back(tank);
 				mCamera.at(0)->setTarget(tank);
@@ -254,9 +257,11 @@ void World::LoadScene(const char * scene_path)
 			{
 				// Box attributes
 				AlienModel* alien = new AlienModel();
-				CubeModel* pos = new CubeModel(glm::vec3(0.01f,0.01f,0.01f));
+				AlienCubeModel* pos = new AlienCubeModel();
+				Missile* mis = new Missile(tank);
 				pos->Load(iss);
 				alien->Load(iss);
+				mModel.push_back(mis);
 				mModel.push_back(pos);
 				mModel.push_back(alien);
 			}
