@@ -25,6 +25,7 @@
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
+#include "TriangleModel.h"
 
 using namespace std;
 using namespace glm;
@@ -41,7 +42,7 @@ World::World()
 	// Setup Camera
 	mCamera.push_back( new FirstPersonCamera( vec3(0.0f, 0.5f, 0.6f), vec3(0.0f, 0.0f, 1.6f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCamera.push_back( new ThirdPersonCamera( vec3(0.0f, 5.0f, -10.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
-	mCamera.push_back( new FreeLookCamera( vec3(1.0f, 1.0f, 20.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
+	mCamera.push_back( new FreeLookCamera( vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCamera.push_back( new StaticCamera( vec3(20.0f, 30.0f, 20.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) ) );
 	mCurrentCamera = 0;
 	mShader = 0;
@@ -275,6 +276,12 @@ void World::LoadScene(const char * scene_path)
                 BSpline* bSpline = new BSpline();
                 bSpline->Load(iss);
                 mBSplineModels.push_back(bSpline);
+            }
+            else if (result == "triangle")
+            {
+                TriangleModel* triangle = new TriangleModel();
+                triangle->Load(iss);
+                mModel.push_back(triangle);
             }
 			else if ( result.empty() == false && result[0] == '#')
 			{

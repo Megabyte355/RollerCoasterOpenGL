@@ -13,6 +13,8 @@
 
 #include <GLFW/glfw3.h>
 #include <algorithm>
+#include "RayCast.h"
+#include "World.h"
 
 using namespace glm;
 
@@ -82,6 +84,17 @@ void FreeLookCamera::Update(float dt)
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_E) == GLFW_PRESS)
     {
         mPosition += mUp * dt * moveSpeed;
+    }
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
+    {
+        //vec4 originPoint, vec4 directionVector, vec4 p1, vec4 p2, vec4 p3
+        std::vector<Model::Vertex> tempVec = (*World::GetModelsPtr())[2]->GetWorldVertices();
+        vec3 p1 = tempVec[0].position;
+        vec3 p2 = tempVec[1].position;
+        vec3 p3 = tempVec[2].position;
+
+        int testResult = RayCast::Intersect3DTriangle(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
+        //int distanceResult = RayCast::LinePlaneIntersection(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
     }
 }
 

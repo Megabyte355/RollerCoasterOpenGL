@@ -99,6 +99,7 @@
     <None Include="..\Scenes\AlienTest.scene" />
     <None Include="..\Scenes\BSplineTest.scene" />
     <None Include="..\Scenes\CoordinateSystem.scene" />
+    <None Include="..\Scenes\RayCastTest.scene" />
     <None Include="..\Scenes\TankVehicle.scene" />
     <None Include="..\Scenes\VehicleTest.scene" />
     <None Include="..\Source\Shaders\BlueColor.fragmentshader" />
@@ -122,6 +123,7 @@
     <ClCompile Include="..\Source\FreeLookCamera.cpp" />
     <ClCompile Include="..\Source\LightModel.cpp" />
     <ClCompile Include="..\Source\mesh.cpp" />
+    <ClCompile Include="..\Source\RayCast.cpp" />
     <ClCompile Include="..\Source\sceneLoader.cpp" />
     <ClCompile Include="..\Source\SMController.cpp" />
     <ClCompile Include="..\Source\SphereModel.cpp" />
@@ -133,6 +135,7 @@
     <ClCompile Include="..\Source\CubeModel.cpp" />
     <ClCompile Include="..\Source\TankModel.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
+    <ClCompile Include="..\Source\TriangleModel.cpp" />
     <ClCompile Include="..\Source\VehicleModel.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
@@ -150,6 +153,7 @@
     <ClInclude Include="..\Source\mesh.h" />
     <ClInclude Include="..\Source\meshData.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
+    <ClInclude Include="..\Source\RayCast.h" />
     <ClInclude Include="..\Source\sceneLoader.h" />
     <ClInclude Include="..\Source\SMController.h" />
     <ClInclude Include="..\Source\SphereModel.h" />
@@ -160,6 +164,7 @@
     <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\TankModel.h" />
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
+    <ClInclude Include="..\Source\TriangleModel.h" />
     <ClInclude Include="..\Source\VehicleModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\World.h" />
