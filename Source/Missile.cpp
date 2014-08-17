@@ -6,7 +6,7 @@
 
 using namespace glm;
 using namespace std;
-#include "glm/ext.hpp"
+//#include "glm/ext.hpp"
 
 int st;
 bool flag;
@@ -17,6 +17,7 @@ BSpline* sp;
 Missile::Missile(TankModel* t)
 {
 	tk = t;
+	sp = nullptr;
 	Init();
 }
 
@@ -47,18 +48,21 @@ void Missile::Add(vec3 position)
 
 void Missile::Update(float dt)
 {
-	glm::vec3 pos = glm::vec3(tk->GetPosition());
-	std::cout << glm::to_string(pos) << std::endl;
+	if (sp != nullptr)
+	{
+		this->mPosition = sp->GetPosition() + sp->GetNextPoint();
+		sp->Update(dt);
+	}
 }
 
 void Missile::Trajectory()
 {
-	/*sp = new BSpline();
-	sp->AddPoint(glm::vec4(this->GetPosition(),1.0f));
+	sp->AddPoint(glm::vec4(1.0f, 0.0f, 1.0f, 1.0f));
 	sp->AddPoint(glm::vec4(2.0f, 0.0f, 1.0f, 1.0f));
-	sp->AddPoint(glm::vec4(4.0f, 1.0f, 2.0f, 1.0f));
-	sp->AddPoint(glm::vec4(glm::vec3(tk->GetPosition()),1.0f));
-	sp->Update(20);*/
+	sp->AddPoint(glm::vec4(3.0f, 1.0f, 2.0f, 1.0f));
+	sp->AddPoint(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+	sp->SetSpeed(1.0f);
+	sp->SetClosedLoop(false);
 }
 
 void Missile::Draw()
@@ -81,9 +85,12 @@ void Missile::AddMissile(vec3 p)
 	// true location
 	if (st == end && !(flag))
 	{
+		sp = new BSpline();
 		flag = true;
-		std::cout << glm::to_string(p) << std::endl;
+		//std::cout << glm::to_string(p) << std::endl;
 		Add(p);
+		//this->GetPosition();
+		Trajectory();
 	}
 }
 
