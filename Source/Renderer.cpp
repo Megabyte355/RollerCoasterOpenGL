@@ -59,6 +59,7 @@ void Renderer::Initialize()
     sShaderProgramID.push_back(LoadShaders( "../Source/Shaders/Gouraud.vertexshader", "../Source/Shaders/Gouraud.fragmentshader" ));
 	sShaderProgramID.push_back(LoadShaders( "../Source/Shaders/SolidColor.vertexshader", "../Source/Shaders/SolidColor.fragmentshader" ));
 	sShaderProgramID.push_back(LoadShaders( "../Source/Shaders/SolidColor.vertexshader", "../Source/Shaders/BlueColor.fragmentshader" ));
+	sShaderProgramID.push_back(LoadShaders("../Source/Shaders/SimpleTransform.vertexshader", "../Source/Shaders/SingleColor.fragmentshader"));
 	sShaderProgramID.push_back(LoadShaders("../Source/Shaders/Texture.vertexshader", "../Source/Shaders/Texture.fragmentshader"));
 	sCurrentShader = 0;
 

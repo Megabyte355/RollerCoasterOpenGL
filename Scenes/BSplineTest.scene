@@ -1,0 +1,98 @@
+# This is a comment
+
+[Tank]
+name     = "Tank"
+scaling  = 1.0 1.0 1.0
+position = 0.0 -0.5 0.0
+rotation = 0.0 0.0 1.0 0.0
+
+[BSpline]
+name     = "SplineA"
+position = 0.0 2.0 0.0
+splinespeed = 15.0
+splinepoint = 0.0 0.0 0.0 1.0
+splinepoint = 2.0 0.0 1.0 1.0
+splinepoint = 4.0 1.0 2.0 1.0
+splinepoint = 6.0 3.0 3.0 1.0
+splinepoint = 8.0 4.0 4.0 1.0
+splinepoint = 7.0 7.0 5.0 1.0
+splinepoint = 5.0 6.0 4.0 1.0
+splinepoint = 3.0 5.0 3.0 1.0
+splinepoint = 2.0 4.0 2.0 1.0
+splinepoint = 0.0 3.0 1.0 1.0
+splinepoint = -2.0 1.0 0.0 1.0
+
+[BSpline]
+name     = "SplineB"
+position = 0.0 0.0 -6.0
+splinespeed = 10.0
+splinepoint = 0.0 0.0 0.0 1.0
+splinepoint = 2.0 0.0 1.0 1.0
+splinepoint = 2.0 2.0 2.0 1.0
+splinepoint = 0.0 2.0 3.0 1.0
+splinepoint = 0.0 0.0 4.0 1.0
+splinepoint = 2.0 0.0 3.0 1.0
+splinepoint = 2.0 2.0 2.0 1.0
+splinepoint = 0.0 2.0 1.0 1.0
+
+[BSpline]
+name     = "SplineC"
+position = 0.0 -1.0 0.0
+splinespeed = 9.0
+splinepoint = 0.0 0.0 10.0 1.0
+splinepoint = 7.0 1.0 7.0 1.0
+splinepoint = 10.0 2.0 0.0 1.0
+splinepoint = 7.0 3.0 -7.0 1.0
+splinepoint = 0.0 3.0 -10.0 1.0
+splinepoint = -7.0 2.0 -7.0 1.0
+splinepoint = -10.0 1.0 0.0 1.0
+splinepoint = -7.0 0.0 7.0 1.0
+
+[BSpline]
+name     = "SplineD"
+position = -2.0 0.0 -2.0
+splinespeed = 7.0
+splineclosedloop = false
+splinepoint = 0.0 0.0 12.0 1.0
+splinepoint = 2.0 0.0 12.0 1.0
+splinepoint = 4.0 0.0 12.0 1.0
+splinepoint = 6.0 0.0 12.0 1.0
+splinepoint = 8.0 0.0 12.0 1.0
+splinepoint = 10.0 0.0 12.0 1.0
+splinepoint = 12.0 0.0 12.0 1.0
+
+[Cube]
+name     = "Ground"
+scaling  = 100.0 1.0 100.0
+position = 0.0 -2.5 0.0
+rotation = 0.0 0.0 1.0 0.0
+
+[Cube]
+name     = "SplineBoxB"
+spline   = "SplineB"
+scaling  = 1.0 1.0 1.0
+position = 0.0 2.5 0.0
+rotation = 0.0 0.0 1.0 0.0
+
+[Cube]
+name     = "SplineBoxC"
+spline   = "SplineC"
+scaling  = 1.0 1.0 1.0
+position = 0.0 2.5 0.0
+rotation = 0.0 0.0 1.0 0.0
+
+[Sphere]
+name     = "Sphere"
+spline   = "SplineA"
+scaling  = 1.0 1.0 1.0
+position = 0.0 5.0 -12.0
+
+[Cube]
+name     = "SphereB"
+spline   = "SplineD"
+scaling  = 0.5 0.5 0.5
+position = 0.0 5.0 -12.0
+
+[Light]
+name     = "Light"
+position = 0.0 7.0 -5.0

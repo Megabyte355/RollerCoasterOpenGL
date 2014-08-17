@@ -182,6 +182,7 @@ void CubeModel::Update(float dt)
 	// If you are curious, un-comment this line to have spinning cubes!
 	// That will only work if your world transform is correct...
 	// mRotationAngleInDegrees += 90 * dt; // spins by 90 degrees per second
+    Model::Update(dt);
 }
 
 void CubeModel::Draw()
