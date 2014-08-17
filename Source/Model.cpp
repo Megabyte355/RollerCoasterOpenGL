@@ -281,3 +281,8 @@ void Model::SetLightSource(LightModel * lightSource)
 {
     mLightSource = lightSource;
 }
+
+void Model::SetSplineSource(BSpline* splineSource)
+{
+	spline = splineSource;
+}

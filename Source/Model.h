@@ -43,6 +43,7 @@ public:
 	void SetRotation(glm::vec3 axis, float angleDegrees);
 	void SetSecondRotation(glm::vec3 axis, float angleDegrees);
     virtual void SetLightSource(LightModel * lightModel);
+	virtual void SetSplineSource(BSpline* splineSource);
 
 	glm::vec3 GetPosition() const		{ return mPosition; }
 	glm::vec3 GetScaling() const		{ return mScaling; }
@@ -51,6 +52,7 @@ public:
 	float     GetRotationAngle() const	{ return mRotationAngleInDegrees; }
 	float     GetSecondRotationAngle() const	{ return mSecondRotationAngleInDegrees; }
     LightModel* GetLightSource() { return mLightSource; }
+	BSpline* GetBSpline() { return spline; }
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
