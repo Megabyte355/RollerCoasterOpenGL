@@ -50,17 +50,11 @@ void BSpline::Update(float dt)
         {
             t = 0.0f;
             pointSetIndex++;
-            if (pointSetIndex == points.size() - 3)
+            if (pointSetIndex == points.size() && closedLoop)
             {
-                if (!closedLoop)
-                {
-                    finished = true;
-                }
-                else
-                {
-                    pointSetIndex = 0;
-                }
+                pointSetIndex = 0;
             }
+            finished = pointSetIndex == points.size() - 3 && !closedLoop;
         }
     }
 }
