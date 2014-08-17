@@ -7,16 +7,22 @@
 CubeSMController::CubeSMController(CubeModelSM* model) : SMController(model)
 {
     cubeModel = model;
+    Init();
 }
 
 CubeSMController::~CubeSMController()
 {
     cubeModel = nullptr;
+    for (std::vector<State*>::iterator it = states.begin(); it < states.end(); ++it)
+    {
+        delete *it;
+    }
+    states.clear();
 }
 
 void CubeSMController::Update(float dt)
 {
-
+    currentState->Execute(dt);
 }
 
 void CubeSMController::Init()

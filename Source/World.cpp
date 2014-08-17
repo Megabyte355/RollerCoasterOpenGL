@@ -22,6 +22,7 @@
 #include "SphereModel.h"
 #include "LightModel.h"
 #include "BSpline.h"
+#include "CubeModelSM.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -282,6 +283,12 @@ void World::LoadScene(const char * scene_path)
                 TriangleModel* triangle = new TriangleModel();
                 triangle->Load(iss);
                 mModel.push_back(triangle);
+            }
+            else if (result == "cubesm")
+            {
+                CubeModelSM* cubesm = new CubeModelSM();
+                cubesm->Load(iss);
+                mModel.push_back(cubesm);
             }
 			else if ( result.empty() == false && result[0] == '#')
 			{

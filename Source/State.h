@@ -13,7 +13,7 @@ public:
 
     virtual void In() = 0;
     virtual void Out() = 0;
-    virtual void Execute() = 0;
+    virtual void Execute(float dt) = 0;
 
 protected:
     virtual void Init() = 0;

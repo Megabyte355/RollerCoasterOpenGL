@@ -43,6 +43,7 @@ public:
 	void SetRotation(glm::vec3 axis, float angleDegrees);
 	void SetSecondRotation(glm::vec3 axis, float angleDegrees);
     virtual void SetLightSource(LightModel * lightModel);
+    BSpline* GetSpline();
 
 	glm::vec3 GetPosition() const		{ return mPosition; }
 	glm::vec3 GetScaling() const		{ return mScaling; }
