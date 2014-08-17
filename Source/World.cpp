@@ -22,6 +22,7 @@
 #include "SphereModel.h"
 #include "LightModel.h"
 #include "BSpline.h"
+#include "TexturedCube.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -281,6 +282,12 @@ void World::LoadScene(const char * scene_path)
                 bSpline->Load(iss);
                 mBSplineModels.push_back(bSpline);
             }
+			else if (result == "textured_cube")
+			{
+				TexturedCube* texturedCube = new TexturedCube();
+				texturedCube->Load(iss);
+				mModel.push_back(texturedCube);
+			}
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line

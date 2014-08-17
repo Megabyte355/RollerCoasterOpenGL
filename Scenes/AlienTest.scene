@@ -19,6 +19,12 @@ scaling  = 1.0 1.0 1.0
 position = 0.0 -0.5 0.0
 rotation = 0.0 0.0 1.0 0.0
 
+[textured_cube]
+name     = "Test"
+scaling  = 1.0 1.0 1.0
+position = 0.0 8.0 -12.0
+rotation = 0.0 0.0 1.0 0.0
+
 [Cube]
 name     = "Ground"
 scaling  = 100.0 1.0 100.0
@@ -42,3 +48,4 @@ position = 100.0 -2.0 0.0
 name     = "dada"
 spline   = "SplineC"
 position = 0.0 -2.0 0.0
+

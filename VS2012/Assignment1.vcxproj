@@ -131,6 +131,7 @@
     <ClCompile Include="..\Source\CubeModel.cpp" />
     <ClCompile Include="..\Source\texture.cpp" />
     <ClCompile Include="..\Source\TankModel.cpp" />
+    <ClCompile Include="..\Source\TexturedCube.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\VehicleModel.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\texture.hpp" />
     <ClInclude Include="..\Source\TankModel.h" />
+    <ClInclude Include="..\Source\TexturedCube.h" />
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\VehicleModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
