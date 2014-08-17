@@ -99,6 +99,7 @@
     <None Include="..\Scenes\AlienTest.scene" />
     <None Include="..\Scenes\BSplineTest.scene" />
     <None Include="..\Scenes\CoordinateSystem.scene" />
+    <None Include="..\Scenes\RayCastTest.scene" />
     <None Include="..\Scenes\TankVehicle.scene" />
     <None Include="..\Scenes\VehicleTest.scene" />
     <None Include="..\Source\Shaders\BlueColor.fragmentshader" />

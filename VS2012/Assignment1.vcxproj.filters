@@ -68,6 +68,9 @@
     <None Include="..\Scenes\TankVehicle.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
+    <None Include="..\Scenes\RayCastTest.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\EventManager.cpp">
