@@ -115,11 +115,13 @@
     <ClCompile Include="..\Source\AlienModel.cpp" />
     <ClCompile Include="..\Source\BSpline.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
+    <ClCompile Include="..\Source\CubeModelSM.cpp" />
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
     <ClCompile Include="..\Source\FreeLookCamera.cpp" />
     <ClCompile Include="..\Source\LightModel.cpp" />
     <ClCompile Include="..\Source\mesh.cpp" />
     <ClCompile Include="..\Source\sceneLoader.cpp" />
+    <ClCompile Include="..\Source\SMController.cpp" />
     <ClCompile Include="..\Source\SphereModel.cpp" />
     <ClCompile Include="..\Source\StaticCamera.cpp" />
     <ClCompile Include="..\Source\EventManager.cpp" />
@@ -136,6 +138,7 @@
     <ClInclude Include="..\Source\AlienModel.h" />
     <ClInclude Include="..\Source\BSpline.h" />
     <ClInclude Include="..\Source\Camera.h" />
+    <ClInclude Include="..\Source\CubeModelSM.h" />
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
     <ClInclude Include="..\Source\FreeLookCamera.h" />
     <ClInclude Include="..\Source\LightModel.h" />
@@ -143,6 +146,7 @@
     <ClInclude Include="..\Source\meshData.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
     <ClInclude Include="..\Source\sceneLoader.h" />
+    <ClInclude Include="..\Source\SMController.h" />
     <ClInclude Include="..\Source\SphereModel.h" />
     <ClInclude Include="..\Source\StaticCamera.h" />
     <ClInclude Include="..\Source\EventManager.h" />

@@ -21,6 +21,12 @@
     <Filter Include="Resource Files\Scenes">
       <UniqueIdentifier>{3b2e1119-c64d-494f-9840-6ae6746aa7bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ModelSM">
+      <UniqueIdentifier>{70c1c6d0-6b17-47f6-a878-0369a05b9f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StateMachine">
+      <UniqueIdentifier>{365e977e-c198-4aeb-aff0-adc2f5d3f9a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Shaders\SolidColor.vertexshader">
@@ -124,6 +130,12 @@
     <ClCompile Include="..\Source\TankModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\CubeModelSM.cpp">
+      <Filter>Source Files\ModelSM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\SMController.cpp">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -185,6 +197,12 @@
     </ClInclude>
     <ClInclude Include="..\Source\TankModel.h">
       <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CubeModelSM.h">
+      <Filter>Source Files\ModelSM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\SMController.h">
+      <Filter>Source Files\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
