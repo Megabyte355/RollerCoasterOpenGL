@@ -5,18 +5,18 @@
 
 #include "Model.h"
 
-class SMController
+class State
 {
 public:
-    SMController(Model* model);
-    virtual ~SMController();
+    State(Model* model);
+    virtual ~State();
 
-    virtual void Update(float dt) = 0;
     virtual void In() = 0;
     virtual void Out() = 0;
     virtual void Execute() = 0;
-    virtual void Init() = 0;
 
 protected:
+    virtual void Init() = 0;
+
     Model* model;
 };

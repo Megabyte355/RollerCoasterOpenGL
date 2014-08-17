@@ -136,6 +136,12 @@
     <ClCompile Include="..\Source\SMController.cpp">
       <Filter>Source Files\StateMachine</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\CubeSMController.cpp">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\State.cpp">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -202,6 +208,12 @@
       <Filter>Source Files\ModelSM</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\SMController.h">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CubeSMController.h">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\State.h">
       <Filter>Source Files\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>

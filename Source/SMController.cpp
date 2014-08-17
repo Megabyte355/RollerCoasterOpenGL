@@ -21,3 +21,7 @@ SMController::~SMController()
 {
     model = nullptr;
 }
+
+void SMController::Init()
+{
+}
