@@ -142,6 +142,9 @@
     <ClCompile Include="..\Source\State.cpp">
       <Filter>Source Files\StateMachine</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\CubeMovingState.cpp">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -214,6 +217,9 @@
       <Filter>Source Files\StateMachine</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\State.h">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CubeMovingState.h">
       <Filter>Source Files\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>

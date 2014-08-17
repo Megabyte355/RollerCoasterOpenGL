@@ -116,6 +116,7 @@
     <ClCompile Include="..\Source\BSpline.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
     <ClCompile Include="..\Source\CubeModelSM.cpp" />
+    <ClCompile Include="..\Source\CubeMovingState.cpp" />
     <ClCompile Include="..\Source\CubeSMController.cpp" />
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
     <ClCompile Include="..\Source\FreeLookCamera.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="..\Source\BSpline.h" />
     <ClInclude Include="..\Source\Camera.h" />
     <ClInclude Include="..\Source\CubeModelSM.h" />
+    <ClInclude Include="..\Source\CubeMovingState.h" />
     <ClInclude Include="..\Source\CubeSMController.h" />
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
     <ClInclude Include="..\Source\FreeLookCamera.h" />
