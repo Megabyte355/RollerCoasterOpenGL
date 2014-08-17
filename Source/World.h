@@ -26,6 +26,7 @@ public:
 
 	void LoadScene(const char * scene_path);
     static Camera* GetCurrentCamera();
+	static unsigned int GetCurrentCameraNumber(){return mCurrentCamera;}
 
     static std::vector<Model*>* GetModelsPtr();
     static std::vector<LightModel*>* GetLightModelsPtr();
@@ -38,4 +39,5 @@ private:
 
 	static std::vector<Camera*> mCamera;
 	static unsigned int mCurrentCamera;
+	static unsigned int mShader;
 };
