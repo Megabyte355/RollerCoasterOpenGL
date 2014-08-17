@@ -8,9 +8,7 @@ class RayCast
 {
 public:
 	RayCast();
-    static int IsPlaneIntersecting(vec4 originPoint, vec4 directionVector, vec3 p1, vec3 p2, vec3 p3);
-    //Uses vec3 as points instead
-    static int RayCast::LinePlaneIntersection(vec4 originPoint, vec4 directionVector, vec3 p1, vec3 p2, vec3 p3);
+    static int Intersect3DTriangle(vec4 originPoint, vec4 directionVector, vec3 p1, vec3 p2, vec3 p3);
 	~RayCast();
 
 	struct CollisionResult

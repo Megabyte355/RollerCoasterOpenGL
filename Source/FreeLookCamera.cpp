@@ -93,7 +93,7 @@ void FreeLookCamera::Update(float dt)
         vec3 p2 = tempVec[1].position;
         vec3 p3 = tempVec[2].position;
 
-        int testResult = RayCast::IsPlaneIntersecting(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
+        int testResult = RayCast::Intersect3DTriangle(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
         //int distanceResult = RayCast::LinePlaneIntersection(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
     }
 }
