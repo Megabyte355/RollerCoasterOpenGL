@@ -25,8 +25,8 @@ FirstPersonCamera::FirstPersonCamera(glm::vec3 position, glm::vec3 lookAt, glm::
 
     hAngle = radians(180.0f);
     vAngle = 0.0f;
-    moveSpeed = 4.0f;
-    mouseSpeed = 0.10f;
+    moveSpeed = 11.0f;
+    mouseSpeed = 0.45f;
 }
 
 FirstPersonCamera::~FirstPersonCamera()

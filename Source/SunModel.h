@@ -9,7 +9,8 @@ class SunModel : public SphereModel
 		SunModel(Model * parent, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
 		~SunModel(void);
 		virtual void Update(float dt);
-		
+		virtual void Draw();
+
 	protected:
 		virtual void Init(glm::vec3 size);
 

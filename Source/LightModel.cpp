@@ -1,6 +1,7 @@
 #include "LightModel.h"
 #include "EventManager.h"
 #include "Renderer.h"
+#include "World.h"
 
 #include <GLFW/glfw3.h>
 
@@ -72,14 +73,23 @@ void LightModel::Update(float dt)
 
 	//lightColor.x -= dt * 0.2f;
 
+
 	if (mParent != nullptr) 
 	{
-		lightPosition = vec4(this->mParent->GetPosition(), 0)+vec4(mPosition, lightPosition.w);
+		//lightPosition = vec4(this->mParent->GetPosition(), 0) + vec4(mPosition, lightPosition.w);
+		//lightPosition.y -= 15;
+		lightPosition = vec4(this->mParent->GetPosition()*0.7f, 1);
 	}
 	else
 	{
 		lightPosition = vec4(mPosition, lightPosition.w);
 	}
+	
+	//World::GetModelsPtr
+
+	std::cout << "light position x: " << mPosition.x << std::endl;
+	std::cout << "light position y : " << mPosition.y << std::endl;
+	std::cout << "light position z: " << mPosition.z << std::endl << std::endl;
 }
 
 void LightModel::Draw()
