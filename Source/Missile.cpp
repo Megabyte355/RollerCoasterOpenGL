@@ -6,13 +6,14 @@
 
 using namespace glm;
 using namespace std;
-//#include "glm/ext.hpp"
+#include "glm/ext.hpp"
 
 int st;
 bool flag;
 std::vector<CubeModel*> container;
 TankModel* tk;
 BSpline* sp;
+CubeModel* cube;
 
 Missile::Missile(TankModel* t)
 {
@@ -41,28 +42,32 @@ void Missile::Init()
 
 void Missile::Add(vec3 position)
 {
-	CubeModel* dada = new CubeModel();
-	dada->SetPosition(position);
-	container.push_back(dada);
+	cube = new CubeModel(this);
+	cube->SetPosition(position);
+	container.push_back(cube);
 }
 
 void Missile::Update(float dt)
 {
 	if (sp != nullptr)
 	{
-		this->mPosition = sp->GetPosition() + sp->GetNextPoint();
+		cube->SetPosition(sp->GetPosition() + sp->GetNextPoint());
 		sp->Update(dt);
+		Trajectory();
 	}
 }
 
 void Missile::Trajectory()
 {
-	sp->AddPoint(glm::vec4(1.0f, 0.0f, 1.0f, 1.0f));
-	sp->AddPoint(glm::vec4(2.0f, 0.0f, 1.0f, 1.0f));
-	sp->AddPoint(glm::vec4(3.0f, 1.0f, 2.0f, 1.0f));
-	sp->AddPoint(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-	sp->SetSpeed(1.0f);
-	sp->SetClosedLoop(false);
+	glm::vec3 startPos = cube->GetPosition();
+	glm::vec3 endPos = tk->GetPosition();
+	//std::cout << glm::to_string(tk) << std::endl;
+	sp->AddPoint(glm::vec4(startPos, 1.0f));
+	sp->AddPoint(glm::vec4(startPos.x - 1.0f, startPos.y - 3.0f, startPos.z - 4.0f, 1.0f));
+	sp->AddPoint(glm::vec4(endPos.x + 1.0f, endPos.y + 1.0f, endPos.z + 2.0f, 1.0f));
+	sp->AddPoint(glm::vec4(endPos, 1.0f));
+	sp->SetSpeed(5.0f);
+	sp->SetClosedLoop(true);
 }
 
 void Missile::Draw()
