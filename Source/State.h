@@ -8,7 +8,7 @@
 class State
 {
 public:
-    State(Model* model);
+    State();
     virtual ~State();
 
     virtual void In() = 0;
@@ -17,6 +17,4 @@ public:
 
 protected:
     virtual void Init() = 0;
-
-    Model* model;
 };

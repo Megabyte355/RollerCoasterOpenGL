@@ -14,14 +14,9 @@ public:
     virtual ~CubeSMController();
 
     void Update(float dt) override;
-    //void In() override;
-    //void Out() override;
-    //void Execute() override;
     virtual void Init() override;
 
 protected:
-    
-
     CubeModelSM* cubeModel;
     State* currentState;
     std::vector<State*> states;

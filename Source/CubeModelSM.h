@@ -13,6 +13,7 @@
 
 #include "Model.h"
 #include "LightModel.h"
+class CubeSMController;
 
 class CubeModelSM : public Model
 {
@@ -38,4 +39,6 @@ private:
         glm::vec3 normal;
         glm::vec3 color;
     };
+
+    CubeSMController* stateController;
 };

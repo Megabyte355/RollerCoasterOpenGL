@@ -10,6 +10,7 @@
 //      Gary Chang
 
 #include "CubeModelSM.h"
+#include "CubeSMController.h"
 #include "Renderer.h"
 
 // Include GLEW - OpenGL Extension Wrangler
@@ -108,6 +109,8 @@ void CubeModelSM::Init(vec3 size)
     kd = 0.8f;
     ks = 0.2f;
     n = 50.0f;
+
+    stateController = new CubeSMController(this);
 }
 
 CubeModelSM::~CubeModelSM()

@@ -2,6 +2,7 @@
 //      Gary Chang
 
 #include "CubeSMController.h"
+#include "CubeMovingState.h"
 
 CubeSMController::CubeSMController(CubeModelSM* model) : SMController(model)
 {
@@ -18,23 +19,11 @@ void CubeSMController::Update(float dt)
 
 }
 
-//void CubeSMController::In()
-//{
-//
-//};
-//
-//void CubeSMController::Out()
-//{
-//
-//};
-//
-//void CubeSMController::Execute()
-//{
-//
-//};
-
 void CubeSMController::Init()
 {
     // Define all Cube states here
-    //states.push_back(new ...);
+    CubeMovingState* movingState = new CubeMovingState(cubeModel);
+
+    states.push_back(movingState);
+    currentState = movingState;
 }
