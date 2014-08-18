@@ -26,6 +26,7 @@
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 #include "TriangleModel.h"
+#include "ParticleEmitter.h"
 
 using namespace std;
 using namespace glm;
@@ -36,6 +37,7 @@ std::vector<Camera*> World::mCamera;
 std::vector<Model*> World::mModel;
 std::vector<LightModel*> World::mLightModels;
 std::vector<BSpline*> World::mBSplineModels;
+std::vector<ParticleEmitter*> World::mParticleEmitterModels;
 
 World::World()
 {
@@ -283,6 +285,12 @@ void World::LoadScene(const char * scene_path)
                 triangle->Load(iss);
                 mModel.push_back(triangle);
             }
+            else if (result == "particleEmitter")
+            {
+                ParticleEmitter* particleEmitter = new ParticleEmitter();
+                particleEmitter->Load(iss);
+                mModel.push_back(particleEmitter);
+            }
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line
@@ -322,4 +330,9 @@ std::vector<LightModel*>* World::GetLightModelsPtr()
 std::vector<BSpline*>* World::GetBSplineModelsPtr()
 {
     return &mBSplineModels;
+}
+
+std::vector<ParticleEmitter*>* World::GetParticleEmitterModelsPtr()
+{
+    return &mParticleEmitterModels;
 }
