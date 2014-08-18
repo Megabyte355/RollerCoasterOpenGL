@@ -1,10 +1,7 @@
 //
-// COMP 371 Assignment Framework
+// Contribution by Alin
 //
-// Created by Nicolas Bergeron on 8/7/14.
-//
-// Copyright (c) 2014 Concordia University. All rights reserved.
-//
+
 
 #include "AlienModel.h"
 #include "CubeModel.h"
