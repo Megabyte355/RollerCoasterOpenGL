@@ -23,6 +23,9 @@ public:
 	virtual void Draw();
 
 	virtual void SetLightSource(LightModel * lightSource);
+	virtual glm::vec3 GetCanonTipPoint();
+	virtual glm::vec3 GetCanonDirectionVector();
+
 	float GetChildHorizontalAngle() { return mChildHorizontalAngle; }
 	float GetChildVerticalAngle() { return mChildVerticalAngle; }
 

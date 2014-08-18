@@ -34,8 +34,9 @@ public:
     static std::vector<BSpline*>* GetBSplineModelsPtr();
     static std::vector<ParticleEmitter*>* GetParticleEmitterModelsPtr();
 
-private:
 	static std::vector<Model*> mModel;
+
+private:
     static std::vector<LightModel*> mLightModels;
     static std::vector<BSpline*> mBSplineModels;
     static std::vector<ParticleEmitter*> mParticleEmitterModels;

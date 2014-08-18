@@ -16,6 +16,7 @@
 
 class LightModel;
 class BSpline;
+class BoundingBox;
 
 class Model
 {
@@ -52,6 +53,7 @@ public:
 	float     GetSecondRotationAngle() const	{ return mSecondRotationAngleInDegrees; }
     LightModel* GetLightSource() { return mLightSource; }
 
+	bool mGetScalingFromParent;
     // The vertex format could be different for different types of models
     struct Vertex
     {
@@ -61,11 +63,15 @@ public:
     };
 
     virtual std::vector<Vertex> GetWorldVertices();
+	BoundingBox* boundingBox;
+	std::vector<Vertex> vertexBuffer;
+	ci_string mName; // The model name is mainly for debugging
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
+	void DrawBoundingBox();
 
-	ci_string mName; // The model name is mainly for debugging
+
 	glm::vec3 mPosition;
 	glm::vec3 mScaling;
 	glm::vec3 mRotationAxis;
@@ -81,7 +87,7 @@ protected:
 	// @TODO 4 - You may want to add a parent object for the hierarchical modeling
     Model * mParent;
     LightModel * mLightSource;
-    bool mGetScalingFromParent;
+
 
     // Shader coefficients
     float ka;
@@ -93,4 +99,5 @@ protected:
 	unsigned int mVertexBufferID;
 
     BSpline* spline;
+
 };

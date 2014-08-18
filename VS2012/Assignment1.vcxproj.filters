@@ -94,9 +94,6 @@
     <ClCompile Include="..\Source\Model.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\CubeModel.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\VehicleModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
@@ -113,6 +110,12 @@
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\BSpline.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\CubeModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\BoundingBox.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\mesh.cpp">
@@ -165,9 +168,6 @@
     <ClInclude Include="..\Source\Model.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\CubeModel.h">
-      <Filter>Source Files\Model</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\VehicleModel.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
@@ -187,6 +187,12 @@
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\BSpline.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CubeModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\BoundingBox.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\mesh.h">
