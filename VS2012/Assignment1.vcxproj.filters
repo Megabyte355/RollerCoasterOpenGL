@@ -160,6 +160,9 @@
     <ClCompile Include="..\Source\CubeMovingState.cpp">
       <Filter>Source Files\StateMachine</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\CubeIdleState.cpp">
+      <Filter>Source Files\StateMachine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -242,6 +245,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\TriangleModel.h">
       <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CubeIdleState.h">
+      <Filter>Source Files\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
