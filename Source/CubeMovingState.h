@@ -16,6 +16,7 @@ public:
     virtual void In() override;
     virtual void Out() override;
     virtual void Execute(float dt) override;
+    bool IsExpired() override;
 
 protected:
     virtual void Init();

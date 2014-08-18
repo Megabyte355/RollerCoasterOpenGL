@@ -23,6 +23,21 @@ CubeSMController::~CubeSMController()
 void CubeSMController::Update(float dt)
 {
     currentState->Execute(dt);
+    if (currentState->IsExpired())
+    {
+        currentState->Out();
+        
+        std::string nextStateName = currentState->GetNextStateName();
+        for (std::vector<State*>::iterator it = states.begin(); it < states.end(); ++it)
+        {
+            if ((*it)->GetName() == nextStateName)
+            {
+                currentState = *it;
+                break;
+            }
+        }
+        currentState->In();
+    }
 }
 
 void CubeSMController::Init()

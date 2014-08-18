@@ -9,6 +9,7 @@
 CubeMovingState::CubeMovingState(CubeModelSM* model)
 {
     cubeModel = model;
+    name = "CubeMovingState";
 }
 
 CubeMovingState::~CubeMovingState()
@@ -18,7 +19,7 @@ CubeMovingState::~CubeMovingState()
 
 void CubeMovingState::In()
 {
-
+    duration = 10.0f;
 }
 
 void CubeMovingState::Out()
@@ -48,4 +49,10 @@ void CubeMovingState::Execute(float dt)
 void CubeMovingState::Init()
 {
 
+}
+
+bool CubeMovingState::IsExpired()
+{
+    // Temporary
+    return false;
 }
