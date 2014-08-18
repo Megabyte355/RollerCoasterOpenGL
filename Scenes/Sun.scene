@@ -60,10 +60,20 @@ name     = "SplineSun"
 position = 0.0 0.0 0.0
 splinespeed = 20.0
 splinepoint = -100.0 -20.0 0.0 1.0
-splinepoint = -80.0 50.0 -20.0 1.0
+splinepoint = -80.0 50.0 -30.0 1.0
 splinepoint = 0.0 80.0 -10.0 1.0
-splinepoint = 80.0 50.0 -20.0 1.0
+splinepoint = 80.0 50.0 -30.0 1.0
 splinepoint = 100.0 -20.0 0.0 1.0
+
+[BSpline]
+name     = "SplineMoon"
+position = 0.0 0.0 0.0
+splinespeed = 30.0
+splinepoint = 100.0 -20.0 0.0 1.0
+splinepoint = 80.0 40.0 40.0 1.0
+splinepoint = 0.0 60.0 30.0 1.0
+splinepoint = -80.0 40.0 40.0 1.0
+splinepoint = -100.0 -20.0 0.0 1.0
 
 [Cube]
 name     = "Ground"
@@ -74,5 +84,11 @@ rotation = 0.0 0.0 1.0 0.0
 [Sun]
 name     = "Sun"
 spline   = "SplineSun"
+scaling  = 5.0 5.0 5.0
+position = 0.0 0.0 0.0
+
+[Moon]
+name     = "Moon"
+spline   = "SplineMoon"
 scaling  = 5.0 5.0 5.0
 position = 0.0 0.0 0.0

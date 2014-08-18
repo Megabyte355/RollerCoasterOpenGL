@@ -89,6 +89,7 @@ void LightModel::Update(float dt)
 		// In case it is a sun, put the light between it and the map
 		lightPosition = vec4(this->mParent->GetPosition()*0.71f, 1);
 
+		// To make the sunrise/sunset more realistic by placing light higher at these moments
 		if ((lightPosition.y > 59.5 || lightPosition.x < -59.5) && lightPosition.y < 1)
 		{
 			// Varying light position according to angle

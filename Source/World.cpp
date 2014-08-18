@@ -19,6 +19,7 @@
 #include "LightModel.h"
 #include "BSpline.h"
 #include "SunModel.h"
+#include "MoonModel.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -207,6 +208,12 @@ void World::LoadScene(const char * scene_path)
 				LightModel* light = new LightModel(sun);
                 light->Load(iss);
                 mLightModels.push_back(light);
+            }
+			else if( result == "moon" )
+            {
+                MoonModel* moon = new MoonModel();
+                moon->Load(iss);
+                mModel.push_back(moon);
             }
             else if( result == "bspline" )
             {
