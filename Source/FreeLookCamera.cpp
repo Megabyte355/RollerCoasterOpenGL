@@ -89,6 +89,13 @@ void FreeLookCamera::Update(float dt)
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
     {
         RayCast::CollisionResult collision = RayCast::IntersectBoundingBoxes(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f));
+        
+        std::string modelName = "empty";
+        if (collision.model != nullptr)
+        {
+            modelName = collision.model->mName.c_str();
+        }
+        std::cout << "Collided Model: " << modelName << std::endl;
         std::cout << "Collision point x: " << collision.collisionPointWorld.x << std::endl;
         std::cout << "Collision point y: " << collision.collisionPointWorld.y << std::endl;
         std::cout << "Collision point z: " << collision.collisionPointWorld.z << std::endl << std::endl;
