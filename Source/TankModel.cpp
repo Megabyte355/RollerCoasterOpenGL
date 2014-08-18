@@ -107,6 +107,7 @@ void TankModel::Update(float dt)
 			mRotationAxis = yAxis;
 			mRotationAngleInDegrees -= bodyAngularSpeed * dt;
 		}
+
 		mPosition += delta;
 	
 		//update Turret/cannon position and rotation
@@ -130,10 +131,12 @@ void TankModel::Update(float dt)
 		container.at(2) -> SetRotation(yAxis,mChildHorizontalAngle);
 		//set x-axis rotation to Turret
 		container.at(2) -> SetSecondRotation(xAxis, mChildVerticalAngle);
-	}
-	
-	//mCanonBullet->SetRotation(zAxis, mCanonBullet->GetRotationAngle() + 360 * dt);
-	
+
+		std::cout << GetPosition().x << ":" <<
+			GetPosition().y << ":" <<
+			GetPosition().z << std::endl;
+
+	}	
 }
 
 void TankModel::Draw()
@@ -162,4 +165,30 @@ void TankModel::SetLightSource(LightModel * lightSource)
 	{
 		(*it)->SetLightSource(lightSource);
 	}
+}
+
+vec3 TankModel::GetCanonTipPoint()
+{
+	vec3 canonTipPosition;
+
+	// get the radians of  the tank's rotation
+	float rotationAngleInRadian = radians(mRotationAngleInDegrees);
+	// get the radians of  the canon's rotation
+	float mChildHorizontalRadian = radians(mChildHorizontalAngle);
+	float mChildVerticalRadian = radians(mChildVerticalAngle);
+
+	//3.5 is the sum of the canon's length and half of the turret's length
+	canonTipPosition = GetPosition() + vec3(3.5 * cosf(mChildVerticalRadian) * sinf(rotationAngleInRadian + mChildHorizontalRadian), 3.5 * sinf(mChildVerticalRadian), 3.5 * cosf(mChildVerticalRadian) * cosf(rotationAngleInRadian + mChildHorizontalRadian));
+
+	return canonTipPosition;
+}
+vec3 TankModel::GetCanonDirectionVector()
+{
+	vec3 canonDirectoin;
+
+	//normalized canon direction
+	canonDirectoin = normalize(GetCanonTipPoint() - GetPosition());
+
+	return canonDirectoin;
+
 }
