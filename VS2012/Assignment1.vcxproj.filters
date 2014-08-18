@@ -218,7 +218,7 @@
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\TexturedCube.h">
-      <Filter>Source Files\Camera</Filter>
+      <Filter>Source Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

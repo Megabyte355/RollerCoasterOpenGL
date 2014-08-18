@@ -1,18 +1,11 @@
 #version 330 core
 
-// Ouput data
-out vec3 color;
+in vec2 UV;     //Input from FragmentShader
+out vec3 color; //Output to screen
 
-in vec4 v_color;
-in vec3 normal; // You will need this when you do per-fragment lighting
-in vec2 UV;
-
-uniform sampler2D myTextureSampler;
+uniform sampler2D cubeTexture; //This texture comes from the TexturedCube's texture.
 
 void main()
 {
-	// set the fragment color to the interpolated vertex color
-	color = v_color.rgb;
-
-	color = texture2D(myTextureSampler, UV).rgb;
+	color = texture2D(cubeTexture, UV).rgb;
 }

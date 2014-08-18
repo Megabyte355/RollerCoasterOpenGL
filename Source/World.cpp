@@ -171,29 +171,43 @@ void World::Update(float dt)
 void World::Draw()
 {
 	Renderer::BeginFrame();
-	
 	// Set Shader... In a more sofisticated application, each model could use a different shader
 	// In our case, all the models use a common shader
-	glUseProgram(Renderer::GetShaderProgramID());
+
 
 	// This looks for the V and P Uniform variable in the Vertex Program
-    GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
-    GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
 
+	bool keepChecking = true;
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
-		AlienModel* m = dynamic_cast<AlienModel*>(*it);
-		if (m != nullptr)
+		glUseProgram(Renderer::GetShaderProgramID());
+		AlienModel* alien = dynamic_cast<AlienModel*>(*it);
+		TexturedCube* texCube = dynamic_cast<TexturedCube*>(*it);
+
+		if (alien != nullptr)
 		{
 			Renderer::SetShader(SHADER_ALIEN);
 			glUseProgram(Renderer::GetShaderProgramID());
-
 			 //This looks for the V and P Uniform variable in the Vertex Program
-			GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
-			GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+			keepChecking = false;
+		}
+
+		else if (texCube != nullptr && keepChecking)
+		{
+			Renderer::SetShader(SHADER_TEXTURE);
+			glUseProgram(Renderer::GetShaderProgramID());
+		}
+
+		else if (keepChecking)
+		{
+			Renderer::SetShader(SHADER_PHONG);
+			glUseProgram(Renderer::GetShaderProgramID());
 		}
 		
+		GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
+		GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+
 		// Send the view and projection constants to the shader
 		mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
 		glUniformMatrix4fv(viewMatrix, 1, GL_FALSE, &V[0][0]);

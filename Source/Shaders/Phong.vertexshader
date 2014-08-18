@@ -3,8 +3,7 @@
 // Input vertex data, different for all executions of this shader.
 layout(location = 0) in vec3 vertexPosition_modelspace;
 layout(location = 1) in vec3 vertexNormal_modelspace;  // You will need this when you do lighting
-layout(location = 2) in vec3 vertexColor; 
-layout(location = 3) in vec2 vertexUV;
+layout(location = 2) in vec3 vertexColor;
 
 // output to Fragment Shader
 out vec3 v_color;
@@ -13,8 +12,6 @@ out vec3 normal;          // Transformed normal in View Space
 out vec3 eyeVector;       // Vector from the vertex to the Camera in View Space
 out vec4 lightVector;     // Vector from the vertex to the Light in View Space
 						  // Length of lightVector is the distance between light and vertex
-
-out vec2 UV;
 
 // Uniform
 // Values that stay constant for the whole mesh.
@@ -52,6 +49,4 @@ void main()
     {
         lightVector = vec4(-lightVector.xyz, WorldLightPosition.w);
     }
-
-	UV = vertexUV;
 }

@@ -17,12 +17,8 @@ in vec4 lightVector;     // Vector from the vertex to the Light in View Space
 						 // Length of lightVector is the distance between light and vertex
 						 // if w = 1: Point light, if w = 0: directional light
 
-in vec2 UV;
-
 // Ouput data
 out vec3 color;
-
-uniform sampler2D myTextureSampler;
 
 void main()
 {
@@ -47,8 +43,6 @@ void main()
     float ambient = materialCoefficients.x;
     float diffuse = materialCoefficients.y * clamp(dot(normalizedNormal, normalizedLight), 0, 1);
     float specular = materialCoefficients.z * pow(clamp(dot(normalizedEye, reflected), 0, 1), materialCoefficients.w);
-
-	ambient = texture2D(myTextureSampler, UV).rgb;
 
     // This should be the final color on the Vertex, including the lighting
     color = (ambient + (diffuse + specular) * attenuation) * lightColor * v_color;
