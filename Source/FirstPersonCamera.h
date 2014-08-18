@@ -23,11 +23,18 @@ public:
 
 	virtual void setTarget(Model* target);
 
+	virtual void SetCameraShake(float amplitude, float adjustAmplitudePerSecond);
+	virtual void StartCameraShake(float dt);
+
 private:
 	glm::vec3 mPosition;
 	glm::vec3 mOffset;
 	glm::vec3 mLookAtPoint;
 	glm::vec3 mUpVector;
+
+	float amplitude;
+	float adjustAmplitudePerSecond;
+	float timeElapsed;
 
 	Model* mTarget;
 };

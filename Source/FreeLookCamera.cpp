@@ -15,6 +15,8 @@
 #include <algorithm>
 #include "RayCast.h"
 #include "World.h"
+#include "BoundingBox.h"
+#include "ParticleEmitter.h"
 
 using namespace glm;
 
@@ -87,14 +89,28 @@ void FreeLookCamera::Update(float dt)
     }
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
     {
-        //vec4 originPoint, vec4 directionVector, vec4 p1, vec4 p2, vec4 p3
-        std::vector<Model::Vertex> tempVec = (*World::GetModelsPtr())[2]->GetWorldVertices();
-        vec3 p1 = tempVec[0].position;
-        vec3 p2 = tempVec[1].position;
-        vec3 p3 = tempVec[2].position;
+        RayCast::CollisionResult collision = RayCast::IntersectBoundingBoxes(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f));
+        
+        std::string modelName = "empty";
+        if (collision.model != nullptr)
+        {
+            modelName = collision.model->mName.c_str();
+        }
+        std::cout << "Collided Model: " << modelName << std::endl;
+        std::cout << "Collision point x: " << collision.collisionPointWorld.x << std::endl;
+        std::cout << "Collision point y: " << collision.collisionPointWorld.y << std::endl;
+        std::cout << "Collision point z: " << collision.collisionPointWorld.z << std::endl << std::endl;
 
-        int testResult = RayCast::Intersect3DTriangle(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
-        //int distanceResult = RayCast::LinePlaneIntersection(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
+        if (collision.collision)
+        {
+            glm::vec3 colorA = glm::vec3(1.0f, 0.0f, 0.0f);
+            glm::vec3 colorB = glm::vec3(1.0f, 1.0f, 0.0f);
+
+            ParticleEmitter* emitter = new ParticleEmitter(collision.collisionPointWorld, collision.normal, colorA, colorB);
+            World::GetModelsPtr()->push_back(emitter);
+            emitter->SetLightSource(World::GetLightModelsPtr()->back());
+            emitter->GenerateParticles();
+        }   
     }
 }
 

@@ -14,6 +14,8 @@ class Camera;
 class Model;
 class LightModel;
 class BSpline;
+class ParticleEmitter;
+class TankModel;
 
 class World
 {
@@ -31,13 +33,18 @@ public:
     static std::vector<Model*>* GetModelsPtr();
     static std::vector<LightModel*>* GetLightModelsPtr();
     static std::vector<BSpline*>* GetBSplineModelsPtr();
+    static std::vector<ParticleEmitter*>* GetParticleEmitterModelsPtr();
+
+	static std::vector<Model*> mModel;
 
 private:
-	static std::vector<Model*> mModel;
     static std::vector<LightModel*> mLightModels;
     static std::vector<BSpline*> mBSplineModels;
+    static std::vector<ParticleEmitter*> mParticleEmitterModels;
 
 	static std::vector<Camera*> mCamera;
 	static unsigned int mCurrentCamera;
 	static unsigned int mShader;
+
+	TankModel* tank;
 };

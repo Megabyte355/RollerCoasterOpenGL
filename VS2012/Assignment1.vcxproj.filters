@@ -30,6 +30,9 @@
     <Filter Include="Source Files\Utility">
       <UniqueIdentifier>{590820e9-67fc-4044-8e0b-c68654529925}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Particle">
+      <UniqueIdentifier>{d033869f-a823-4b7d-86fe-5c941ea48b3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Shaders\SolidColor.vertexshader">
@@ -100,9 +103,6 @@
     <ClCompile Include="..\Source\Model.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\CubeModel.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\VehicleModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
@@ -119,6 +119,12 @@
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\BSpline.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\CubeModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\BoundingBox.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\mesh.cpp">
@@ -143,6 +149,21 @@
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\TriangleModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Particle.cpp">
+      <Filter>Source Files\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ParticleEmitter.cpp">
+      <Filter>Source Files\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\CubeParticle.cpp">
+      <Filter>Source Files\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\AlienCubeModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Missile.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\CubeModelSM.cpp">
@@ -180,9 +201,6 @@
     <ClInclude Include="..\Source\Model.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\CubeModel.h">
-      <Filter>Source Files\Model</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\VehicleModel.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
@@ -202,6 +220,12 @@
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\BSpline.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CubeModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\BoundingBox.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\mesh.h">
@@ -244,6 +268,21 @@
       <Filter>Source Files\Utility</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\TriangleModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Particle.h">
+      <Filter>Source Files\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ParticleEmitter.h">
+      <Filter>Source Files\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\CubeParticle.h">
+      <Filter>Source Files\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\AlienCubeModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Missile.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\CubeIdleState.h">

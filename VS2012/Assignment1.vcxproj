@@ -114,9 +114,13 @@
     <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\AlienCubeModel.cpp" />
+    <ClCompile Include="..\Source\BoundingBox.cpp" />
     <ClCompile Include="..\Source\AlienModel.cpp" />
     <ClCompile Include="..\Source\BSpline.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
+    <ClCompile Include="..\Source\CubeModel.cpp" />
+    <ClCompile Include="..\Source\CubeParticle.cpp" />
     <ClCompile Include="..\Source\CubeIdleState.cpp" />
     <ClCompile Include="..\Source\CubeModelSM.cpp" />
     <ClCompile Include="..\Source\CubeMovingState.cpp" />
@@ -125,6 +129,9 @@
     <ClCompile Include="..\Source\FreeLookCamera.cpp" />
     <ClCompile Include="..\Source\LightModel.cpp" />
     <ClCompile Include="..\Source\mesh.cpp" />
+    <ClCompile Include="..\Source\Missile.cpp" />
+    <ClCompile Include="..\Source\Particle.cpp" />
+    <ClCompile Include="..\Source\ParticleEmitter.cpp" />
     <ClCompile Include="..\Source\RayCast.cpp" />
     <ClCompile Include="..\Source\sceneLoader.cpp" />
     <ClCompile Include="..\Source\SMController.cpp" />
@@ -134,7 +141,6 @@
     <ClCompile Include="..\Source\EventManager.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
     <ClCompile Include="..\Source\Model.cpp" />
-    <ClCompile Include="..\Source\CubeModel.cpp" />
     <ClCompile Include="..\Source\TankModel.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\TriangleModel.cpp" />
@@ -143,9 +149,13 @@
     <ClCompile Include="..\Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\AlienCubeModel.h" />
+    <ClInclude Include="..\Source\BoundingBox.h" />
     <ClInclude Include="..\Source\AlienModel.h" />
     <ClInclude Include="..\Source\BSpline.h" />
     <ClInclude Include="..\Source\Camera.h" />
+    <ClInclude Include="..\Source\CubeModel.h" />
+    <ClInclude Include="..\Source\CubeParticle.h" />
     <ClInclude Include="..\Source\CubeIdleState.h" />
     <ClInclude Include="..\Source\CubeModelSM.h" />
     <ClInclude Include="..\Source\CubeMovingState.h" />
@@ -155,7 +165,10 @@
     <ClInclude Include="..\Source\LightModel.h" />
     <ClInclude Include="..\Source\mesh.h" />
     <ClInclude Include="..\Source\meshData.h" />
+    <ClInclude Include="..\Source\Missile.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
+    <ClInclude Include="..\Source\Particle.h" />
+    <ClInclude Include="..\Source\ParticleEmitter.h" />
     <ClInclude Include="..\Source\RayCast.h" />
     <ClInclude Include="..\Source\sceneLoader.h" />
     <ClInclude Include="..\Source\SMController.h" />
@@ -164,7 +177,6 @@
     <ClInclude Include="..\Source\StaticCamera.h" />
     <ClInclude Include="..\Source\EventManager.h" />
     <ClInclude Include="..\Source\Model.h" />
-    <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\TankModel.h" />
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\TriangleModel.h" />

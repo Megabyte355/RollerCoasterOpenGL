@@ -14,6 +14,7 @@
 #include "BSpline.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
+#include "BoundingBox.h"
 
 #include <iostream>
 
@@ -24,6 +25,7 @@ Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1
     mParent = nullptr;
     mGetScalingFromParent = true;
     spline = nullptr;
+	boundingBox = new BoundingBox(this);
     Init();
 }
 
@@ -32,6 +34,7 @@ Model::Model(Model * p) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScalin
     mParent = p;
     mGetScalingFromParent = true;
     spline = nullptr;
+	boundingBox = new BoundingBox(this);
     Init();
 }
 
@@ -40,6 +43,7 @@ Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition
     mParent = p;
     mGetScalingFromParent = getScalingFromParent;
     spline = nullptr;
+	boundingBox = new BoundingBox(this);
     Init();
 }
 
@@ -295,4 +299,14 @@ bool Model::LooksForward()
 std::vector<Model::Vertex> Model::GetWorldVertices() {
     std::vector<Vertex> vec;
     return vec;
+}
+
+void Model::SetSplineSource(BSpline* splineSource)
+{
+	spline = splineSource;
+}
+
+void Model::DrawBoundingBox()
+{
+
 }
