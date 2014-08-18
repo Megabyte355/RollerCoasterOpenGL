@@ -287,6 +287,11 @@ BSpline* Model::GetSpline()
     return spline;
 }
 
+bool Model::LooksForward()
+{
+    return lookForward;
+}
+
 std::vector<Model::Vertex> Model::GetWorldVertices() {
     std::vector<Vertex> vec;
     return vec;

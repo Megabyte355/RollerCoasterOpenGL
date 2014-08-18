@@ -44,6 +44,7 @@ public:
 	void SetSecondRotation(glm::vec3 axis, float angleDegrees);
     virtual void SetLightSource(LightModel * lightModel);
     BSpline* GetSpline();
+    bool LooksForward();
 
 	glm::vec3 GetPosition() const		{ return mPosition; }
 	glm::vec3 GetScaling() const		{ return mScaling; }
@@ -62,6 +63,10 @@ public:
     };
 
     virtual std::vector<Vertex> GetWorldVertices();
+    
+    glm::vec3 mForward;
+    glm::vec3 mRight;
+    glm::vec3 mUp;
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
@@ -74,10 +79,6 @@ protected:
 	float     mRotationAngleInDegrees;
 	float     mSecondRotationAngleInDegrees;
     bool      lookForward;
-
-    glm::vec3 mForward;
-    glm::vec3 mRight;
-    glm::vec3 mUp;
 
 	// @TODO 4 - You may want to add a parent object for the hierarchical modeling
     Model * mParent;

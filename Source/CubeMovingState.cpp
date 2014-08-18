@@ -32,25 +32,17 @@ void CubeMovingState::Execute(float dt)
     if (spline != nullptr)
     {
         cubeModel->SetPosition(spline->GetPosition() + spline->GetNextPoint());
+        if (cubeModel->LooksForward())
+        {
+            glm::vec3 velocity = glm::vec3(spline->GetVelocityUnitVector());
+            glm::vec3 forwardVector = cubeModel->mForward;
+            glm::vec3 rotationAxis = glm::cross(forwardVector, velocity);
+            float rotationAngleInDegrees = degrees(glm::acos(glm::dot(forwardVector, velocity) / (length(forwardVector) * length(velocity))));
+            
+            cubeModel->SetRotation(rotationAxis, rotationAngleInDegrees);
+        }
         spline->Update(dt);
     }
-
-    //std::cout << "Position.x - " << cubeModel->GetPosition().x << std::endl;
-    //std::cout << "Position.y - " << cubeModel->GetPosition().y << std::endl;
-    //std::cout << "Position.z - " << cubeModel->GetPosition().z << std::endl << std::endl << std::endl;
-
-    //if (spline != nullptr)
-    //{
-    //    this->mPosition = spline->GetPosition() + spline->GetNextPoint();
-
-    //    if (lookForward)
-    //    {
-    //        glm::vec3 velocity = glm::vec3(spline->GetVelocityUnitVector());
-    //        mRotationAxis = glm::cross(mForward, velocity);
-    //        mRotationAngleInDegrees = degrees(glm::acos(glm::dot(mForward, velocity) / (length(mForward) * length(velocity))));
-    //    }
-    //    spline->Update(dt);
-    //}
 }
 
 void CubeMovingState::Init()
