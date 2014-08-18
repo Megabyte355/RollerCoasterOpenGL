@@ -65,6 +65,9 @@
     <None Include="..\Scenes\TankVehicle.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
+    <None Include="..\Scenes\MissileTest.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\EventManager.cpp">
@@ -122,6 +125,12 @@
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\TankModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\AlienCubeModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Missile.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
   </ItemGroup>
@@ -184,6 +193,12 @@
       <Filter>Source Files\Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\TankModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\AlienCubeModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Missile.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
   </ItemGroup>

@@ -57,7 +57,6 @@ void Missile::Update(float dt)
 				(*it)->SetPosition((*it)->GetBSpline()->GetPosition() + (*it)->GetBSpline()->GetNextPoint());
 
 				(*it)->GetBSpline()->Update(dt);
-				Trajectory();
 			}
 		}
 
