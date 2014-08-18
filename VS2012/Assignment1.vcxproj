@@ -113,6 +113,7 @@
     <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\AlienCubeModel.cpp" />
     <ClCompile Include="..\Source\BoundingBox.cpp" />
     <ClCompile Include="..\Source\AlienModel.cpp" />
     <ClCompile Include="..\Source\BSpline.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="..\Source\FreeLookCamera.cpp" />
     <ClCompile Include="..\Source\LightModel.cpp" />
     <ClCompile Include="..\Source\mesh.cpp" />
+    <ClCompile Include="..\Source\Missile.cpp" />
     <ClCompile Include="..\Source\Particle.cpp" />
     <ClCompile Include="..\Source\ParticleEmitter.cpp" />
     <ClCompile Include="..\Source\RayCast.cpp" />
@@ -140,6 +142,7 @@
     <ClCompile Include="..\Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\AlienCubeModel.h" />
     <ClInclude Include="..\Source\BoundingBox.h" />
     <ClInclude Include="..\Source\AlienModel.h" />
     <ClInclude Include="..\Source\BSpline.h" />
@@ -151,6 +154,7 @@
     <ClInclude Include="..\Source\LightModel.h" />
     <ClInclude Include="..\Source\mesh.h" />
     <ClInclude Include="..\Source\meshData.h" />
+    <ClInclude Include="..\Source\Missile.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
     <ClInclude Include="..\Source\Particle.h" />
     <ClInclude Include="..\Source\ParticleEmitter.h" />

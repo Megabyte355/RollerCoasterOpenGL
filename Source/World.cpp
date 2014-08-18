@@ -19,6 +19,8 @@
 #include "TankModel.h"
 #include "VehicleModel.h"
 #include "AlienModel.h"
+#include "AlienCubeModel.h"
+#include "Missile.h"
 #include "SphereModel.h"
 #include "LightModel.h"
 #include "BSpline.h"
@@ -276,7 +278,7 @@ void World::LoadScene(const char * scene_path)
 			else if( result == "tank" )
 			{
 				// Box attributes
-				TankModel* tank = new TankModel();
+				tank = new TankModel();
 				tank->Load(iss);
 				mModel.push_back(tank);
 				mCamera.at(0)->setTarget(tank);
@@ -286,9 +288,12 @@ void World::LoadScene(const char * scene_path)
 			{
 				// Box attributes
 				AlienModel* alien = new AlienModel();
-				CubeModel* pos = new CubeModel(glm::vec3(0.01f,0.01f,0.01f));
+				Missile* mis = new Missile(tank);
+				AlienCubeModel* pos = new AlienCubeModel();
+				pos->SetMissile(mis);
 				pos->Load(iss);
 				alien->Load(iss);
+				mModel.push_back(mis);
 				mModel.push_back(pos);
 				mModel.push_back(alien);
 			}

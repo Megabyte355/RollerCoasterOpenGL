@@ -44,6 +44,7 @@ public:
 	void SetRotation(glm::vec3 axis, float angleDegrees);
 	void SetSecondRotation(glm::vec3 axis, float angleDegrees);
     virtual void SetLightSource(LightModel * lightModel);
+	virtual void SetSplineSource(BSpline* splineSource);
 
 	glm::vec3 GetPosition() const		{ return mPosition; }
 	glm::vec3 GetScaling() const		{ return mScaling; }
@@ -52,6 +53,7 @@ public:
 	float     GetRotationAngle() const	{ return mRotationAngleInDegrees; }
 	float     GetSecondRotationAngle() const	{ return mSecondRotationAngleInDegrees; }
     LightModel* GetLightSource() { return mLightSource; }
+	BSpline* GetBSpline() { return spline; }
 
 	bool mGetScalingFromParent;
     // The vertex format could be different for different types of models

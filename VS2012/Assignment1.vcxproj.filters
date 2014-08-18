@@ -151,6 +151,12 @@
     <ClCompile Include="..\Source\CubeParticle.cpp">
       <Filter>Source Files\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\AlienCubeModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Missile.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -230,6 +236,12 @@
     </ClInclude>
     <ClInclude Include="..\Source\CubeParticle.h">
       <Filter>Source Files\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\AlienCubeModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Missile.h">
+      <Filter>Source Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

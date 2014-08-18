@@ -291,6 +291,11 @@ std::vector<Model::Vertex> Model::GetWorldVertices() {
     return vec;
 }
 
+void Model::SetSplineSource(BSpline* splineSource)
+{
+	spline = splineSource;
+}
+
 void Model::DrawBoundingBox()
 {
 
