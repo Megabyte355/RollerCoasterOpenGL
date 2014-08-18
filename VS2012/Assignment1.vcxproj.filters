@@ -27,6 +27,9 @@
     <Filter Include="Source Files\SkyBox">
       <UniqueIdentifier>{8a4c5a70-ac26-40dd-bc15-6eea7a88d364}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{590820e9-67fc-4044-8e0b-c68654529925}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Shaders\SolidColor.vertexshader">
@@ -77,6 +80,9 @@
     <None Include="..\Scenes\TankVehicle.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
+    <None Include="..\Scenes\RayCastTest.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\EventManager.cpp">
@@ -95,9 +101,6 @@
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Model.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\CubeModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\VehicleModel.cpp">
@@ -127,6 +130,12 @@
     <ClCompile Include="..\Source\BSpline.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\CubeModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\BoundingBox.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
     <ClCompile Include="..\Source\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -148,6 +157,12 @@
     <ClCompile Include="..\Source\TexturedCube.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\RayCast.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\TriangleModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -163,9 +178,6 @@
       <Filter>Source Files\Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Model.h">
-      <Filter>Source Files\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\CubeModel.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\VehicleModel.h">
@@ -196,6 +208,12 @@
     <ClInclude Include="..\Source\BSpline.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\CubeModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\BoundingBox.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
     <ClInclude Include="..\Source\mesh.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -218,6 +236,12 @@
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\TexturedCube.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\RayCast.h">
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\TriangleModel.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
