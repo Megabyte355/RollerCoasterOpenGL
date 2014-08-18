@@ -55,7 +55,7 @@ void FirstPersonCamera::Update(float dt)
         TankModel* tank = dynamic_cast<TankModel*>(mTarget);
         if (tank != nullptr)
         {
-            RayCast::CollisionResult collision = RayCast::IntersectBoundingBoxes(vec4(mPosition, 1.0f), vec4(mLookAtPoint, 1.0f));
+            RayCast::CollisionResult collision = RayCast::IntersectBoundingBoxes(vec4(tank->GetCanonTipPoint(), 1.0f), vec4(tank->GetCanonDirectionVector(), 1.0f));
 
             std::string modelName = "empty";
             if (collision.model != nullptr)
