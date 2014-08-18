@@ -1,0 +1,15 @@
+#version 330 core
+
+/*in vec3 outNormal;
+in vec3 outTangent;
+in vec3 outColor;*/
+in vec2 outUV;
+
+out vec3 color;
+
+uniform sampler2D texture0;
+
+void main()
+{
+	color = texture(texture0, outUV).rgb;
+}

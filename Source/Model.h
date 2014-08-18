@@ -16,6 +16,7 @@
 
 class LightModel;
 class BSpline;
+class BoundingBox;
 
 class Model
 {
@@ -26,6 +27,7 @@ public:
     Model(Model * p, bool getScalingFromParent);
 	virtual ~Model();
 
+    virtual void Init();
 	virtual void Update(float dt) = 0;
 	virtual void Draw() = 0;
 	void Load(ci_istringstream& iss);
@@ -34,31 +36,58 @@ public:
     virtual glm::mat4 GetWorldMatrixWithoutScaling() const;
     virtual glm::mat4 GetViewMatrix() const;
     virtual glm::mat4 GetProjectionMatrix() const;
+	virtual float     GetChildHorizontalAngle() { return 0; }
+	virtual float     GetChildVerticalAngle() { return 0; }
 
 	void SetPosition(glm::vec3 position);
 	void SetScaling(glm::vec3 scaling);
 	void SetRotation(glm::vec3 axis, float angleDegrees);
+	void SetSecondRotation(glm::vec3 axis, float angleDegrees);
     virtual void SetLightSource(LightModel * lightModel);
 
 	glm::vec3 GetPosition() const		{ return mPosition; }
 	glm::vec3 GetScaling() const		{ return mScaling; }
 	glm::vec3 GetRotationAxis() const	{ return mRotationAxis; }
+	glm::vec3 GetSecondRotationAxis() const	{ return mSecondRotationAxis; }
 	float     GetRotationAngle() const	{ return mRotationAngleInDegrees; }
+	float     GetSecondRotationAngle() const	{ return mSecondRotationAngleInDegrees; }
     LightModel* GetLightSource() { return mLightSource; }
+
+	bool mGetScalingFromParent;
+    // The vertex format could be different for different types of models
+    struct Vertex
+    {
+        glm::vec3 position;
+        glm::vec3 normal;
+        glm::vec3 color;
+    };
+
+    virtual std::vector<Vertex> GetWorldVertices();
+	BoundingBox* boundingBox;
+	std::vector<Vertex> vertexBuffer;
+	ci_string mName; // The model name is mainly for debugging
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
+	void DrawBoundingBox();
 
-	ci_string mName; // The model name is mainly for debugging
+
 	glm::vec3 mPosition;
 	glm::vec3 mScaling;
 	glm::vec3 mRotationAxis;
+	glm::vec3 mSecondRotationAxis;
 	float     mRotationAngleInDegrees;
+	float     mSecondRotationAngleInDegrees;
+    bool      lookForward;
+
+    glm::vec3 mForward;
+    glm::vec3 mRight;
+    glm::vec3 mUp;
 
 	// @TODO 4 - You may want to add a parent object for the hierarchical modeling
     Model * mParent;
     LightModel * mLightSource;
-    bool mGetScalingFromParent;
+
 
     // Shader coefficients
     float ka;
@@ -70,4 +99,5 @@ protected:
 	unsigned int mVertexBufferID;
 
     BSpline* spline;
+
 };

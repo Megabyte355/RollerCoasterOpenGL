@@ -10,17 +10,23 @@
 #include "World.h"
 #include "StaticCamera.h"
 #include "FirstPersonCamera.h"
+#include "FreeLookCamera.h"
 #include "BSpline.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
+#include "BoundingBox.h"
+
+#include <iostream>
 
 using namespace std;
 
-Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
+Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f), mSecondRotationAxis(1.0f, 0.0f, 0.0f), mSecondRotationAngleInDegrees(0.0f)
 {
     mParent = nullptr;
     mGetScalingFromParent = true;
     spline = nullptr;
+	boundingBox = new BoundingBox(this);
+    Init();
 }
 
 Model::Model(Model * p) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
@@ -28,6 +34,8 @@ Model::Model(Model * p) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScalin
     mParent = p;
     mGetScalingFromParent = true;
     spline = nullptr;
+	boundingBox = new BoundingBox(this);
+    Init();
 }
 
 Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f)
@@ -35,10 +43,20 @@ Model::Model(Model * p, bool getScalingFromParent) : mName("UNNAMED"), mPosition
     mParent = p;
     mGetScalingFromParent = getScalingFromParent;
     spline = nullptr;
+	boundingBox = new BoundingBox(this);
+    Init();
 }
 
 Model::~Model()
 {
+}
+
+void Model::Init()
+{
+    mForward = glm::vec3(0.0f, 0.0f, 1.0f);
+    mUp = glm::vec3(0.0f, 1.0f, 0.0f);
+    mRight = glm::cross(mForward, mUp);
+    lookForward = true;
 }
 
 void Model::Update(float dt)
@@ -46,6 +64,13 @@ void Model::Update(float dt)
     if(spline != nullptr)
     {
         this->mPosition = spline->GetPosition() + spline->GetNextPoint();
+
+        if (lookForward)
+        {
+            glm::vec3 velocity = glm::vec3(spline->GetVelocityUnitVector());
+            mRotationAxis = glm::cross(mForward, velocity);
+            mRotationAngleInDegrees = degrees(glm::acos(glm::dot(mForward, velocity) / (length(mForward) * length(velocity))));
+        }
         spline->Update(dt);
     }
 }
@@ -193,7 +218,7 @@ glm::mat4 Model::GetWorldMatrix() const
 
     glm::mat4 position = glm::translate(identity, mPosition);
     glm::mat4 scale = glm::scale(identity, mScaling);
-    glm::mat4 rotation = glm::rotate(identity, mRotationAngleInDegrees, mRotationAxis);
+    glm::mat4 rotation = glm::rotate(identity, mRotationAngleInDegrees, mRotationAxis) * glm::rotate(identity, mSecondRotationAngleInDegrees, mSecondRotationAxis);
 
     glm::mat4 worldMatrix = position * rotation * scale;
 
@@ -250,7 +275,23 @@ void Model::SetRotation(glm::vec3 axis, float angleDegrees)
 	mRotationAngleInDegrees = angleDegrees;
 }
 
+void Model::SetSecondRotation(glm::vec3 axis, float angleDegrees)
+{
+	mSecondRotationAxis = axis;
+	mSecondRotationAngleInDegrees = angleDegrees;
+}
+
 void Model::SetLightSource(LightModel * lightSource)
 {
     mLightSource = lightSource;
+}
+
+std::vector<Model::Vertex> Model::GetWorldVertices() {
+    std::vector<Vertex> vec;
+    return vec;
+}
+
+void Model::DrawBoundingBox()
+{
+
 }

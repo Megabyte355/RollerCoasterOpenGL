@@ -92,3 +92,9 @@ name     = "Moon"
 spline   = "SplineMoon"
 scaling  = 5.0 5.0 5.0
 position = 0.0 0.0 0.0
+
+[Tank]
+name     = "Tank"
+scaling  = 1.0 1.0 1.0
+position = 0.0 -0.5 0.0
+rotation = 0.0 0.0 1.0 0.0
