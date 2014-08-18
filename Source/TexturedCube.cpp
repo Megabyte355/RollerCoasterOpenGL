@@ -20,6 +20,7 @@ TexturedCube::TexturedCube(vec3 size)
 {
     mParent = nullptr;
     mLightSource = nullptr;
+    mGetScalingFromParent = false;
     Init(size);
 }
 
@@ -61,7 +62,7 @@ void TexturedCube::Init(vec3 size)
     // Create Vertex Buffer for all the verices of the Cube
 	vec3 halfSize = size * 0.5f;
 	
-	Vertex vertexBuffer[] = {  // position,                normal,                  color
+	vertexBuffer = {  // position,                normal,                  color
 								{ vec3(-halfSize.x,-halfSize.y,-halfSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) }, //left - red
 								{ vec3(-halfSize.x,-halfSize.y, halfSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) },
 								{ vec3(-halfSize.x, halfSize.y, halfSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f) },
@@ -168,7 +169,7 @@ void TexturedCube::Init(vec3 size)
 	// Upload Vertex Buffer to the GPU, keep a reference to it (mVertexBufferID)
 	glGenBuffers(1, &mVertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(Vertex), &vertexBuffer.front(), GL_STATIC_DRAW);
 
 	glGenBuffers(1, &uvbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);

@@ -6,6 +6,14 @@
 // Copyright (c) 2014 Concordia University. All rights reserved.
 //
 
+// Contributors:
+//      Razvan Alin Cijov
+//      Gary Chang
+//      Kevin Silva
+//      Shahrad Rezaei
+//      Dong Li
+//      Oleksandr Dymov
+
 #include "Renderer.h"
 #include "World.h"
 #include "EventManager.h"

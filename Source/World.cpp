@@ -6,6 +6,14 @@
 // Copyright (c) 2014 Concordia University. All rights reserved.
 //
 
+// Contributors:
+//      Razvan Alin Cijov
+//      Gary Chang
+//      Kevin Silva
+//      Shahrad Rezaei
+//      Dong Li
+//      Oleksandr Dymov
+
 #include "World.h"
 #include "Renderer.h"
 #include "ParsingHelper.h"
@@ -187,31 +195,6 @@ void World::Update(float dt)
 	{
 		(*it)->Update(dt);
 	}
-
-    //// Check lifetime of particles
-    //for (vector<ParticleEmitter*>::iterator it = mParticleEmitterModels.begin(); it < mParticleEmitterModels.end();)
-    //{
-    //    if (!(*it)->isEmitterActive())
-    //    {
-    //        for (vector<Model*>::iterator itm = mModel.begin(); itm < mModel.end();)
-    //        {
-    //            if (*itm == *it)
-    //            {
-    //                itm = mModel.erase(itm);
-    //            }
-    //            else
-    //            {
-    //                itm++;
-    //            }
-    //        }
-    //        delete *it;
-    //        it = mParticleEmitterModels.erase(it);
-    //    }
-    //    else
-    //    {
-    //        it++;
-    //    }
-    //}
 }
 
 void World::Draw()
@@ -230,6 +213,7 @@ void World::Draw()
 		glUseProgram(Renderer::GetShaderProgramID());
 		AlienModel* alien = dynamic_cast<AlienModel*>(*it);
 		TexturedCube* texCube = dynamic_cast<TexturedCube*>(*it);
+        ParticleEmitter* emitter = dynamic_cast<ParticleEmitter*>(*it);
 
 		if (alien != nullptr)
 		{
@@ -245,7 +229,7 @@ void World::Draw()
 			glUseProgram(Renderer::GetShaderProgramID());
 		}
 
-		else if (keepChecking)
+		else if (keepChecking || emitter != nullptr)
 		{
 			Renderer::SetShader(SHADER_PHONG);
 			glUseProgram(Renderer::GetShaderProgramID());
