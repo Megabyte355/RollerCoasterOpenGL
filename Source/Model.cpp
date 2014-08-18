@@ -286,9 +286,24 @@ void Model::SetLightSource(LightModel * lightSource)
     mLightSource = lightSource;
 }
 
+BSpline* Model::GetSpline()
+{
+    return spline;
+}
+
+bool Model::LooksForward()
+{
+    return lookForward;
+}
+
 std::vector<Model::Vertex> Model::GetWorldVertices() {
     std::vector<Vertex> vec;
     return vec;
+}
+
+void Model::SetSplineSource(BSpline* splineSource)
+{
+	spline = splineSource;
 }
 
 void Model::DrawBoundingBox()

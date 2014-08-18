@@ -1,3 +1,6 @@
+// Contributors:
+//      Gary Chang
+
 #include "LightModel.h"
 #include "EventManager.h"
 #include "Renderer.h"

@@ -19,14 +19,18 @@
 #include "TankModel.h"
 #include "VehicleModel.h"
 #include "AlienModel.h"
+#include "AlienCubeModel.h"
+#include "Missile.h"
 #include "SphereModel.h"
 #include "LightModel.h"
 #include "BSpline.h"
+#include "CubeModelSM.h"
 #include "TexturedCube.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 #include "TriangleModel.h"
+#include "ParticleEmitter.h"
 
 using namespace std;
 using namespace glm;
@@ -37,6 +41,7 @@ std::vector<Camera*> World::mCamera;
 std::vector<Model*> World::mModel;
 std::vector<LightModel*> World::mLightModels;
 std::vector<BSpline*> World::mBSplineModels;
+std::vector<ParticleEmitter*> World::mParticleEmitterModels;
 
 World::World()
 {
@@ -161,12 +166,50 @@ void World::Update(float dt)
 	// Update models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
+        ParticleEmitter* p = dynamic_cast<ParticleEmitter*>(*it);
+        if (p != nullptr)
+        {
+            if (!p->isEmitterActive())
+            {
+                delete p;
+                it = mModel.erase(it);
+                if (it >= mModel.end())
+                {
+                    break;
+                }
+            }
+        }
 		(*it)->Update(dt);
 	}
     for (vector<LightModel*>::iterator it = mLightModels.begin(); it < mLightModels.end(); ++it)
 	{
 		(*it)->Update(dt);
 	}
+
+    //// Check lifetime of particles
+    //for (vector<ParticleEmitter*>::iterator it = mParticleEmitterModels.begin(); it < mParticleEmitterModels.end();)
+    //{
+    //    if (!(*it)->isEmitterActive())
+    //    {
+    //        for (vector<Model*>::iterator itm = mModel.begin(); itm < mModel.end();)
+    //        {
+    //            if (*itm == *it)
+    //            {
+    //                itm = mModel.erase(itm);
+    //            }
+    //            else
+    //            {
+    //                itm++;
+    //            }
+    //        }
+    //        delete *it;
+    //        it = mParticleEmitterModels.erase(it);
+    //    }
+    //    else
+    //    {
+    //        it++;
+    //    }
+    //}
 }
 
 void World::Draw()
@@ -256,7 +299,7 @@ void World::LoadScene(const char * scene_path)
 			else if( result == "tank" )
 			{
 				// Box attributes
-				TankModel* tank = new TankModel();
+				tank = new TankModel();
 				tank->Load(iss);
 				mModel.push_back(tank);
 				mCamera.at(0)->setTarget(tank);
@@ -266,9 +309,12 @@ void World::LoadScene(const char * scene_path)
 			{
 				// Box attributes
 				AlienModel* alien = new AlienModel();
-				CubeModel* pos = new CubeModel(glm::vec3(0.01f,0.01f,0.01f));
+				Missile* mis = new Missile(tank);
+				AlienCubeModel* pos = new AlienCubeModel();
+				pos->SetMissile(mis);
 				pos->Load(iss);
 				alien->Load(iss);
+				mModel.push_back(mis);
 				mModel.push_back(pos);
 				mModel.push_back(alien);
 			}
@@ -309,6 +355,21 @@ void World::LoadScene(const char * scene_path)
                 triangle->Load(iss);
                 mModel.push_back(triangle);
             }
+            else if (result == "particleEmitter")
+            {
+                ParticleEmitter* particleEmitter = new ParticleEmitter(vec4(1.0f, 0.0f, 0.0f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 0.0f));
+                particleEmitter->Load(iss);
+                mModel.push_back(particleEmitter);
+                mParticleEmitterModels.push_back(particleEmitter);
+                particleEmitter->SetLightSource(mLightModels.back());
+                particleEmitter->GenerateParticles();
+            }
+            else if (result == "cubesm")
+            {
+                CubeModelSM* cubesm = new CubeModelSM();
+                cubesm->Load(iss);
+                mModel.push_back(cubesm);
+            }
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line
@@ -348,4 +409,9 @@ std::vector<LightModel*>* World::GetLightModelsPtr()
 std::vector<BSpline*>* World::GetBSplineModelsPtr()
 {
     return &mBSplineModels;
+}
+
+std::vector<ParticleEmitter*>* World::GetParticleEmitterModelsPtr()
+{
+    return &mParticleEmitterModels;
 }
