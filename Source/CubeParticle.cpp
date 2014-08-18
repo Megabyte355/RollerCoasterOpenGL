@@ -12,7 +12,8 @@ CubeParticle::CubeParticle(vec3 size) : Particle()
     Init(size);
 }
 
-CubeParticle::CubeParticle(float moveSpeed, vec4 normalizedDirection, float lifespan, float deceleration, vec3 size) : Particle(moveSpeed, normalizedDirection, lifespan, deceleration) {
+CubeParticle::CubeParticle(vec4 point, float moveSpeed, vec4 normalizedDirection, float lifespan, float deceleration, vec3 size) : Particle(moveSpeed, normalizedDirection, lifespan, deceleration) {
+    mPosition = glm::vec3(point);
     Init(size);
 }
 

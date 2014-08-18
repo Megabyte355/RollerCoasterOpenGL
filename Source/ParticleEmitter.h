@@ -13,7 +13,7 @@ class ParticleEmitter: public Model
 {
 public:
     ParticleEmitter();
-    ParticleEmitter(vec4 normal); //To be used with ray casting
+    ParticleEmitter(vec4 point, vec4 normal); //To be used with ray casting
     ~ParticleEmitter();
 
     virtual void Update(float dt);
@@ -29,6 +29,7 @@ public:
 protected:
 
     static std::vector<Particle*> particles;
+    vec4 point;
     vec4 normal;
     bool isAlive;
 };

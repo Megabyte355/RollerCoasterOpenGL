@@ -15,7 +15,7 @@ class CubeParticle:public Particle
 public:
 
     CubeParticle(glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
-    CubeParticle(float speed, vec4 normalizedDirection, float lifespan, float deceleration, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
+    CubeParticle(vec4 point, float speed, vec4 normalizedDirection, float lifespan, float deceleration, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
     ~CubeParticle();
     
     void Init(vec3 size);

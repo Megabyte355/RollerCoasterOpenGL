@@ -16,6 +16,7 @@
 #include "RayCast.h"
 #include "World.h"
 #include "BoundingBox.h"
+#include "ParticleEmitter.h"
 
 using namespace glm;
 
@@ -99,6 +100,15 @@ void FreeLookCamera::Update(float dt)
         std::cout << "Collision point x: " << collision.collisionPointWorld.x << std::endl;
         std::cout << "Collision point y: " << collision.collisionPointWorld.y << std::endl;
         std::cout << "Collision point z: " << collision.collisionPointWorld.z << std::endl << std::endl;
+
+        if (collision.collision)
+        {
+            ParticleEmitter* emitter = new ParticleEmitter(collision.collisionPointWorld, collision.normal);
+            std::vector<ParticleEmitter*>* particlesPtr = World::GetParticleEmitterModelsPtr();
+            //World::GetModelsPtr()->push_back(emitter);
+            emitter->SetLightSource(World::GetLightModelsPtr()->back());
+            emitter->GenerateParticles();
+        }   
     }
 }
 

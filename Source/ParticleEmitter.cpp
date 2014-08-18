@@ -22,7 +22,8 @@ std::vector<Particle*> ParticleEmitter::particles;
 ParticleEmitter::ParticleEmitter(){
 }
 
-ParticleEmitter::ParticleEmitter(vec4 normal) {
+ParticleEmitter::ParticleEmitter(vec4 point, vec4 normal) {
+    this->point = point;
     this->normal = normal;
 }
 
@@ -41,7 +42,7 @@ void ParticleEmitter::GenerateParticles() {
         int randomAxis = rand() % 3;
         float randomAngleinDegrees = RandomFloat(-90, 90);
         float randomSpeed = RandomFloat(10, 20);
-        float randomLifespan = RandomFloat(3, 5);
+        float randomLifespan = RandomFloat(1, 3);
         float randomDeceleration = - RandomFloat(0, 1);
 
         float randomX = RandomFloat(-10, 10);
@@ -50,7 +51,7 @@ void ParticleEmitter::GenerateParticles() {
 
         vec4 particleDirection = normalize(vec4(randomX, randomY, randomZ, 0.0f));
 
-        CubeParticle* cp = new CubeParticle(10, particleDirection, randomLifespan, randomDeceleration);
+        CubeParticle* cp = new CubeParticle(point, 10, particleDirection, randomLifespan, randomDeceleration);
         cp->SetLightSource(mLightSource);
         particles.push_back(cp);
     }
