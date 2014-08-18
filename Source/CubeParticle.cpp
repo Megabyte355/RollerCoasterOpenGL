@@ -9,11 +9,15 @@ using namespace glm;
 
 CubeParticle::CubeParticle(vec3 size) : Particle()
 {
+    color1 = glm::vec3(1.0f, 1.0f, 0.0f);
+    color2 = glm::vec3(1.0f, 1.0f, 0.0f);
     Init(size);
 }
 
-CubeParticle::CubeParticle(vec4 point, float moveSpeed, vec4 normalizedDirection, float lifespan, float deceleration, vec3 size) : Particle(moveSpeed, normalizedDirection, lifespan, deceleration) {
+CubeParticle::CubeParticle(vec4 point, float moveSpeed, vec4 normalizedDirection, float lifespan, float deceleration, float rotationSpeed, glm::vec3 colorA, glm::vec3 colorB, vec3 size) : Particle(moveSpeed, normalizedDirection, lifespan, deceleration, rotationSpeed) {
     mPosition = glm::vec3(point);
+    color1 = colorA;
+    color2 = colorB;
     Init(size);
 }
 
@@ -22,54 +26,54 @@ void CubeParticle::Init(vec3 size)
     // Create Vertex Buffer for all the verices of the Cube
     vec3 smallSize = size * 0.20f;
 
-    Model::Vertex vertexBuffer[] = {  // position,                normal,                  color
-            { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) }, //left - red
-            { vec3(-smallSize.x, -smallSize.y, smallSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) },
-            { vec3(-smallSize.x, smallSize.y, smallSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) },
+    Model::Vertex vertexBuffer[] = {
+        { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(-1.0f, 0.0f, 0.0f), color1 },
+        { vec3(-smallSize.x, -smallSize.y, smallSize.z), vec3(-1.0f, 0.0f, 0.0f), color1 },
+        { vec3(-smallSize.x, smallSize.y, smallSize.z), vec3(-1.0f, 0.0f, 0.0f), color2 },
 
-            { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) },
-            { vec3(-smallSize.x, smallSize.y, smallSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) },
-            { vec3(-smallSize.x, smallSize.y, -smallSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) },
+        { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(-1.0f, 0.0f, 0.0f), color1 },
+        { vec3(-smallSize.x, smallSize.y, smallSize.z), vec3(-1.0f, 0.0f, 0.0f), color1 },
+        { vec3(-smallSize.x, smallSize.y, -smallSize.z), vec3(-1.0f, 0.0f, 0.0f), color2 },
 
-            { vec3(smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, 1.0f) }, // far - blue
-            { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, 1.0f) },
-            { vec3(-smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, 1.0f) },
+        { vec3(smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), color1 },
+        { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), color1 },
+        { vec3(-smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), color2 },
 
-            { vec3(smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, 1.0f) },
-            { vec3(smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, 1.0f) },
-            { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), vec3(0.0f, 0.0f, 1.0f) },
+        { vec3(smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), color1 },
+        { vec3(smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), color1 },
+        { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, 0.0f, -1.0f), color2 },
 
-            { vec3(smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, 1.0f, 1.0f) }, // bottom - turquoise
-            { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, 1.0f, 1.0f) },
-            { vec3(smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, 1.0f, 1.0f) },
+        { vec3(smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, -1.0f, 0.0f), color1 },
+        { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, -1.0f, 0.0f), color1 },
+        { vec3(smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, -1.0f, 0.0f), color2 },
 
-            { vec3(smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, 1.0f, 1.0f) },
-            { vec3(-smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, 1.0f, 1.0f) },
-            { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, -1.0f, 0.0f), vec3(0.0f, 1.0f, 1.0f) },
+        { vec3(smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, -1.0f, 0.0f), color1 },
+        { vec3(-smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, -1.0f, 0.0f), color1 },
+        { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(0.0f, -1.0f, 0.0f), color2 },
 
-            { vec3(-smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f) }, // near - green
-            { vec3(-smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f) },
-            { vec3(smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f) },
+        { vec3(-smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), color1 },
+        { vec3(-smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), color1 },
+        { vec3(smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), color2 },
 
-            { vec3(smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f) },
-            { vec3(-smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f) },
-            { vec3(smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f) },
+        { vec3(smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), color1 },
+        { vec3(-smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), color1 },
+        { vec3(smallSize.x, -smallSize.y, smallSize.z), vec3(0.0f, 0.0f, 1.0f), color2 },
 
-            { vec3(smallSize.x, smallSize.y, smallSize.z), vec3(1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 1.0f) }, // right - purple
-            { vec3(smallSize.x, -smallSize.y, -smallSize.z), vec3(1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 1.0f) },
-            { vec3(smallSize.x, smallSize.y, -smallSize.z), vec3(1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 1.0f) },
+        { vec3(smallSize.x, smallSize.y, smallSize.z), vec3(1.0f, 0.0f, 0.0f), color1 },
+        { vec3(smallSize.x, -smallSize.y, -smallSize.z), vec3(1.0f, 0.0f, 0.0f), color1 },
+        { vec3(smallSize.x, smallSize.y, -smallSize.z), vec3(1.0f, 0.0f, 0.0f), color2 },
 
-            { vec3(smallSize.x, -smallSize.y, -smallSize.z), vec3(1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 1.0f) },
-            { vec3(smallSize.x, smallSize.y, smallSize.z), vec3(1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 1.0f) },
-            { vec3(smallSize.x, -smallSize.y, smallSize.z), vec3(1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 1.0f) },
+        { vec3(smallSize.x, -smallSize.y, -smallSize.z), vec3(1.0f, 0.0f, 0.0f), color1 },
+        { vec3(smallSize.x, smallSize.y, smallSize.z), vec3(1.0f, 0.0f, 0.0f), color1 },
+        { vec3(smallSize.x, -smallSize.y, smallSize.z), vec3(1.0f, 0.0f, 0.0f), color2 },
 
-            { vec3(smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 1.0f, 0.0f) }, // top - yellow
-            { vec3(smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 1.0f, 0.0f) },
-            { vec3(-smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 1.0f, 0.0f) },
+        { vec3(smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 1.0f, 0.0f), color1 },
+        { vec3(smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 1.0f, 0.0f), color1 },
+        { vec3(-smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 1.0f, 0.0f), color2 },
 
-            { vec3(smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 1.0f, 0.0f) },
-            { vec3(-smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 1.0f, 0.0f) },
-            { vec3(-smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 1.0f, 0.0f) }
+        { vec3(smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 1.0f, 0.0f), color1 },
+        { vec3(-smallSize.x, smallSize.y, -smallSize.z), vec3(0.0f, 1.0f, 0.0f), color1 },
+        { vec3(-smallSize.x, smallSize.y, smallSize.z), vec3(0.0f, 1.0f, 0.0f), color2 }
     };
 
     // Create a vertex array

@@ -11,21 +11,18 @@ Particle::Particle()
 {
 }
 
-Particle::Particle(float moveSpeed, vec4 normalizedDirection, float lifespan, float deceleration) {
+Particle::Particle(float moveSpeed, vec4 normalizedDirection, float lifespan, float deceleration, float rotationSpeed) {
     this->deceleration = deceleration;
     this->moveSpeed = moveSpeed;
     this->normalizedDirection = normalizedDirection;
     this->lifespan = lifespan;
+    this->rotationSpeed = rotationSpeed;
 }
 
 void Particle::Update(float dt) {
-    //moveSpeed += deceleration * dt;
-    //mPosition += moveSpeed * dt * vec3(normalizedDirection);
-
-    moveSpeed += -0.1f * dt;
+    moveSpeed += deceleration * dt;
     mPosition += moveSpeed * dt * vec3(normalizedDirection);
-
-    mRotationAngleInDegrees += 90.0f * dt;
+    mRotationAngleInDegrees += rotationSpeed * dt;
     lifespan -= dt;
 }
 

@@ -14,6 +14,7 @@ class ParticleEmitter: public Model
 public:
     ParticleEmitter();
     ParticleEmitter(vec4 point, vec4 normal); //To be used with ray casting
+    ParticleEmitter(vec4 point, vec4 normal, glm::vec3 colorA, glm::vec3 colorB);
     ~ParticleEmitter();
 
     virtual void Update(float dt);
@@ -32,5 +33,8 @@ protected:
     vec4 point;
     vec4 normal;
     bool isAlive;
+
+    glm::vec3 color1;
+    glm::vec3 color2;
 };
 
