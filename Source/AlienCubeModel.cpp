@@ -10,14 +10,13 @@
 #include <GL/glew.h>
 
 using namespace glm;
-Missile* ms;
 
-AlienCubeModel::AlienCubeModel(void)
+AlienCubeModel::AlienCubeModel()
 {
     mParent = nullptr;
     mLightSource = nullptr;
-    Init();
 	ms = nullptr;
+    Init();
 	missileTime = 0;
 }
 
@@ -26,8 +25,15 @@ AlienCubeModel::AlienCubeModel(Model * parent)
     mParent = parent;
     mLightSource = nullptr;
     mGetScalingFromParent = true;
+	ms = nullptr;
     Init();
 }
+
+void AlienCubeModel::SetMissile(Missile* missile)
+{
+	ms = missile;
+}
+
 
 void AlienCubeModel::Init()
 {
@@ -109,12 +115,15 @@ AlienCubeModel::~AlienCubeModel()
 void AlienCubeModel::Update(float dt)
 {
     Model::Update(dt);
-	missileTime = missileTime + 0.1;
-	float end = 50.0;
-	if (missileTime > end)
+	if (ms != nullptr)
 	{
-		ms->AddMissile(this->mPosition);
-		missileTime = 0.0;
+		missileTime = missileTime + 0.1;
+		float end = 50.0;
+		if (missileTime > end)
+		{
+			ms->AddMissile(this->mPosition);
+			missileTime = 0.0;
+		}
 	}
 }
 

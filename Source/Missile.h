@@ -23,7 +23,6 @@ protected:
 
 private:
     float speed;
-	BSpline* spline;
 	CubeModel* cube;
 
 };

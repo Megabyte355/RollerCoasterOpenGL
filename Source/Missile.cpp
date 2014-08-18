@@ -31,11 +31,11 @@ Missile::Missile(TankModel* t)
 Missile::~Missile(void)
 {
 	container.clear();
-	for (vector<CubeModel*>::iterator it = container.begin(); it < container.end(); ++it)
+	mContainer.clear();
+	for (vector<Missile*>::iterator it = mContainer.begin(); it < mContainer.end(); ++it)
 	{
 		delete *it;
 	}
-	container.clear();
 }
 
 void Missile::Init()
@@ -62,6 +62,7 @@ void Missile::Update(float dt)
 			if (cube->GetBSpline()->LastPointReached())
 			{
 				// delete cube;
+				cube->SetPosition(glm::vec3(0.0f, -3.0f, 0.0f));
 			}
 		}
 

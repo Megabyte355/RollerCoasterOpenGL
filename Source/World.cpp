@@ -257,8 +257,9 @@ void World::LoadScene(const char * scene_path)
 			{
 				// Box attributes
 				AlienModel* alien = new AlienModel();
-				AlienCubeModel* pos = new AlienCubeModel();
 				Missile* mis = new Missile(tank);
+				AlienCubeModel* pos = new AlienCubeModel();
+				pos->SetMissile(mis);
 				pos->Load(iss);
 				alien->Load(iss);
 				mModel.push_back(mis);
