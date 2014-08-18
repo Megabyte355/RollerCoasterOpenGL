@@ -7,6 +7,7 @@ using namespace glm;
 SphereModel::SphereModel(vec3 size)
 {
     Init(size);
+	mGetScalingFromParent = false;
 }
 
 
@@ -27,7 +28,7 @@ void SphereModel::Init(vec3 size)
 {
     //vec3 halfSize = size * 0.5f;
 
-    Vertex vertexBuffer[] = {
+    vertexBuffer = {
         // position,                                    normal,                              color
         { vec3(0.000000, 0.000000, -1.000000), vec3(0.000000, 0.000000, -1.000000), vec3(1.0f, 0.05f, 0.05f) },
         { vec3(0.173648, 0.000000, -0.984808), vec3(0.173648, 0.000000, -0.984808), vec3(1.0f, 0.05f, 0.05f) },
@@ -1292,7 +1293,7 @@ void SphereModel::Init(vec3 size)
         { vec3(0.000000, 0.000000, -1.000000), vec3(0.000000, 0.000000, -1.000000), vec3(1.0f, 0.05f, 0.05f) },
     };
 
-    numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
+    numOfVertices = vertexBuffer.size();
 
     // Set up shader constant defaults
     ka = 0.2f;
@@ -1303,7 +1304,7 @@ void SphereModel::Init(vec3 size)
     glGenVertexArrays(1, &mVertexArrayID);
     glGenBuffers(1, &mVertexBufferID);
     glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(Vertex), &vertexBuffer.front(), GL_STATIC_DRAW);
 }
 
 void SphereModel::Update(float dt)

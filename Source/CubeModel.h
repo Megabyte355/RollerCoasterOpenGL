@@ -36,6 +36,4 @@ private:
 		glm::vec3 normal;
 		glm::vec3 color;
 	};
-
-	std::vector<Vertex> vertexBuffer;
 };

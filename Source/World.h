@@ -32,8 +32,9 @@ public:
     static std::vector<LightModel*>* GetLightModelsPtr();
     static std::vector<BSpline*>* GetBSplineModelsPtr();
 
-private:
 	static std::vector<Model*> mModel;
+
+private:
     static std::vector<LightModel*> mLightModels;
     static std::vector<BSpline*> mBSplineModels;
 

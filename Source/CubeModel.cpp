@@ -22,6 +22,7 @@ CubeModel::CubeModel(vec3 size)
 {
 	mParent = nullptr;
 	mLightSource = nullptr;
+	mGetScalingFromParent = false;
 	Init(size);
 }
 

@@ -63,12 +63,15 @@ public:
     };
 
     virtual std::vector<Vertex> GetWorldVertices();
+	BoundingBox* boundingBox;
+	std::vector<Vertex> vertexBuffer;
+	ci_string mName; // The model name is mainly for debugging
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
 	void DrawBoundingBox();
 
-	ci_string mName; // The model name is mainly for debugging
+
 	glm::vec3 mPosition;
 	glm::vec3 mScaling;
 	glm::vec3 mRotationAxis;
@@ -96,5 +99,5 @@ protected:
 	unsigned int mVertexBufferID;
 
     BSpline* spline;
-	BoundingBox* boundingBox;
+
 };
