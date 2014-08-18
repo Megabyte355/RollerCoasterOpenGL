@@ -13,7 +13,8 @@ class ParticleEmitter: public Model
 {
 public:
     ParticleEmitter();
-    ParticleEmitter(vec4 mPosition, vec4 normal);
+    //To be used with ray casting
+    ParticleEmitter(vec4 normal);
     ~ParticleEmitter();
 
     virtual void Update(float dt);

@@ -7,9 +7,12 @@
 
 using namespace glm;
 
-CubeParticle::CubeParticle() : Particle()
+CubeParticle::CubeParticle(vec3 size) : Particle()
 {
-    glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f);
+    Init(size);
+}
+
+CubeParticle::CubeParticle(float moveSpeed, vec4 normalizedDirection, float lifespan, vec3 size) : Particle(moveSpeed, normalizedDirection, lifespan) {
     Init(size);
 }
 
@@ -134,9 +137,6 @@ void CubeParticle::Draw()
     glDisableVertexAttribArray(0);
 }
 
-CubeParticle::CubeParticle(float moveSpeed, vec4 normalizedDirection, float lifespan, int scale) : Particle(moveSpeed, normalizedDirection, lifespan) { 
-}
-
 
 CubeParticle::~CubeParticle()
 {
@@ -144,3 +144,16 @@ CubeParticle::~CubeParticle()
 	glDeleteBuffers(1, &mVertexBufferID);
 	glDeleteVertexArrays(1, &mVertexArrayID);
 }
+
+bool CubeParticle::ParseLine(const std::vector<ci_string> &token) {
+    if (token.empty())
+    {
+        return true;
+    }
+    else
+    {
+        return Model::ParseLine(token);
+    }
+}
+
+
