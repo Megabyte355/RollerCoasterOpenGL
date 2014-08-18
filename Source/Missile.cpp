@@ -59,6 +59,10 @@ void Missile::Update(float dt)
 			cube = (*it)->GetCube();
 			cube->SetPosition(cube->GetBSpline()->GetPosition() + cube->GetBSpline()->GetNextPoint());
 			cube->GetBSpline()->Update(dt);
+			if (cube->GetBSpline()->LastPointReached())
+			{
+				// delete cube;
+			}
 		}
 
 }
@@ -73,7 +77,7 @@ void Missile::Trajectory(BSpline* sp)
 		sp->AddPoint(glm::vec4(endPos.x + 1.0f, endPos.y + 1.0f, endPos.z + 2.0f, 1.0f));
 		sp->AddPoint(glm::vec4(endPos, 1.0f));
 		sp->SetSpeed(5.0f);
-		sp->SetClosedLoop(true);
+		sp->SetClosedLoop(false);
 		cube->SetSplineSource(sp);
 }
 
