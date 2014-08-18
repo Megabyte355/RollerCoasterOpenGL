@@ -94,6 +94,12 @@
     <ClCompile Include="..\Source\BSpline.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\MoonModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\SunModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -133,6 +139,12 @@
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\BSpline.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\MoonModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\SunModel.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
