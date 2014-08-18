@@ -57,23 +57,21 @@ void ParticleEmitter::GenerateParticles() {
 }
 
 bool ParticleEmitter::isEmitterActive() {
-    for each (Particle* p in particles)
-    {
-        if (p != nullptr) {
-            return true;
-        }
-    }
-    return false;
+    return isAlive;
 }
 
 void ParticleEmitter::Update(float dt) {
-    for each (Particle* p in particles)
+    for (std::vector<Particle*>::iterator it = particles.begin(); it < particles.end();)
     {
-        if (p != nullptr){
-            p->Update(dt);
-            if (!p->isAlive()) {
-                p = nullptr;
-                delete p;
+        if (*it != nullptr){
+            (*it)->Update(dt);
+            if (!(*it)->isAlive()) {
+                delete *it;
+                it = particles.erase(it);
+            }
+            else
+            {
+                it++;
             }
         }
     }
@@ -90,6 +88,11 @@ void ParticleEmitter::Draw() {
 
 ParticleEmitter::~ParticleEmitter()
 {
+    for (std::vector<Particle*>::iterator it = particles.begin(); it < particles.end(); it++)
+    {
+        delete *it;
+    }
+    particles.clear();
 }
 
 bool ParticleEmitter::ParseLine(const std::vector<ci_string> &token)

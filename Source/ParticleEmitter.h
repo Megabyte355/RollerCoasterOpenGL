@@ -31,6 +31,5 @@ protected:
     static std::vector<Particle*> particles;
     vec4 normal;
     bool isAlive;
-
 };
 

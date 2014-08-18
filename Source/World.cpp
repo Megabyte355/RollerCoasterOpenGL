@@ -163,6 +163,31 @@ void World::Update(float dt)
 	{
 		(*it)->Update(dt);
 	}
+
+    // Check lifetime of particles
+    for (vector<ParticleEmitter*>::iterator it = mParticleEmitterModels.begin(); it < mParticleEmitterModels.end();)
+    {
+        if (!(*it)->isEmitterActive())
+        {
+            for (vector<Model*>::iterator itm = mModel.begin(); itm < mModel.end();)
+            {
+                if (*itm == *it)
+                {
+                    itm = mModel.erase(itm);
+                }
+                else
+                {
+                    itm++;
+                }
+            }
+            delete *it;
+            it = mParticleEmitterModels.erase(it);
+        }
+        else
+        {
+            it++;
+        }
+    }
 }
 
 void World::Draw()
