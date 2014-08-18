@@ -85,6 +85,11 @@ void BSpline::Reset()
 	finished = false;
 }
 
+void BSpline::ClearPoints()
+{
+    points.clear();
+}
+
 glm::vec4 BSpline::GetVelocityUnitVector()
 {
 	glm::vec4 p1(points[GetPointIndex(0)]);

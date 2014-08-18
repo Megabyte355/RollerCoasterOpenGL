@@ -18,6 +18,7 @@ public:
 	void SetSpeed(float speed);
 	void SetClosedLoop(bool loop);
 	void Reset();
+    void ClearPoints();
 
 	glm::vec4 GetVelocityUnitVector();
 	bool LastPointReached();
