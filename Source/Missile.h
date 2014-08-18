@@ -6,6 +6,7 @@
 class Missile : public Model
 {
 public:
+	Missile(void);
     Missile(TankModel* tank);
 	~Missile(void);
 	void AddMissile(glm::vec3 p);
@@ -16,10 +17,13 @@ public:
 
 protected:
 	void Add(glm::vec3 position);
-	void Trajectory();
+	void Trajectory(BSpline* sp);
     virtual bool ParseLine(const std::vector<ci_string> &token);
+	CubeModel* GetCube() { return cube; }
 
 private:
     float speed;
 	BSpline* spline;
+	CubeModel* cube;
+
 };
