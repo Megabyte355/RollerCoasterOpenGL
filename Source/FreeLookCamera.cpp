@@ -96,7 +96,7 @@ void FreeLookCamera::Update(float dt)
 			BoundingBox::BoundingCube boundingCube = model->boundingBox->CalculateBoundingBoxCoordinates();
 
 			if (boundingCube.frontFace.size() == 0)
-				return;
+				continue;
 			std::cout << "=================================" << std::endl;
 			std::cout << model->mName.c_str() << std::endl;
 			std::cout << "=================================" << std::endl;
