@@ -19,11 +19,15 @@
 #include "TankModel.h"
 #include "VehicleModel.h"
 #include "AlienModel.h"
+#include "AlienCubeModel.h"
+#include "Missile.h"
 #include "SphereModel.h"
 #include "LightModel.h"
 #include "BSpline.h"
 #include "SunModel.h"
 #include "MoonModel.h"
+#include "CubeModelSM.h"
+#include "TexturedCube.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -134,6 +138,10 @@ void World::Update(float dt)
 	{
 		Renderer::SetShader(SHADER_ALIEN);
 	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_6) == GLFW_PRESS)
+	{
+		Renderer::SetShader(SHADER_TEXTURE);
+	}
 	else{
 		if (mShader == 0)
 		{
@@ -152,6 +160,7 @@ void World::Update(float dt)
 			Renderer::SetShader(SHADER_BLUE);
 		}
 	}
+
 
 	// Update current Camera
 	mCamera[mCurrentCamera]->Update(dt);
@@ -208,29 +217,43 @@ void World::Update(float dt)
 void World::Draw()
 {
 	Renderer::BeginFrame();
-	
 	// Set Shader... In a more sofisticated application, each model could use a different shader
 	// In our case, all the models use a common shader
-	glUseProgram(Renderer::GetShaderProgramID());
+
 
 	// This looks for the V and P Uniform variable in the Vertex Program
-    GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
-    GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
 
+	bool keepChecking = true;
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
-		AlienModel* m = dynamic_cast<AlienModel*>(*it);
-		if (m != nullptr)
+		glUseProgram(Renderer::GetShaderProgramID());
+		AlienModel* alien = dynamic_cast<AlienModel*>(*it);
+		TexturedCube* texCube = dynamic_cast<TexturedCube*>(*it);
+
+		if (alien != nullptr)
 		{
 			Renderer::SetShader(SHADER_ALIEN);
 			glUseProgram(Renderer::GetShaderProgramID());
-
 			 //This looks for the V and P Uniform variable in the Vertex Program
-			GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
-			GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+			keepChecking = false;
+		}
+
+		else if (texCube != nullptr && keepChecking)
+		{
+			Renderer::SetShader(SHADER_TEXTURE);
+			glUseProgram(Renderer::GetShaderProgramID());
+		}
+
+		else if (keepChecking)
+		{
+			Renderer::SetShader(SHADER_PHONG);
+			glUseProgram(Renderer::GetShaderProgramID());
 		}
 		
+		GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
+		GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+
 		// Send the view and projection constants to the shader
 		mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
 		glUniformMatrix4fv(viewMatrix, 1, GL_FALSE, &V[0][0]);
@@ -278,7 +301,7 @@ void World::LoadScene(const char * scene_path)
 			else if( result == "tank" )
 			{
 				// Box attributes
-				TankModel* tank = new TankModel();
+				tank = new TankModel();
 				tank->Load(iss);
 				mModel.push_back(tank);
 				mCamera.at(0)->setTarget(tank);
@@ -288,9 +311,12 @@ void World::LoadScene(const char * scene_path)
 			{
 				// Box attributes
 				AlienModel* alien = new AlienModel();
-				CubeModel* pos = new CubeModel(glm::vec3(0.01f,0.01f,0.01f));
+				Missile* mis = new Missile(tank);
+				AlienCubeModel* pos = new AlienCubeModel();
+				pos->SetMissile(mis);
 				pos->Load(iss);
 				alien->Load(iss);
+				mModel.push_back(mis);
 				mModel.push_back(pos);
 				mModel.push_back(alien);
 			}
@@ -334,6 +360,12 @@ void World::LoadScene(const char * scene_path)
                 bSpline->Load(iss);
                 mBSplineModels.push_back(bSpline);
             }
+			else if (result == "textured_cube")
+			{
+				TexturedCube* texturedCube = new TexturedCube();
+				texturedCube->Load(iss);
+				mModel.push_back(texturedCube);
+			}
             else if (result == "triangle")
             {
                 TriangleModel* triangle = new TriangleModel();
@@ -348,6 +380,12 @@ void World::LoadScene(const char * scene_path)
                 mParticleEmitterModels.push_back(particleEmitter);
                 particleEmitter->SetLightSource(mLightModels.back());
                 particleEmitter->GenerateParticles();
+            }
+            else if (result == "cubesm")
+            {
+                CubeModelSM* cubesm = new CubeModelSM();
+                cubesm->Load(iss);
+                mModel.push_back(cubesm);
             }
 			else if ( result.empty() == false && result[0] == '#')
 			{

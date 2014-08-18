@@ -44,6 +44,9 @@ public:
 	void SetRotation(glm::vec3 axis, float angleDegrees);
 	void SetSecondRotation(glm::vec3 axis, float angleDegrees);
     virtual void SetLightSource(LightModel * lightModel);
+	virtual void SetSplineSource(BSpline* splineSource);
+    BSpline* GetSpline();
+    bool LooksForward();
 
 	glm::vec3 GetPosition() const		{ return mPosition; }
 	glm::vec3 GetScaling() const		{ return mScaling; }
@@ -52,6 +55,7 @@ public:
 	float     GetRotationAngle() const	{ return mRotationAngleInDegrees; }
 	float     GetSecondRotationAngle() const	{ return mSecondRotationAngleInDegrees; }
     LightModel* GetLightSource() { return mLightSource; }
+	BSpline* GetBSpline() { return spline; }
 
 	bool mGetScalingFromParent;
     // The vertex format could be different for different types of models
@@ -66,9 +70,14 @@ public:
 	BoundingBox* boundingBox;
 	std::vector<Vertex> vertexBuffer;
 	ci_string mName; // The model name is mainly for debugging
+    
+    glm::vec3 mForward;
+    glm::vec3 mRight;
+    glm::vec3 mUp;
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
+	ci_string texturePath;
 	void DrawBoundingBox();
 
 
@@ -79,10 +88,6 @@ protected:
 	float     mRotationAngleInDegrees;
 	float     mSecondRotationAngleInDegrees;
     bool      lookForward;
-
-    glm::vec3 mForward;
-    glm::vec3 mRight;
-    glm::vec3 mUp;
 
 	// @TODO 4 - You may want to add a parent object for the hierarchical modeling
     Model * mParent;
@@ -97,7 +102,8 @@ protected:
 
 	unsigned int mVertexArrayID;
 	unsigned int mVertexBufferID;
-
+	unsigned int uvbuffer;
+	unsigned int m;
     BSpline* spline;
 
 };

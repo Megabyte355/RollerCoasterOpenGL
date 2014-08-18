@@ -1,3 +1,6 @@
+// Contributors:
+//      Gary Chang
+
 #pragma once
 
 #include "Model.h"

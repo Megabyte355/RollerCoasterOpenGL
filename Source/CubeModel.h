@@ -19,12 +19,14 @@ public:
 	CubeModel(glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
 	CubeModel(Model * parent, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
 	CubeModel(Model * parent, bool getScalingFromParent, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
+	CubeModel(Model * parent, bool getScalingFromParent, ci_string texturePath, glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
 	virtual ~CubeModel();
 
 	virtual void Update(float dt);
 	virtual void Draw();
 
 protected:
+	ci_string mTexturePath;
 	virtual bool ParseLine(const std::vector<ci_string> &token);
 	virtual void Init(glm::vec3 size);
 
@@ -36,4 +38,7 @@ private:
 		glm::vec3 normal;
 		glm::vec3 color;
 	};
+
+	GLuint TextureID;
+	GLuint Texture;
 };

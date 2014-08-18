@@ -15,6 +15,7 @@ class Model;
 class LightModel;
 class BSpline;
 class ParticleEmitter;
+class TankModel;
 
 class World
 {
@@ -44,4 +45,6 @@ private:
 	static std::vector<Camera*> mCamera;
 	static unsigned int mCurrentCamera;
 	static unsigned int mShader;
+
+	TankModel* tank;
 };

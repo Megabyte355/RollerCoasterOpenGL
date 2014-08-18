@@ -1,10 +1,7 @@
 //
-// COMP 371 Assignment Framework
-//
-// Created by Nicolas Bergeron on 8/7/14.
-//
-// Copyright (c) 2014 Concordia University. All rights reserved.
-//
+// Contribution of Ly and Alin
+// 
+
 
 #include "FirstPersonCamera.h"
 #include "RayCast.h"
@@ -55,7 +52,7 @@ void FirstPersonCamera::Update(float dt)
         TankModel* tank = dynamic_cast<TankModel*>(mTarget);
         if (tank != nullptr)
         {
-            RayCast::CollisionResult collision = RayCast::IntersectBoundingBoxes(vec4(mPosition, 1.0f), vec4(mLookAtPoint, 1.0f));
+            RayCast::CollisionResult collision = RayCast::IntersectBoundingBoxes(vec4(tank->GetCanonTipPoint(), 1.0f), vec4(tank->GetCanonDirectionVector(), 1.0f));
 
             std::string modelName = "empty";
             if (collision.model != nullptr)
@@ -98,4 +95,17 @@ glm::mat4 FirstPersonCamera::GetViewMatrix() const
 
 void FirstPersonCamera::setTarget(Model* target){
 	mTarget = target;
+}
+
+void FirstPersonCamera::StartCameraShake(float dt)
+{
+	timeElapsed += dt;
+	amplitude += adjustAmplitudePerSecond * dt;
+	mPosition.y += +sin(timeElapsed);
+}
+
+void FirstPersonCamera::SetCameraShake(float amplitude, float adjustAmplitudePerSecond)
+{
+	this->amplitude = amplitude;
+	this->adjustAmplitudePerSecond = adjustAmplitudePerSecond;
 }

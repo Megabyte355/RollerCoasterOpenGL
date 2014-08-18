@@ -174,7 +174,7 @@ vec3 TankModel::GetCanonTipPoint()
 	float rotationAngleInRadian = radians(mRotationAngleInDegrees);
 	// get the radians of  the canon's rotation
 	float mChildHorizontalRadian = radians(mChildHorizontalAngle);
-	float mChildVerticalRadian = radians(mChildVerticalAngle);
+	float mChildVerticalRadian = radians(-mChildVerticalAngle);
 
 	//3.5 is the sum of the canon's length and half of the turret's length
 	canonTipPosition = GetPosition() + vec3(3.5 * cosf(mChildVerticalRadian) * sinf(rotationAngleInRadian + mChildHorizontalRadian), 3.5 * sinf(mChildVerticalRadian), 3.5 * cosf(mChildVerticalRadian) * cosf(rotationAngleInRadian + mChildHorizontalRadian));

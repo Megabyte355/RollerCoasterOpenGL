@@ -1,0 +1,11 @@
+#version 330 core
+
+in vec2 UV;     //Input from FragmentShader
+out vec3 color; //Output to screen
+
+uniform sampler2D cubeTexture; //This texture comes from the TexturedCube's texture.
+
+void main()
+{
+	color = texture2D(cubeTexture, UV).rgb;
+}
