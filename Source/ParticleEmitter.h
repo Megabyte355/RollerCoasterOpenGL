@@ -13,24 +13,22 @@ class ParticleEmitter: public Model
 {
 public:
     ParticleEmitter();
-    //To be used with ray casting
-    ParticleEmitter(vec4 normal);
+    ParticleEmitter(vec4 normal); //To be used with ray casting
     ~ParticleEmitter();
 
     virtual void Update(float dt);
     virtual void Draw();
     
     virtual bool ParseLine(const std::vector<ci_string> &token);
-    void Init();
+    void GenerateParticles();
 
-    void checkParticlesLife();
+    bool isEmitterActive();
     std::vector<Particle*> GetParticles();
     static float RandomFloat(float min, float max);
 
 protected:
 
     static std::vector<Particle*> particles;
-    static const int MAX_RANDOM_ANGLE = 180;
     vec4 normal;
     bool isAlive;
 

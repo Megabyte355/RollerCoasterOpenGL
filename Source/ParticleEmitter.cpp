@@ -20,21 +20,19 @@
 std::vector<Particle*> ParticleEmitter::particles;
 
 ParticleEmitter::ParticleEmitter(){
-    Init();
 }
 
 ParticleEmitter::ParticleEmitter(vec4 normal) {
     this->normal = normal;
-    Init();
 }
 
-void ParticleEmitter::Init() {
+void ParticleEmitter::GenerateParticles() {
 
     /* initialize random seed: */
     srand(time(NULL));
     /* generate secret number between 1 and 10: */
     
-    int randomParticleNumber = rand() % 10 + 10;
+    int randomParticleNumber = rand() % 10 + 200;
     std::cout << "randomParticleNumber :" << randomParticleNumber << std::endl;
 
     vec4 particleDirection = normal;
@@ -42,27 +40,30 @@ void ParticleEmitter::Init() {
     for (unsigned int i = 0; i < randomParticleNumber; i++) {
         int randomAxis = rand() % 3;
         float randomAngleinDegrees = RandomFloat(-90, 90);
-        float randomSpeed = RandomFloat(0, 10);
-        float randomLifespan = RandomFloat(3000, 10000);
+        float randomSpeed = RandomFloat(10, 20);
+        float randomLifespan = RandomFloat(3, 5);
+        float randomDeceleration = - RandomFloat(0, 1);
 
         float randomX = RandomFloat(-10, 10);
         float randomY = RandomFloat(-10, 10);
         float randomZ = RandomFloat(-10, 10);
 
-        std::cout << "randomAxis :" << randomAxis << std::endl;
-        std::cout << "randomAngleinDegrees :" << randomAngleinDegrees << std::endl;
-        std::cout << "randomSpeed :" << randomSpeed << std::endl;
-        std::cout << "randomLifespan :" << randomLifespan << std::endl << std::endl << std::endl;
+        vec4 particleDirection = normalize(vec4(randomX, randomY, randomZ, 0.0f));
 
-        vec4 particleDirection(randomX, randomY, randomZ, 0.0f);
-
-        CubeParticle* cp = new CubeParticle(randomSpeed, particleDirection, randomLifespan);
+        CubeParticle* cp = new CubeParticle(10, particleDirection, randomLifespan, randomDeceleration);
+        cp->SetLightSource(mLightSource);
         particles.push_back(cp);
     }
 }
 
-void ParticleEmitter::checkParticlesLife() {
-
+bool ParticleEmitter::isEmitterActive() {
+    for each (Particle* p in particles)
+    {
+        if (p != nullptr) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void ParticleEmitter::Update(float dt) {

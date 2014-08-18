@@ -12,14 +12,14 @@ CubeParticle::CubeParticle(vec3 size) : Particle()
     Init(size);
 }
 
-CubeParticle::CubeParticle(float moveSpeed, vec4 normalizedDirection, float lifespan, vec3 size) : Particle(moveSpeed, normalizedDirection, lifespan) {
+CubeParticle::CubeParticle(float moveSpeed, vec4 normalizedDirection, float lifespan, float deceleration, vec3 size) : Particle(moveSpeed, normalizedDirection, lifespan, deceleration) {
     Init(size);
 }
 
 void CubeParticle::Init(vec3 size)
 {
     // Create Vertex Buffer for all the verices of the Cube
-    vec3 smallSize = size * 0.05f;
+    vec3 smallSize = size * 0.20f;
 
     Model::Vertex vertexBuffer[] = {  // position,                normal,                  color
             { vec3(-smallSize.x, -smallSize.y, -smallSize.z), vec3(-1.0f, 0.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f) }, //left - red
@@ -78,6 +78,12 @@ void CubeParticle::Init(vec3 size)
     glGenBuffers(1, &mVertexBufferID);
     glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);
+
+    // Set up shader constant defaults
+    ka = 0.2f;
+    kd = 0.8f;
+    ks = 0.2f;
+    n = 50.0f;
 }
 
 void CubeParticle::Draw()

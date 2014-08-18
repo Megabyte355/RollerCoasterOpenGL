@@ -287,9 +287,12 @@ void World::LoadScene(const char * scene_path)
             }
             else if (result == "particleEmitter")
             {
-                ParticleEmitter* particleEmitter = new ParticleEmitter();
+                ParticleEmitter* particleEmitter = new ParticleEmitter(vec4(1.0f, 0.0f, 0.0f, 0.0f));
                 particleEmitter->Load(iss);
                 mModel.push_back(particleEmitter);
+                mParticleEmitterModels.push_back(particleEmitter);
+                particleEmitter->SetLightSource(mLightModels.back());
+                particleEmitter->GenerateParticles();
             }
 			else if ( result.empty() == false && result[0] == '#')
 			{

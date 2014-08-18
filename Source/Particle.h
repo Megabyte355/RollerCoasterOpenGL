@@ -12,7 +12,7 @@ class Particle:public Model
 
 public:
     Particle();
-    Particle(float speed, vec4 normalizedDirection, float lifespan);
+    Particle(float speed, vec4 normalizedDirection, float lifespan, float deceleration);
     virtual void Init(vec3 size) = 0;
     virtual void Draw() = 0;
     void Update(float dt);
@@ -22,10 +22,9 @@ public:
 
 protected:
 
+    float deceleration;
     float moveSpeed;
     vec4 normalizedDirection;
     float lifespan;
-    int scale;
-
 };
 

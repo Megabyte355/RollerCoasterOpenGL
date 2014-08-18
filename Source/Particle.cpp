@@ -9,17 +9,23 @@ using namespace glm;
 
 Particle::Particle()
 {
-
 }
 
-Particle::Particle(float moveSpeed, vec4 normalizedDirection, float lifespan) {
+Particle::Particle(float moveSpeed, vec4 normalizedDirection, float lifespan, float deceleration) {
+    this->deceleration = deceleration;
     this->moveSpeed = moveSpeed;
     this->normalizedDirection = normalizedDirection;
     this->lifespan = lifespan;
 }
 
 void Particle::Update(float dt) {
-    mPosition += vec3(normalizedDirection) * dt * moveSpeed;
+    //moveSpeed += deceleration * dt;
+    //mPosition += moveSpeed * dt * vec3(normalizedDirection);
+
+    moveSpeed += -0.1f * dt;
+    mPosition += moveSpeed * dt * vec3(normalizedDirection);
+
+    mRotationAngleInDegrees += 90.0f * dt;
     lifespan -= dt;
 }
 
