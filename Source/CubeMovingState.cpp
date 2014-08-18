@@ -19,12 +19,12 @@ CubeMovingState::~CubeMovingState()
 
 void CubeMovingState::In()
 {
-    duration = 10.0f;
+    duration = 3.0f;
 }
 
 void CubeMovingState::Out()
 {
-
+    nextStateName = "CubeIdleState";
 }
 
 void CubeMovingState::Execute(float dt)
@@ -44,6 +44,8 @@ void CubeMovingState::Execute(float dt)
         }
         spline->Update(dt);
     }
+
+    duration -= dt;
 }
 
 void CubeMovingState::Init()
@@ -53,6 +55,5 @@ void CubeMovingState::Init()
 
 bool CubeMovingState::IsExpired()
 {
-    // Temporary
-    return false;
+    return duration <= 0.0f;
 }

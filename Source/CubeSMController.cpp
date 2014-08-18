@@ -3,6 +3,7 @@
 
 #include "CubeSMController.h"
 #include "CubeMovingState.h"
+#include "CubeIdleState.h"
 
 CubeSMController::CubeSMController(CubeModelSM* model) : SMController(model)
 {
@@ -44,7 +45,10 @@ void CubeSMController::Init()
 {
     // Define all Cube states here
     CubeMovingState* movingState = new CubeMovingState(cubeModel);
+    CubeIdleState* idleState = new CubeIdleState(cubeModel);
 
     states.push_back(movingState);
+    states.push_back(idleState);
+
     currentState = movingState;
 }
