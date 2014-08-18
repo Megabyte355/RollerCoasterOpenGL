@@ -34,7 +34,7 @@ void ParticleEmitter::GenerateParticles() {
     /* generate secret number between 1 and 10: */
     
     int randomParticleNumber = rand() % 10 + 200;
-    std::cout << "randomParticleNumber :" << randomParticleNumber << std::endl;
+    //std::cout << "randomParticleNumber :" << randomParticleNumber << std::endl;
 
     vec4 particleDirection = normal;
 
@@ -58,7 +58,14 @@ void ParticleEmitter::GenerateParticles() {
 }
 
 bool ParticleEmitter::isEmitterActive() {
-    return isAlive;
+    for (std::vector<Particle*>::iterator it = particles.begin(); it < particles.end();)
+    {
+        if ((*it)->isAlive())
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 void ParticleEmitter::Update(float dt) {

@@ -7,7 +7,7 @@ BoundingBox::BoundingBox(Model* parentModel)
 
 BoundingBox::BoundingCube BoundingBox::CalculateBoundingBoxCoordinates()
 {
-	std::cout << model->vertexBuffer.size() << std::endl;
+	//std::cout << model->vertexBuffer.size() << std::endl;
 
 	if (model->vertexBuffer.size() == 0)
 	{

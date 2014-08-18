@@ -19,8 +19,8 @@ RayCast::CollisionResult RayCast::IntersectBoundingBoxes(vec4 originPoint, vec4 
 
     for (int i = 0; i < models.size(); i++)
     {
-    	Model* model = models.at(i);
-    	BoundingBox::BoundingCube boundingCube = model->boundingBox->CalculateBoundingBoxCoordinates();
+        Model* model = models.at(i);
+        BoundingBox::BoundingCube boundingCube = model->boundingBox->CalculateBoundingBoxCoordinates();
         CollisionResult currentResult;
 
         if (boundingCube.frontFace.size() == 0)
@@ -28,11 +28,11 @@ RayCast::CollisionResult RayCast::IntersectBoundingBoxes(vec4 originPoint, vec4 
             continue;
         }
 
-        std::cout << "=================================" << std::endl;
-        std::cout << model->mName.c_str() << std::endl;
-        std::cout << "=================================" << std::endl;
+        //std::cout << "=================================" << std::endl;
+        //std::cout << model->mName.c_str() << std::endl;
+        //std::cout << "=================================" << std::endl;
 
-        std::cout << "Back face" << std::endl;
+        //std::cout << "Back face" << std::endl;
         vec3 p1 = boundingCube.backFace[0][0];
         vec3 p2 = boundingCube.backFace[0][1];
         vec3 p3 = boundingCube.backFace[0][2];
@@ -51,7 +51,7 @@ RayCast::CollisionResult RayCast::IntersectBoundingBoxes(vec4 originPoint, vec4 
             collisionResults.push_back(currentResult);
         }
 
-        std::cout << "Front face" << std::endl;
+        //std::cout << "Front face" << std::endl;
         p1 = boundingCube.frontFace[0][0];
         p2 = boundingCube.frontFace[0][1];
         p3 = boundingCube.frontFace[0][2];
@@ -70,7 +70,7 @@ RayCast::CollisionResult RayCast::IntersectBoundingBoxes(vec4 originPoint, vec4 
             collisionResults.push_back(currentResult);
         }
 
-        std::cout << "Left face" << std::endl;
+        //std::cout << "Left face" << std::endl;
         p1 = boundingCube.leftFace[0][0];
         p2 = boundingCube.leftFace[0][1];
         p3 = boundingCube.leftFace[0][2];
@@ -89,7 +89,7 @@ RayCast::CollisionResult RayCast::IntersectBoundingBoxes(vec4 originPoint, vec4 
             collisionResults.push_back(currentResult);
         }
 
-        std::cout << "Right face" << std::endl;
+        //std::cout << "Right face" << std::endl;
         p1 = boundingCube.rightFace[0][0];
         p2 = boundingCube.rightFace[0][1];
         p3 = boundingCube.rightFace[0][2];
@@ -108,7 +108,7 @@ RayCast::CollisionResult RayCast::IntersectBoundingBoxes(vec4 originPoint, vec4 
             collisionResults.push_back(currentResult);
         }
 
-        std::cout << "Top face" << std::endl;
+        //std::cout << "Top face" << std::endl;
         p1 = boundingCube.topFace[0][0];
         p2 = boundingCube.topFace[0][1];
         p3 = boundingCube.topFace[0][2];
@@ -127,7 +127,7 @@ RayCast::CollisionResult RayCast::IntersectBoundingBoxes(vec4 originPoint, vec4 
             collisionResults.push_back(currentResult);
         }
 
-        std::cout << "Down face" << std::endl;
+        //std::cout << "Down face" << std::endl;
         p1 = boundingCube.downFace[0][0];
         p2 = boundingCube.downFace[0][1];
         p3 = boundingCube.downFace[0][2];
@@ -151,10 +151,10 @@ RayCast::CollisionResult RayCast::IntersectBoundingBoxes(vec4 originPoint, vec4 
     {
         CollisionResult closestCollision = collisionResults.back();
         float minDistance = length(closestCollision.collisionPointWorld - originPoint);
-        
+
         for each(CollisionResult c in collisionResults)
         {
-            float currentDistance = length(c.collisionPointWorld - originPoint) ;
+            float currentDistance = length(c.collisionPointWorld - originPoint);
             if (currentDistance < minDistance)
             {
                 closestCollision = c;
@@ -193,12 +193,12 @@ RayCast::CollisionResult RayCast::Intersect3DTriangle(vec4 originPoint, vec4 dir
     vec3 p1p2Vector = p2 - p1;
     vec3 p1p3Vector = p3 - p1;
     vec4 normal = vec4(glm::cross(p1p2Vector, p1p3Vector), 0.0f);
-    
+
     vec4 normalizedNormal = normalize(normal);
 
     // Calculate dot product is 90 < theta < 270  --> greater than 0
     if (glm::dot(normalizedNormal, glm::normalize(directionVector)) > 0.0f) {
-        std::cout << "NOT FACING US!!!" << std::endl;
+        //std::cout << "NOT FACING US!!!" << std::endl;
         return cResult;
     }
 
@@ -206,43 +206,34 @@ RayCast::CollisionResult RayCast::Intersect3DTriangle(vec4 originPoint, vec4 dir
     float denominator = glm::dot(normalizedNormal, directionVector);
 
     // Line is parallel to plane
-    if (fabs(denominator) < 0.0001f ) {           
+    if (fabs(denominator) < 0.0001f) {
         return cResult;
     }
     //Continue to compute intersecting point
     float t = numerator / denominator;
-    //std::cout << "t {" << t << "}" << std::endl;
-    
+
     // no intersection
     if (t < 0) {
         return cResult;
     }
-    
+
     //Finding resulting point on plane: P = originPoint + tv
     vec4 intersectionPoint = originPoint + t * directionVector;
-    //std::cout << "intersectionPoint {" << intersectionPoint.x << " " << intersectionPoint.y << " " << intersectionPoint.z << "}" << std::endl;
 
     //Check if point is bound within 3 points
     vec3 intersectionPointp1Vector = p1 - vec3(intersectionPoint);
-    //std::cout << "intersectionPointp1Vector {" << intersectionPointp1Vector.x << " " << intersectionPointp1Vector.y << " " << intersectionPointp1Vector.z << "}" << std::endl;
     vec3 intersectionPointp2Vector = p2 - vec3(intersectionPoint);
-    //std::cout << "intersectionPointp2Vector {" << intersectionPointp2Vector.x << " " << intersectionPointp2Vector.y << " " << intersectionPointp2Vector.z << "}" << std::endl;
 
     float areaTriangleA = (glm::length(vec3(glm::cross(p1 - vec3(intersectionPoint), p2 - vec3(intersectionPoint))))) / 2.0f;
     float areaTriangleB = (glm::length(vec3(glm::cross(p2 - vec3(intersectionPoint), p3 - vec3(intersectionPoint))))) / 2.0f;
     float areaTriangleC = (glm::length(vec3(glm::cross(p1 - vec3(intersectionPoint), p3 - vec3(intersectionPoint))))) / 2.0f;
     float originalTriangleArea = (glm::length(normal)) / 2.0f;
 
-    //std::cout << "originalTriangleArea {" << originalTriangleArea << "}" << std::endl;
-    //std::cout << "areaTriangleA {" << areaTriangleA << "}" << std::endl;
-    //std::cout << "areaTriangleB {" << areaTriangleB << "}" << std::endl;
-    //std::cout << "areaTriangleC {" << areaTriangleC << "}" << std::endl;
 
     float totalArea = areaTriangleA + areaTriangleB + areaTriangleC;
-    //std::cout << "totalArea {" << totalArea << "}" << std::endl;
 
     if (fabs(totalArea - originalTriangleArea) < 0.001f) {
-        std::cout << "SUPERU COLLISIONURU" << std::endl << std::endl;
+        //std::cout << "SUPERU COLLISIONURU" << std::endl << std::endl;
         return
         {
             intersectionPoint,
@@ -252,7 +243,7 @@ RayCast::CollisionResult RayCast::Intersect3DTriangle(vec4 originPoint, vec4 dir
         };
     }
 
-    std::cout << "NOT COLLIDING!!!" << std::endl;
+    //std::cout << "NOT COLLIDING!!!" << std::endl;
     return cResult;
 }
 

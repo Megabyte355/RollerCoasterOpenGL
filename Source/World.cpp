@@ -157,6 +157,19 @@ void World::Update(float dt)
 	// Update models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
+        ParticleEmitter* p = dynamic_cast<ParticleEmitter*>(*it);
+        if (p != nullptr)
+        {
+            if (!p->isEmitterActive())
+            {
+                delete p;
+                it = mModel.erase(it);
+                if (it >= mModel.end())
+                {
+                    break;
+                }
+            }
+        }
 		(*it)->Update(dt);
 	}
     for (vector<LightModel*>::iterator it = mLightModels.begin(); it < mLightModels.end(); ++it)
@@ -164,30 +177,30 @@ void World::Update(float dt)
 		(*it)->Update(dt);
 	}
 
-    // Check lifetime of particles
-    for (vector<ParticleEmitter*>::iterator it = mParticleEmitterModels.begin(); it < mParticleEmitterModels.end();)
-    {
-        if (!(*it)->isEmitterActive())
-        {
-            for (vector<Model*>::iterator itm = mModel.begin(); itm < mModel.end();)
-            {
-                if (*itm == *it)
-                {
-                    itm = mModel.erase(itm);
-                }
-                else
-                {
-                    itm++;
-                }
-            }
-            delete *it;
-            it = mParticleEmitterModels.erase(it);
-        }
-        else
-        {
-            it++;
-        }
-    }
+    //// Check lifetime of particles
+    //for (vector<ParticleEmitter*>::iterator it = mParticleEmitterModels.begin(); it < mParticleEmitterModels.end();)
+    //{
+    //    if (!(*it)->isEmitterActive())
+    //    {
+    //        for (vector<Model*>::iterator itm = mModel.begin(); itm < mModel.end();)
+    //        {
+    //            if (*itm == *it)
+    //            {
+    //                itm = mModel.erase(itm);
+    //            }
+    //            else
+    //            {
+    //                itm++;
+    //            }
+    //        }
+    //        delete *it;
+    //        it = mParticleEmitterModels.erase(it);
+    //    }
+    //    else
+    //    {
+    //        it++;
+    //    }
+    //}
 }
 
 void World::Draw()
