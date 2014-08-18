@@ -101,9 +101,7 @@ void FreeLookCamera::Update(float dt)
 			std::cout << model->mName.c_str() << std::endl;
 			std::cout << "=================================" << std::endl;
 
-			std::vector<vec3> lol = boundingCube.backFace[0];
-			vec3 lol2 = boundingCube.backFace[0][0];
-
+			std::cout << "Back face" << std::endl;
 			vec3 p1 = boundingCube.backFace[0][0];
 			vec3 p2 = boundingCube.backFace[0][1];
 			vec3 p3 = boundingCube.backFace[0][2];
@@ -114,6 +112,7 @@ void FreeLookCamera::Update(float dt)
 			p3 = boundingCube.backFace[1][2];
 			testResult = RayCast::Intersect3DTriangle(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
 
+			std::cout << "Front face" << std::endl;
 			p1 = boundingCube.frontFace[0][0];
 			p2 = boundingCube.frontFace[0][1];
 			p3 = boundingCube.frontFace[0][2];
@@ -124,6 +123,7 @@ void FreeLookCamera::Update(float dt)
 			p3 = boundingCube.frontFace[1][2];
 			testResult = RayCast::Intersect3DTriangle(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
 
+			std::cout << "Left face" << std::endl;
 			p1 = boundingCube.leftFace[0][0];
 			p2 = boundingCube.leftFace[0][1];
 			p3 = boundingCube.leftFace[0][2];
@@ -134,6 +134,7 @@ void FreeLookCamera::Update(float dt)
 			p3 = boundingCube.leftFace[1][2];
 			testResult = RayCast::Intersect3DTriangle(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
 
+			std::cout << "Right face" << std::endl;
 			p1 = boundingCube.rightFace[0][0];
 			p2 = boundingCube.rightFace[0][1];
 			p3 = boundingCube.rightFace[0][2];
@@ -144,6 +145,7 @@ void FreeLookCamera::Update(float dt)
 			p3 = boundingCube.rightFace[1][2];
 			testResult = RayCast::Intersect3DTriangle(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
 
+			std::cout << "Top face" << std::endl;
 			p1 = boundingCube.topFace[0][0];
 			p2 = boundingCube.topFace[0][1];
 			p3 = boundingCube.topFace[0][2];
@@ -154,6 +156,7 @@ void FreeLookCamera::Update(float dt)
 			p3 = boundingCube.topFace[1][2];
 			testResult = RayCast::Intersect3DTriangle(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f), p1, p2, p3);
 
+			std::cout << "Down face" << std::endl;
 			p1 = boundingCube.downFace[0][0];
 			p2 = boundingCube.downFace[0][1];
 			p3 = boundingCube.downFace[0][2];
