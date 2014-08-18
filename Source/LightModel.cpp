@@ -109,7 +109,7 @@ void LightModel::Update(float dt)
 	//World::GetModelsPtr
 
 	// Debug Purposes
-	std::cout << "Sun angle: " << lightPosition.x << std::endl;
+	//std::cout << "Sun angle: " << lightPosition.x << std::endl;
 	//std::cout << "light position x: " << mPosition.x << std::endl;
 	//std::cout << "light position y : " << mPosition.y << std::endl;
 	//std::cout << "light position z: " << mPosition.z << std::endl << std::endl;
