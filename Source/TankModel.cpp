@@ -108,7 +108,11 @@ void TankModel::Update(float dt)
 			mRotationAngleInDegrees -= bodyAngularSpeed * dt;
 		}
 
-		mPosition += delta;
+		vec3 positionNoClamp = mPosition + delta;
+
+		//Clamp tank position so it will not run out of the ground. 
+		positionNoClamp = vec3(std::max(-46.5f, std::min(46.5f, positionNoClamp.x)), positionNoClamp.y, std::max(-46.5f, std::min(46.5f, positionNoClamp.z)));
+		mPosition = positionNoClamp;
 	
 		//update Turret/cannon position and rotation
 		float cannonAngularSpeed = 2.5f;
@@ -131,11 +135,6 @@ void TankModel::Update(float dt)
 		container.at(2) -> SetRotation(yAxis,mChildHorizontalAngle);
 		//set x-axis rotation to Turret
 		container.at(2) -> SetSecondRotation(xAxis, mChildVerticalAngle);
-
-		std::cout << GetPosition().x << ":" <<
-			GetPosition().y << ":" <<
-			GetPosition().z << std::endl;
-
 	}	
 }
 
