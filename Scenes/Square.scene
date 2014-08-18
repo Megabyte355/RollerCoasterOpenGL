@@ -11,6 +11,11 @@ name	 = "Tanktwo"
 scaling  = 1.0 1.0 1.0
 position = 0.0  1.0 0
 
+[Bullet]
+name	 = "Bullet"
+scaling  = 1.0 1.0 1.0
+position = 10.0  1.0 0
+
 [Light]
 name     = "Light"
 position = 0.0 7.0 -5.0

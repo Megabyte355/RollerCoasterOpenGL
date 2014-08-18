@@ -40,7 +40,7 @@ void main()
     vec3 reflected = normalize(2 * dot(normalizedNormal, normalizedLight) * normalizedNormal - normalizedLight);
 
     // Illumination
-    float ambient = materialCoefficients.x;
+    float ambient = materialCoefficients.x*2;
     float diffuse = materialCoefficients.y * clamp(dot(normalizedNormal, normalizedLight), 0, 1);
     float specular = materialCoefficients.z * pow(clamp(dot(normalizedEye, reflected), 0, 1), materialCoefficients.w);
 

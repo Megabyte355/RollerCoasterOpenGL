@@ -14,7 +14,8 @@
 #include "FirstPersonCamera.h"
 
 #include "CubeModel.h"
-#include "TankModel.h"
+#include "BulletModel.h"
+#include "SquareModel.h"
 #include "SphereModel.h"
 #include "LightModel.h"
 
@@ -178,9 +179,16 @@ void World::LoadScene(const char * scene_path)
 			else if( result == "vehicle" )
 			{
 				// Box attributes
-				TankModel* vehicle = new TankModel();
+				SquareModel* vehicle = new SquareModel();
 				vehicle->Load(iss);
 				mModel.push_back(vehicle);
+			}
+			else if( result == "bullet" )
+			{
+				// Box attributes
+				BulletModel* bullet = new BulletModel();
+				bullet->Load(iss);
+				mModel.push_back(bullet);
 			}
             else if( result == "sphere" )
             {
