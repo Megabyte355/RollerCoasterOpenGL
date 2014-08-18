@@ -1,4 +1,6 @@
-
+//
+// Contribution by Alin
+//
 
 #include "Missile.h"
 #include "CubeModel.h"
