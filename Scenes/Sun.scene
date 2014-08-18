@@ -58,7 +58,7 @@ splinepoint = 12.0 0.0 12.0 1.0
 [BSpline]
 name     = "SplineSun"
 position = 0.0 0.0 0.0
-splinespeed = 30.0
+splinespeed = 20.0
 splinepoint = -100.0 -20.0 0.0 1.0
 splinepoint = -80.0 50.0 -20.0 1.0
 splinepoint = 0.0 80.0 -10.0 1.0

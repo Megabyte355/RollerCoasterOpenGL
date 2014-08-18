@@ -20,6 +20,8 @@ public:
     float lightKc;
     float lightKl;
     float lightKq;
+	
+	float sunAngle;
 
 protected:
     virtual bool ParseLine(const std::vector<ci_string> &token);

@@ -73,12 +73,32 @@ void LightModel::Update(float dt)
 
 	//lightColor.x -= dt * 0.2f;
 
-
+	// Distinction between the light from the sun
 	if (mParent != nullptr) 
 	{
 		//lightPosition = vec4(this->mParent->GetPosition(), 0) + vec4(mPosition, lightPosition.w);
 		//lightPosition.y -= 15;
-		lightPosition = vec4(this->mParent->GetPosition()*0.7f, 1);
+		
+		// Calculation of angle between plane and sun position
+		sunAngle = acos(dot(vec3(lightPosition.x, lightPosition.y, lightPosition.z), vec3(0.0f, 1.0f, 0.0f)) 
+			/ (float (length(vec3(lightPosition.x, lightPosition.y, lightPosition.z)) * length(vec3(0.0f, 1.0f, 0.0f))))); 
+
+		// Make angle in to proportion
+		sunAngle = sunAngle/1.57 - 0.07;
+		
+		// In case it is a sun, put the light between it and the map
+		lightPosition = vec4(this->mParent->GetPosition()*0.71f, 1);
+
+		if ((lightPosition.y > 59.5 || lightPosition.x < -59.5) && lightPosition.y < 1)
+		{
+			// Varying light position according to angle
+			lightPosition.y = 2; 
+		}
+
+		// Varying Light color through the day
+		lightColor.x = 0.965f/sunAngle;
+		lightColor.y = 0.545f/sunAngle;
+		lightColor.z = 0.122f/sunAngle;
 	}
 	else
 	{
@@ -87,9 +107,11 @@ void LightModel::Update(float dt)
 	
 	//World::GetModelsPtr
 
-	std::cout << "light position x: " << mPosition.x << std::endl;
-	std::cout << "light position y : " << mPosition.y << std::endl;
-	std::cout << "light position z: " << mPosition.z << std::endl << std::endl;
+	// Debug Purposes
+	std::cout << "Sun angle: " << lightPosition.x << std::endl;
+	//std::cout << "light position x: " << mPosition.x << std::endl;
+	//std::cout << "light position y : " << mPosition.y << std::endl;
+	//std::cout << "light position z: " << mPosition.z << std::endl << std::endl;
 }
 
 void LightModel::Draw()
