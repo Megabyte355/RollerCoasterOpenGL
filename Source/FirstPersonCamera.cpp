@@ -83,6 +83,10 @@ void FirstPersonCamera::Update(float dt)
         emitter2->SetLightSource(World::GetLightModelsPtr()->back());
         emitter2->GenerateParticles();
     }
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS)
+	{
+		//new cubemodel* 
+	}
 }
 
 glm::mat4 FirstPersonCamera::GetViewMatrix() const

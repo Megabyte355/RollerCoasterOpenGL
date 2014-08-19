@@ -184,6 +184,9 @@
     <ClCompile Include="..\Source\CubeIdleState.cpp">
       <Filter>Source Files\StateMachine</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\BulletModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -287,6 +290,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\CubeIdleState.h">
       <Filter>Source Files\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\BulletModel.h">
+      <Filter>Source Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
