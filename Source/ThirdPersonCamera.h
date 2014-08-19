@@ -29,5 +29,7 @@ private:
 	glm::vec3 mLookAtPoint;
 	glm::vec3 mUpVector;
 
+    bool buttonReleased = true;
+
 	Model* mTarget;
 };

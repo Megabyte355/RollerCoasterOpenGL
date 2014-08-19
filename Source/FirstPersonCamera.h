@@ -37,4 +37,6 @@ private:
 	float timeElapsed;
 
 	Model* mTarget;
+
+    bool buttonReleased = true;
 };
