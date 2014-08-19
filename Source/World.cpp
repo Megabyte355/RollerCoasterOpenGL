@@ -170,10 +170,6 @@ void World::Update(float dt)
 		}
 	}
 
-
-	// Update current Camera
-	mCamera[mCurrentCamera]->Update(dt);
-
 	// Update models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
@@ -209,6 +205,10 @@ void World::Update(float dt)
 	{
 		(*it)->Update(dt);
 	}
+	
+	
+	// Update current Camera
+	mCamera[mCurrentCamera]->Update(dt);
 }
 
 void World::Draw()
