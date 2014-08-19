@@ -5,7 +5,7 @@
 uniform vec4 materialCoefficients; // x: ambient   y: diffuse   z: specular   w: specular exponent
 
 uniform vec3 lightColor;
-uniform vec3 lightAttenuation; // x: kC  y: kL  z: kQ
+uniform vec3 lightAttenuation; // x: kC  y: kL  z: kq
 
 
 // Inputs

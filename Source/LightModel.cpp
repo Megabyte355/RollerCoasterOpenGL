@@ -4,6 +4,7 @@
 #include "LightModel.h"
 #include "EventManager.h"
 #include "Renderer.h"
+#include "World.h"
 
 #include <GLFW/glfw3.h>
 
@@ -39,39 +40,82 @@ void LightModel::Init()
 
 void LightModel::Update(float dt)
 {
-    float moveSpeed = 4.0f;
-    glm::vec3 xDirection(1.0f, 0.0f, 0.0f);
-    glm::vec3 yDirection(0.0f, 1.0f, 0.0f);
-    glm::vec3 zDirection(0.0, 0.0f, 1.0f);
+    //float moveSpeed = 4.0f;
+    //glm::vec3 xDirection(1.0f, 0.0f, 0.0f);
+    //glm::vec3 yDirection(0.0f, 1.0f, 0.0f);
+    //glm::vec3 zDirection(0.0, 0.0f, 1.0f);
 
-    // Update camera position
-    vec3 delta = vec3(0.0f, 0.0f, 0.0f);
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_I) == GLFW_PRESS)
-    {
-        delta += zDirection * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_K) == GLFW_PRESS)
-    {
-        delta -= zDirection * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_J) == GLFW_PRESS)
-    {
-        delta += xDirection * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_L) == GLFW_PRESS)
-    {
-        delta -= xDirection * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_U) == GLFW_PRESS)
-    {
-        delta -= yDirection * dt * moveSpeed;
-    }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_O) == GLFW_PRESS)
-    {
-        delta += yDirection * dt * moveSpeed;
-    }
-    lightPosition += vec4(delta, 0);
-    mPosition += delta;
+    //// Update camera position
+    //vec3 delta = vec3(0.0f, 0.0f, 0.0f);
+    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_I) == GLFW_PRESS)
+    //{
+    //    delta += zDirection * dt * moveSpeed;
+    //}
+    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_K) == GLFW_PRESS)
+    //{
+    //    delta -= zDirection * dt * moveSpeed;
+    //}
+    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_J) == GLFW_PRESS)
+    //{
+    //    delta += xDirection * dt * moveSpeed;
+    //}
+    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_L) == GLFW_PRESS)
+    //{
+    //    delta -= xDirection * dt * moveSpeed;
+    //}
+    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_U) == GLFW_PRESS)
+    //{
+    //    delta -= yDirection * dt * moveSpeed;
+    //}
+    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_O) == GLFW_PRESS)
+    //{
+    //    delta += yDirection * dt * moveSpeed;
+    //}
+    //lightPosition += vec4(delta, 0);
+    //mPosition += delta;
+
+	//lightColor.x -= dt * 0.2f;
+
+	// Distinction between the light from the sun
+	if (mParent != nullptr) 
+	{
+		//lightPosition = vec4(this->mParent->GetPosition(), 0) + vec4(mPosition, lightPosition.w);
+		//lightPosition.y -= 15;
+		
+		// Calculation of angle between plane and sun position
+		sunAngle = acos(dot(vec3(lightPosition.x, lightPosition.y, lightPosition.z), vec3(0.0f, 1.0f, 0.0f)) 
+			/ (float (length(vec3(lightPosition.x, lightPosition.y, lightPosition.z)) * length(vec3(0.0f, 1.0f, 0.0f))))); 
+
+		// Make angle in to proportion
+		sunAngle = sunAngle/1.57 - 0.07;
+		
+		// In case it is a sun, put the light between it and the map
+		lightPosition = vec4(this->mParent->GetPosition()*0.71f, 1);
+
+		// To make the sunrise/sunset more realistic by placing light higher at these moments
+		if ((lightPosition.y > 59.5 || lightPosition.x < -59.5) && lightPosition.y < 1)
+		{
+			// Varying light position according to angle
+			lightPosition.y = 2; 
+		}
+
+		// Varying Light color through the day
+		lightColor.x = 0.965f/sunAngle;
+		lightColor.y = 0.545f/sunAngle;
+		lightColor.z = 0.122f/sunAngle;
+	}
+	else
+	{
+		lightPosition = vec4(mPosition, lightPosition.w);
+	}
+	
+	//World::GetModelsPtr
+
+	// Debug Purposes
+	//std::cout << "Sun angle: " << lightPosition.x << std::endl;
+	//std::cout << "light position x: " << mPosition.x << std::endl;
+	//std::cout << "light position y : " << mPosition.y << std::endl;
+	//std::cout << "light position z: " << mPosition.z << std::endl << std::endl;
 }
 
 void LightModel::Draw()

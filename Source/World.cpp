@@ -6,6 +6,14 @@
 // Copyright (c) 2014 Concordia University. All rights reserved.
 //
 
+// Contributors:
+//      Razvan Alin Cijov
+//      Gary Chang
+//      Kevin Silva
+//      Shahrad Rezaei
+//      Dong Li
+//      Oleksandr Dymov
+
 #include "World.h"
 #include "Renderer.h"
 #include "ParsingHelper.h"
@@ -25,7 +33,10 @@
 #include "SphereModel.h"
 #include "LightModel.h"
 #include "BSpline.h"
+#include "SunModel.h"
+#include "MoonModel.h"
 #include "CubeModelSM.h"
+#include "TexturedCube.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -136,6 +147,10 @@ void World::Update(float dt)
 	{
 		Renderer::SetShader(SHADER_ALIEN);
 	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_6) == GLFW_PRESS)
+	{
+		Renderer::SetShader(SHADER_TEXTURE);
+	}
 	else{
 		if (mShader == 0)
 		{
@@ -154,6 +169,7 @@ void World::Update(float dt)
 			Renderer::SetShader(SHADER_BLUE);
 		}
 	}
+
 
 	// Update current Camera
 	mCamera[mCurrentCamera]->Update(dt);
@@ -193,59 +209,49 @@ void World::Update(float dt)
 	{
 		(*it)->Update(dt);
 	}
-
-    //// Check lifetime of particles
-    //for (vector<ParticleEmitter*>::iterator it = mParticleEmitterModels.begin(); it < mParticleEmitterModels.end();)
-    //{
-    //    if (!(*it)->isEmitterActive())
-    //    {
-    //        for (vector<Model*>::iterator itm = mModel.begin(); itm < mModel.end();)
-    //        {
-    //            if (*itm == *it)
-    //            {
-    //                itm = mModel.erase(itm);
-    //            }
-    //            else
-    //            {
-    //                itm++;
-    //            }
-    //        }
-    //        delete *it;
-    //        it = mParticleEmitterModels.erase(it);
-    //    }
-    //    else
-    //    {
-    //        it++;
-    //    }
-    //}
 }
 
 void World::Draw()
 {
 	Renderer::BeginFrame();
-	
 	// Set Shader... In a more sofisticated application, each model could use a different shader
 	// In our case, all the models use a common shader
-	glUseProgram(Renderer::GetShaderProgramID());
+
 
 	// This looks for the V and P Uniform variable in the Vertex Program
-    GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
-    GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
 
+	bool keepChecking = true;
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
-		AlienModel* m = dynamic_cast<AlienModel*>(*it);
-		if (m != nullptr)
+		glUseProgram(Renderer::GetShaderProgramID());
+		AlienModel* alien = dynamic_cast<AlienModel*>(*it);
+		TexturedCube* texCube = dynamic_cast<TexturedCube*>(*it);
+        ParticleEmitter* emitter = dynamic_cast<ParticleEmitter*>(*it);
+
+		if (alien != nullptr)
 		{
 			Renderer::SetShader(SHADER_ALIEN);
 			glUseProgram(Renderer::GetShaderProgramID());
-
 			 //This looks for the V and P Uniform variable in the Vertex Program
-			GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
-			GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+			keepChecking = false;
+		}
+
+		else if (texCube != nullptr && keepChecking)
+		{
+			Renderer::SetShader(SHADER_TEXTURE);
+			glUseProgram(Renderer::GetShaderProgramID());
+		}
+
+		else if (keepChecking || emitter != nullptr)
+		{
+			Renderer::SetShader(SHADER_PHONG);
+			glUseProgram(Renderer::GetShaderProgramID());
 		}
 		
+		GLuint projectionMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
+		GLuint viewMatrix = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+
 		// Send the view and projection constants to the shader
 		mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
 		glUniformMatrix4fv(viewMatrix, 1, GL_FALSE, &V[0][0]);
@@ -331,12 +337,33 @@ void World::LoadScene(const char * scene_path)
                 light->Load(iss);
                 mLightModels.push_back(light);
             }
+			else if( result == "sun" )
+            {
+                SunModel* sun = new SunModel();
+                sun->Load(iss);
+                mModel.push_back(sun);
+				LightModel* light = new LightModel(sun);
+                light->Load(iss);
+                mLightModels.push_back(light);
+            }
+			else if( result == "moon" )
+            {
+                MoonModel* moon = new MoonModel();
+                moon->Load(iss);
+                mModel.push_back(moon);
+            }
             else if( result == "bspline" )
             {
                 BSpline* bSpline = new BSpline();
                 bSpline->Load(iss);
                 mBSplineModels.push_back(bSpline);
             }
+			else if (result == "textured_cube")
+			{
+				TexturedCube* texturedCube = new TexturedCube();
+				texturedCube->Load(iss);
+				mModel.push_back(texturedCube);
+			}
             else if (result == "triangle")
             {
                 TriangleModel* triangle = new TriangleModel();

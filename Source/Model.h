@@ -77,6 +77,7 @@ public:
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token) = 0;
+	ci_string texturePath;
 	void DrawBoundingBox();
 
 
@@ -101,7 +102,8 @@ protected:
 
 	unsigned int mVertexArrayID;
 	unsigned int mVertexBufferID;
-
+	unsigned int uvbuffer;
+	unsigned int m;
     BSpline* spline;
 
 };

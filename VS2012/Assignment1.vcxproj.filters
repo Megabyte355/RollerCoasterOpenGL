@@ -21,6 +21,12 @@
     <Filter Include="Resource Files\Scenes">
       <UniqueIdentifier>{3b2e1119-c64d-494f-9840-6ae6746aa7bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Images">
+      <UniqueIdentifier>{94029c18-867f-4117-9a83-8640638ec5a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SkyBox">
+      <UniqueIdentifier>{8a4c5a70-ac26-40dd-bc15-6eea7a88d364}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\ModelSM">
       <UniqueIdentifier>{70c1c6d0-6b17-47f6-a878-0369a05b9f70}</UniqueIdentifier>
     </Filter>
@@ -62,6 +68,12 @@
     <None Include="..\Source\Shaders\Phong.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="..\Source\Shaders\Texture.fragmentshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\Texture.vertexshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
     <None Include="..\Scenes\BSplineTest.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
@@ -78,6 +90,9 @@
       <Filter>Resource Files\Scenes</Filter>
     </None>
     <None Include="..\Scenes\RayCastTest.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
+    <None Include="..\Scenes\Sun.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
     <None Include="..\Scenes\StateMachineTest.scene">
@@ -118,7 +133,22 @@
     <ClCompile Include="..\Source\SphereModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Source Files\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\objloader.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
     <ClCompile Include="..\Source\BSpline.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\MoonModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\SunModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\CubeModel.cpp">
@@ -143,6 +173,9 @@
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\TankModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\TexturedCube.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\RayCast.cpp">
@@ -222,6 +255,13 @@
     <ClInclude Include="..\Source\SphereModel.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Source Files\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\texture.hpp" />
+    <ClInclude Include="..\Source\objloader.hpp">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
     <ClInclude Include="..\Source\BSpline.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
@@ -250,6 +290,9 @@
       <Filter>Source Files\Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\TankModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\TexturedCube.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\CubeModelSM.h">
@@ -282,6 +325,12 @@
     <ClInclude Include="..\Source\CubeParticle.h">
       <Filter>Source Files\Particle</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\MoonModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\SunModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
     <ClInclude Include="..\Source\AlienCubeModel.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
@@ -294,5 +343,10 @@
     <ClInclude Include="..\Source\BulletModel.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Pictures\Skybox\alien_skybox.jpg">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -18,6 +18,8 @@
 
 using namespace glm;
 
+#include "texture.hpp"
+
 CubeModel::CubeModel(vec3 size)
 {
 	mParent = nullptr;
@@ -39,6 +41,17 @@ CubeModel::CubeModel(Model * parent, bool getScalingFromParent, vec3 size)
 	mParent = parent;
 	mLightSource = nullptr;
 	mGetScalingFromParent = getScalingFromParent;
+	Init(size);
+}
+
+/// <summary> Overloaded constructor for the CubeModel function, accepting a texture path to load onto the cube.</summary>
+/// <param name = 'texturePath'>The path to the texture.</param>
+CubeModel::CubeModel(Model * parent, bool getScalingFromParent, ci_string texturePath, vec3 size)
+{
+	mParent = parent;
+	mLightSource = nullptr;
+	mGetScalingFromParent = getScalingFromParent;
+	mTexturePath = texturePath;
 	Init(size);
 }
 

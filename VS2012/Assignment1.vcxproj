@@ -100,6 +100,7 @@
     <None Include="..\Scenes\BSplineTest.scene" />
     <None Include="..\Scenes\CoordinateSystem.scene" />
     <None Include="..\Scenes\RayCastTest.scene" />
+    <None Include="..\Scenes\Sun.scene" />
     <None Include="..\Scenes\StateMachineTest.scene" />
     <None Include="..\Scenes\TankVehicle.scene" />
     <None Include="..\Scenes\VehicleTest.scene" />
@@ -112,6 +113,8 @@
     <None Include="..\Source\Shaders\SingleColor.fragmentshader" />
     <None Include="..\Source\Shaders\SolidColor.vertexshader" />
     <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
+    <None Include="..\Source\Shaders\Texture.fragmentshader" />
+    <None Include="..\Source\Shaders\Texture.vertexshader" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\AlienCubeModel.cpp" />
@@ -129,12 +132,14 @@
     <ClCompile Include="..\Source\FirstPersonCamera.cpp" />
     <ClCompile Include="..\Source\FreeLookCamera.cpp" />
     <ClCompile Include="..\Source\LightModel.cpp" />
+    <ClCompile Include="..\Source\objloader.cpp" />
     <ClCompile Include="..\Source\mesh.cpp" />
     <ClCompile Include="..\Source\Missile.cpp" />
     <ClCompile Include="..\Source\Particle.cpp" />
     <ClCompile Include="..\Source\ParticleEmitter.cpp" />
     <ClCompile Include="..\Source\RayCast.cpp" />
     <ClCompile Include="..\Source\sceneLoader.cpp" />
+    <ClCompile Include="..\Source\MoonModel.cpp" />
     <ClCompile Include="..\Source\SMController.cpp" />
     <ClCompile Include="..\Source\SphereModel.cpp" />
     <ClCompile Include="..\Source\State.cpp" />
@@ -142,12 +147,16 @@
     <ClCompile Include="..\Source\EventManager.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
     <ClCompile Include="..\Source\Model.cpp" />
+    <ClCompile Include="..\Source\texture.cpp" />
     <ClCompile Include="..\Source\TankModel.cpp" />
+    <ClCompile Include="..\Source\TexturedCube.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\TriangleModel.cpp" />
+    <ClCompile Include="..\Source\SunModel.cpp" />
     <ClCompile Include="..\Source\VehicleModel.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\AlienCubeModel.h" />
@@ -165,8 +174,10 @@
     <ClInclude Include="..\Source\FirstPersonCamera.h" />
     <ClInclude Include="..\Source\FreeLookCamera.h" />
     <ClInclude Include="..\Source\LightModel.h" />
+    <ClInclude Include="..\Source\objloader.hpp" />
     <ClInclude Include="..\Source\mesh.h" />
     <ClInclude Include="..\Source\meshData.h" />
+    <ClInclude Include="..\Source\MoonModel.h" />
     <ClInclude Include="..\Source\Missile.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
     <ClInclude Include="..\Source\Particle.h" />
@@ -179,12 +190,19 @@
     <ClInclude Include="..\Source\StaticCamera.h" />
     <ClInclude Include="..\Source\EventManager.h" />
     <ClInclude Include="..\Source\Model.h" />
+    <ClInclude Include="..\Source\texture.hpp" />
     <ClInclude Include="..\Source\TankModel.h" />
+    <ClInclude Include="..\Source\TexturedCube.h" />
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\TriangleModel.h" />
+    <ClInclude Include="..\Source\SunModel.h" />
     <ClInclude Include="..\Source\VehicleModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\World.h" />
+    <ClInclude Include="SkyBox.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Pictures\Skybox\alien_skybox.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
