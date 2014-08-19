@@ -44,24 +44,27 @@ BulletModel::~BulletModel()
 	glDeleteVertexArrays(1, &mVertexArrayID);
 }
 
-void BulletModel::Init(vec3 size)
+void BulletModel::Init(glm::vec3 size)
 {
+    mScaling = size;
     lifetime = 5.0f;
-    bulletSpeed = 2.0f;
+    bulletSpeed = 6.0f;
 }
 
-void BulletModel::SetForwardVector(vec3 vec)
+void BulletModel::SetCoordinates(glm::vec3 position, glm::vec3 direction)
 {
-    mForward = vec;
+    mPosition = position;
+    mForward = direction;
 }
 
 bool BulletModel::IsAlive()
 {
-    return lifetime <= 0.0f;
+    return lifetime > 0.0f;
 }
 
 void BulletModel::Update(float dt)
 {
     lifetime -= dt;
     mPosition += mForward * bulletSpeed * dt;
+    mRotationAngleInDegrees += 90 * dt;
 }

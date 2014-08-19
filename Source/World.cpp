@@ -20,6 +20,7 @@
 #include "VehicleModel.h"
 #include "AlienModel.h"
 #include "AlienCubeModel.h"
+#include "BulletModel.h"
 #include "Missile.h"
 #include "SphereModel.h"
 #include "LightModel.h"
@@ -161,11 +162,24 @@ void World::Update(float dt)
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
         ParticleEmitter* p = dynamic_cast<ParticleEmitter*>(*it);
+        BulletModel* b = dynamic_cast<BulletModel*>(*it);
         if (p != nullptr)
         {
             if (!p->isEmitterActive())
             {
                 delete p;
+                it = mModel.erase(it);
+                if (it >= mModel.end())
+                {
+                    break;
+                }
+            }
+        }
+        else if (b != nullptr)
+        {
+            if (!b->IsAlive())
+            {
+                delete b;
                 it = mModel.erase(it);
                 if (it >= mModel.end())
                 {

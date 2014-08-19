@@ -12,6 +12,7 @@
 #include "RayCast.h"
 #include "ParticleEmitter.h"
 #include "World.h"
+#include "BulletModel.h"
 #include "TankModel.h"
 #include "EventManager.h"
 
@@ -82,6 +83,17 @@ void ThirdPersonCamera::Update(float dt)
         World::GetModelsPtr()->push_back(emitter2);
         emitter2->SetLightSource(World::GetLightModelsPtr()->back());
         emitter2->GenerateParticles();
+    }
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS)
+    {
+        TankModel* tank = dynamic_cast<TankModel*>(mTarget);
+        if (tank != nullptr)
+        {
+            BulletModel* bullet = new BulletModel();
+            bullet->SetLightSource(World::GetLightModelsPtr()->back());
+            bullet->SetCoordinates(tank->GetCanonTipPoint(), tank->GetCanonDirectionVector());
+            World::GetModelsPtr()->push_back(bullet);
+        }
     }
 }
 

@@ -6,6 +6,7 @@
 #include "FirstPersonCamera.h"
 #include "RayCast.h"
 #include "ParticleEmitter.h"
+#include "BulletModel.h"
 #include "World.h"
 #include "TankModel.h"
 #include <glm/gtc/matrix_transform.hpp>
@@ -85,7 +86,14 @@ void FirstPersonCamera::Update(float dt)
     }
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS)
 	{
-		//new cubemodel* 
+        TankModel* tank = dynamic_cast<TankModel*>(mTarget);
+        if (tank != nullptr)
+        {
+            BulletModel* bullet = new BulletModel();
+            bullet->SetLightSource(World::GetLightModelsPtr()->back());
+            bullet->SetCoordinates(tank->GetCanonTipPoint(), tank->GetCanonDirectionVector());
+            World::GetModelsPtr()->push_back(bullet);
+        }
 	}
 }
 
