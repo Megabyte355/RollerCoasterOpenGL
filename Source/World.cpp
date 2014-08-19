@@ -228,7 +228,7 @@ void World::Draw()
 		AlienModel* alien = dynamic_cast<AlienModel*>(*it);
 		TexturedCube* texCube = dynamic_cast<TexturedCube*>(*it);
         ParticleEmitter* emitter = dynamic_cast<ParticleEmitter*>(*it);
-
+        BulletModel* bullet = dynamic_cast<BulletModel*>(*it);
 		if (alien != nullptr)
 		{
 			Renderer::SetShader(SHADER_ALIEN);
@@ -243,7 +243,7 @@ void World::Draw()
 			glUseProgram(Renderer::GetShaderProgramID());
 		}
 
-		else if (keepChecking || emitter != nullptr)
+		else if (keepChecking || emitter != nullptr || bullet != nullptr)
 		{
 			Renderer::SetShader(SHADER_PHONG);
 			glUseProgram(Renderer::GetShaderProgramID());
