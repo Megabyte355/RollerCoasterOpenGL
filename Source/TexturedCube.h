@@ -23,6 +23,7 @@ public:
 
 	virtual void Update(float dt);
 	virtual void Draw();
+	void Load(ci_istringstream& iss);
 
 protected:
 	ci_string mTexturePath;

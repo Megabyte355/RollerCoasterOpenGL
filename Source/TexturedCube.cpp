@@ -8,6 +8,7 @@
 
 #include "TexturedCube.h"
 #include "Renderer.h"
+#include <iostream>
 
 // Include GLEW - OpenGL Extension Wrangler
 #include <GL/glew.h>
@@ -54,7 +55,7 @@ TexturedCube::TexturedCube(Model * parent, bool getScalingFromParent, ci_string 
 void TexturedCube::Init(vec3 size)
 {
 	// Load the texture using any two methods
-	Texture = loadBMP_custom("../Source/Textures/grass.bmp");
+	Texture = loadBMP_custom("../Source/Textures/uvtemplate.bmp");
 
 	// Get a handle for our "myTextureSampler" uniform
 	TextureID = glGetUniformLocation(Renderer::GetShaderProgramID(), "cubeTexture");
@@ -114,53 +115,53 @@ void TexturedCube::Init(vec3 size)
 
 	static const GLfloat g_uv_buffer_data[] =
 {
-		-halfSize.y,-halfSize.z,
-		-halfSize.y, halfSize.z,
-		 halfSize.y, halfSize.z,
+		-1,-1,
+		-1, 1,
+		 1, 1,
+		   
+		-1,-1,
+		 1, 1,
+		 1,-1,
+		   
+		 1, 1,
+		-1,-1,
+		-1, 1,
+		   
+		 1, 1,
+		 1,-1,
+		-1,-1,
+		   
+		 1, 1,
+		-1,-1,
+		 1,-1,
+		  
+		 1, 1,
+		-1, 1,
+		-1,-1,
+		   
+		-1, 1,
+		-1,-1,
+		 1,-1,
+		   
+		 1, 1,
+		-1, 1,
+		 1,-1,
 		
-		-halfSize.y,-halfSize.z,
-		 halfSize.y, halfSize.z,
-		 halfSize.y,-halfSize.z,
+		  1, 1,
+		 -1,-1,
+		  1,-1,
 		
-		 halfSize.x, halfSize.y,
-		-halfSize.x,-halfSize.y,
-		-halfSize.x, halfSize.y,
+		 -1,-1,
+		  1, 1,
+		 -1, 1,
 		
-		 halfSize.x, halfSize.y,
-		 halfSize.x,-halfSize.y,
-		-halfSize.x,-halfSize.y,
-		
-		 halfSize.x, halfSize.z,
-		-halfSize.x,-halfSize.z,
-		 halfSize.x,-halfSize.z,
-					
-		 halfSize.x, halfSize.z,
-		-halfSize.x, halfSize.z,
-		-halfSize.x,-halfSize.z,
-		
-		-halfSize.x, halfSize.y,
-		-halfSize.x,-halfSize.y,
-		 halfSize.x,-halfSize.y,
-		
-		 halfSize.x, halfSize.y,
-		-halfSize.x, halfSize.y,
-		 halfSize.x,-halfSize.y,
-		
-		  halfSize.y, halfSize.z,
-		 -halfSize.y,-halfSize.z,
-		  halfSize.y,-halfSize.z,
-		
-		 -halfSize.y,-halfSize.z,
-		  halfSize.y, halfSize.z,
-		 -halfSize.y, halfSize.z,
-		
-		 halfSize.x,  halfSize.z,
-		 halfSize.x, -halfSize.z,
-		-halfSize.x, -halfSize.z,
+		 1,  1,
+		 1, -1,
+		-1, -1,
 					 
-		 halfSize.x,  halfSize.z,
-		-halfSize.x, -halfSize.z,
-		-halfSize.x,  halfSize.z
+		 1,  1,
+		-1, -1,
+		-1,  1
 	};
 
 	// Create a vertex array
@@ -273,6 +274,28 @@ void TexturedCube::Draw()
 	glDisableVertexAttribArray(0);
 }
 
+void TexturedCube::Load(ci_istringstream& iss)
+{
+	ci_string line;
+
+	// Parse model line by line
+	while (std::getline(iss, line))
+	{
+		// Splitting line into tokens
+		ci_istringstream strstr(line);
+		std::istream_iterator<ci_string, char, ci_char_traits> it(strstr);
+		std::istream_iterator<ci_string, char, ci_char_traits> end;
+		std::vector<ci_string> token(it, end);
+
+		if (ParseLine(token) == false)
+		{
+			fprintf(stderr, "Error loading scene file... token:  %s!", token[0]);
+			getchar();
+			exit(-1);
+		}
+	}
+}
+
 bool TexturedCube::ParseLine(const std::vector<ci_string> &token)
 {
 	if (token.empty())
@@ -281,12 +304,49 @@ bool TexturedCube::ParseLine(const std::vector<ci_string> &token)
 	}
 	else
 	{
-		if (token[0] == "name")
+		if (token[0] == "texture_path")
 		{
 			assert(token.size() > 2);
 			assert(token[1] == "=");
 
-			mName = token[2];
+			Texture = loadBMP_custom(token[2].c_str());
+			return true;
+		}
+
+		if (token[0] == "Ka")
+		{
+			assert(token.size() > 2);
+			assert(token[1] == "=");
+
+			ka = ::atof(token[2].c_str());
+			return true;
+		}
+
+		if (token[0] == "Kd")
+		{
+			assert(token.size() > 2);
+			assert(token[1] == "=");
+
+			kd == ::atof(token[2].c_str());
+			return true;
+		}
+
+		if (token[0] == "Ks")
+		{
+			assert(token.size() > 2);
+			assert(token[1] == "=");
+
+			ks = ::atof(token[2].c_str());
+			return true;
+		}
+
+		if (token[0] == "n")
+		{
+			assert(token.size() > 2);
+			assert(token[1] == "=");
+
+			n = ::atof(token[2].c_str());
+			return true;
 		}
 
 		return Model::ParseLine(token);
