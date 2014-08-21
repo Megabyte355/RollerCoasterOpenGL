@@ -1,5 +1,6 @@
 // Contributors:
 //      Gary Chang
+// 	Oleksandr Dymov
 
 #pragma once
 
@@ -23,8 +24,9 @@ public:
     float lightKc;
     float lightKl;
     float lightKq;
-	
-	float sunAngle;
+
+    // For the sun postion relative to center of the plane	
+    float sunAngle;
 
 protected:
     virtual bool ParseLine(const std::vector<ci_string> &token);
