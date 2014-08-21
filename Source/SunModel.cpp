@@ -1,3 +1,7 @@
+// Contributors:
+//      Gary Chang
+// 	Oleksandr Dymov
+
 #include "SunModel.h"
 
 #include <iostream>
@@ -9,6 +13,7 @@ SunModel::SunModel(vec3 size)
     Init(size);
 }
 
+// Setting the parented object
 SunModel::SunModel(Model * parent, vec3 size)
 {
     mParent = parent;
@@ -16,7 +21,7 @@ SunModel::SunModel(Model * parent, vec3 size)
     Init(size);
 }
 
-
+// Destructure
 SunModel::~SunModel(void)
 {
 	delete light;
@@ -1307,7 +1312,8 @@ void SunModel::Init(glm::vec3 size)
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);
 	
 	light = new LightModel(this);
-
+	
+	// Parenting the lightSource
 	this->SetLightSource(light);
 }
 
