@@ -1,5 +1,5 @@
 //
-// Contribution of Ly and Alin
+// Contribution of Ly, Alin, Gary and Oleksandr
 // 
 
 

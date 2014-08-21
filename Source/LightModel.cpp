@@ -1,5 +1,6 @@
 // Contributors:
 //      Gary Chang
+// 	Oleksandr Dymov
 
 #include "LightModel.h"
 #include "EventManager.h"
@@ -82,7 +83,7 @@ void LightModel::Update(float dt)
 		//lightPosition = vec4(this->mParent->GetPosition(), 0) + vec4(mPosition, lightPosition.w);
 		//lightPosition.y -= 15;
 		
-		// Calculation of angle between plane and sun position
+		// Calculation of angle between plane and sun position by the dot product method
 		sunAngle = acos(dot(vec3(lightPosition.x, lightPosition.y, lightPosition.z), vec3(0.0f, 1.0f, 0.0f)) 
 			/ (float (length(vec3(lightPosition.x, lightPosition.y, lightPosition.z)) * length(vec3(0.0f, 1.0f, 0.0f))))); 
 
