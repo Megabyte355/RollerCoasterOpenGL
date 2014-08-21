@@ -39,4 +39,6 @@ private:
 
     float moveSpeed;
     float mouseSpeed;
+
+    bool spaceReleased = true;
 };

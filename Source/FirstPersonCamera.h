@@ -45,4 +45,5 @@ private:
 	Model* mTarget;
 
     bool buttonReleased = true;
+    bool spaceReleased = true;
 };

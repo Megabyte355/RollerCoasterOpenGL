@@ -34,6 +34,7 @@ private:
 	glm::vec3 mUpVector;
 
     bool buttonReleased = true;
+    bool spaceReleased = true;
 
 	Model* mTarget;
 };

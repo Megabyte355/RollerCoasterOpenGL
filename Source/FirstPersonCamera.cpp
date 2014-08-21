@@ -49,7 +49,7 @@ void FirstPersonCamera::Update(float dt)
 	mPosition = targetPosition + vec3(sinf(tankHAngleRadians + canonHAngleRadian) * cosf(atan2(mOffset.y, mOffset.z) + canonVAngleRadian) * (sqrtf(powf(mOffset.y, 2) + powf(mOffset.z, 2))), sinf(atan2(mOffset.y, mOffset.z) + canonVAngleRadian) * (sqrtf(powf(mOffset.y, 2) + powf(mOffset.z, 2))), cosf(tankHAngleRadians + canonHAngleRadian) * cosf(atan2(mOffset.y, mOffset.z) + canonVAngleRadian) * (sqrtf(powf(mOffset.y, 2) + powf(mOffset.z, 2))));
 	mLookAtPoint = mPosition + vec3(sinf(tankHAngleRadians + canonHAngleRadian) * cosf(canonVAngleRadian), sinf(canonVAngleRadian), cosf(tankHAngleRadians + canonHAngleRadian)*cosf(canonVAngleRadian)); 
 
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS && spaceReleased)
     {
         TankModel* tank = dynamic_cast<TankModel*>(mTarget);
         if (tank != nullptr)
@@ -84,6 +84,12 @@ void FirstPersonCamera::Update(float dt)
         World::GetModelsPtr()->push_back(emitter2);
         emitter2->SetLightSource(World::GetLightModelsPtr()->back());
         emitter2->GenerateParticles();
+        spaceReleased = false;
+    }
+
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_RELEASE)
+    {
+        spaceReleased = true;
     }
 
     // Implementation of the bullet shooting with a control for single bullet per key press

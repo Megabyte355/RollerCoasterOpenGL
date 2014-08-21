@@ -90,7 +90,7 @@ void FreeLookCamera::Update(float dt)
     {
         mPosition += mUp * dt * moveSpeed;
     }
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS && spaceReleased)
     {
         RayCast::CollisionResult collision = RayCast::IntersectBoundingBoxes(vec4(mPosition, 1.0f), vec4(mLookAt, 1.0f));
         
@@ -113,7 +113,13 @@ void FreeLookCamera::Update(float dt)
             World::GetModelsPtr()->push_back(emitter);
             emitter->SetLightSource(World::GetLightModelsPtr()->back());
             emitter->GenerateParticles();
-        }   
+        }
+        spaceReleased = false;
+    }
+
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_RELEASE)
+    {
+        spaceReleased = true;
     }
 }
 

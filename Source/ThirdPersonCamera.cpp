@@ -51,7 +51,7 @@ void ThirdPersonCamera::Update(float dt)
 	//update postion and lookat for the camera
 	mPosition = targetPosition + vec3(mOffset.x + sinf(tankHAngleRadians + canonHAngleRadian) * mOffset.z, mOffset.y - 5 * sinf(canonVAngleRadian), cosf(tankHAngleRadians + canonHAngleRadian) * mOffset.z);
 	mLookAtPoint = targetPosition + vec3(0.0f, 5 * sinf(canonVAngleRadian), 0.0f); 
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS && spaceReleased)
     {
         TankModel* tank = dynamic_cast<TankModel*>(mTarget);
         if (tank != nullptr)
@@ -86,6 +86,12 @@ void ThirdPersonCamera::Update(float dt)
         World::GetModelsPtr()->push_back(emitter2);
         emitter2->SetLightSource(World::GetLightModelsPtr()->back());
         emitter2->GenerateParticles();
+        spaceReleased = false;
+    }
+    
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_RELEASE)
+    {
+        spaceReleased = true;
     }
 
     // Implementation of the bullet shooting with a control for single bullet per key press
