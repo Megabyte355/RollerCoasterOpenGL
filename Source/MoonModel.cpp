@@ -1,3 +1,6 @@
+// Contributors:
+// 	Oleksandr Dymov
+
 #include "MoonModel.h"
 
 #include <iostream>
@@ -1302,7 +1305,7 @@ void MoonModel::Init(glm::vec3 size)
     glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);
 	
-	// Emits no light
+	// This stellar object emits no light for now
 	/*light = new LightModel(this);
 
 	this->SetLightSource(light);*/
