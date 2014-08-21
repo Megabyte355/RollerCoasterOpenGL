@@ -1,3 +1,7 @@
+// Contributors:
+//      Gary Chang
+//	Dong Li
+// 	Oleksandr Dymov
 //
 // COMP 371 Assignment Framework
 //
@@ -84,11 +88,14 @@ void ThirdPersonCamera::Update(float dt)
         emitter2->SetLightSource(World::GetLightModelsPtr()->back());
         emitter2->GenerateParticles();
     }
+    // Shooting feature of the Tank - Last minute
     if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS)
     {
+    	// Makes sure it is a Tank
         TankModel* tank = dynamic_cast<TankModel*>(mTarget);
         if (tank != nullptr)
         {
+            // Generates Bullet upon press and lunches according to the canon direction	
             BulletModel* bullet = new BulletModel();
             bullet->SetLightSource(World::GetLightModelsPtr()->back());
             bullet->SetCoordinates(tank->GetCanonTipPoint(), tank->GetCanonDirectionVector());
