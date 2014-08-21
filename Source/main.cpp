@@ -31,13 +31,22 @@ int main(int argc, char*argv[])
 	}
 	else
 	{
-		//world.LoadScene("../Scenes/CoordinateSystem.scene");
-		//world.LoadScene("../Scenes/VehicleTest.scene");
-        //world.LoadScene("../Scenes/Sun.scene");
-        //world.LoadScene("../Scenes/TankVehicle.scene");
+        // Main Focus: Tank model, Player Input
+        //world.LoadScene("../Scenes/VehicleTest.scene");
+
+        // Main Focus: Model importer, Missiles, Texturing, Camera Implementations
         world.LoadScene("../Scenes/AlienTest.scene");
+
+        // Main Focus: Sun and Moon movement with light color changes
+        //world.LoadScene("../Scenes/Sun.scene");
+        
+        // Main Focus: B-splines
         //world.LoadScene("../Scenes/BSplineTest.scene");
+        
+        // Main Focus: Ray Casting, Particle Emitters and Collision Boxes (don't shoot the floating triangle, it's just a test)
         //world.LoadScene("../Scenes/RayCastTest.scene");
+        
+        // Main Focus: State machine with state transitions
         //world.LoadScene("../Scenes/StateMachineTest.scene");
 	}
 
