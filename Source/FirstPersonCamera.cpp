@@ -84,11 +84,14 @@ void FirstPersonCamera::Update(float dt)
         emitter2->SetLightSource(World::GetLightModelsPtr()->back());
         emitter2->GenerateParticles();
     }
+    // Shooting feature implementation - last minute 
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS)
 	{
         TankModel* tank = dynamic_cast<TankModel*>(mTarget);
+       	// Checks if it is a Tank first
         if (tank != nullptr)
         {
+       	    // Generates a bullet and sends in the canon direction
             BulletModel* bullet = new BulletModel();
             bullet->SetLightSource(World::GetLightModelsPtr()->back());
             bullet->SetCoordinates(tank->GetCanonTipPoint(), tank->GetCanonDirectionVector());
