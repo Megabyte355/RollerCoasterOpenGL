@@ -1,3 +1,5 @@
+// Contributors:
+// 	Oleksandr Dymov
 #pragma once
 #include "SphereModel.h"
 #include "LightModel.h"
