@@ -15,13 +15,12 @@
 
 using namespace glm;
 
-#include "texture.hpp"
-
 TexturedCube::TexturedCube(vec3 size)
 {
     mParent = nullptr;
     mLightSource = nullptr;
     mGetScalingFromParent = false;
+	mTexturePath = "../Source/Textures/uvtemplate.bmp";
     Init(size);
 }
 
@@ -29,7 +28,8 @@ TexturedCube::TexturedCube(Model * parent, vec3 size)
 {
     mParent = parent;
     mLightSource = nullptr;
-    mGetScalingFromParent = true;
+	mGetScalingFromParent = true;
+	mTexturePath = "../Source/Textures/uvtemplate.bmp";
     Init(size);
 }
 
@@ -38,6 +38,7 @@ TexturedCube::TexturedCube(Model * parent, bool getScalingFromParent, vec3 size)
     mParent = parent;
     mLightSource = nullptr;
     mGetScalingFromParent = getScalingFromParent;
+	mTexturePath = "../Source/Textures/uvtemplate.bmp";
     Init(size);
 }
 
@@ -55,7 +56,7 @@ TexturedCube::TexturedCube(Model * parent, bool getScalingFromParent, ci_string 
 void TexturedCube::Init(vec3 size)
 {
 	// Load the texture using any two methods
-	Texture = loadBMP_custom("../Source/Textures/uvtemplate.bmp");
+	Texture = BitmapLoader("../Source/Textures/uvtemplate.bmp");
 
 	// Get a handle for our "myTextureSampler" uniform
 	TextureID = glGetUniformLocation(Renderer::GetShaderProgramID(), "cubeTexture");
@@ -309,7 +310,7 @@ bool TexturedCube::ParseLine(const std::vector<ci_string> &token)
 			assert(token.size() > 2);
 			assert(token[1] == "=");
 
-			Texture = loadBMP_custom(token[2].c_str());
+			Texture = BitmapLoader(token[2].c_str());
 			return true;
 		}
 
@@ -351,4 +352,53 @@ bool TexturedCube::ParseLine(const std::vector<ci_string> &token)
 
 		return Model::ParseLine(token);
 	}
+}
+
+GLuint TexturedCube::BitmapLoader(ci_string file_path)
+{
+	unsigned char header[54];
+	unsigned int dataPos;
+	unsigned int width;
+	unsigned int height;
+	unsigned int imageSize;
+	unsigned char *data;
+
+	bool isValid = true;
+
+	FILE * file = fopen(file_path.c_str(), "rb");
+	if (!file)
+		printf("Image %s could not be loaded", file_path);
+
+	if (fread(header, 1, 54, file) != 54)
+		return BitmapLoader("../Source/Textures/uvtemplate.bmp");
+	
+	if (header[0] != 'B' || header[1] != 'M')
+		return BitmapLoader("../Source/Textures/uvtemplate.bmp");
+
+	dataPos = *(int*)&(header[0x0A]);
+	imageSize = *(int*)&(header[0x22]);
+	width = *(int*)&(header[0x12]);
+	height = *(int*)&(header[0x16]);
+
+	if (imageSize == 0)
+		imageSize = width*height * 3;
+	if (dataPos == 0)
+		dataPos = 54;
+
+	data = new unsigned char[imageSize];
+
+	fread(data, 1, imageSize, file);
+
+	fclose(file);
+
+	GLuint textureID;
+	
+	glGenTextures(1, &textureID);
+
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	return textureID;
 }

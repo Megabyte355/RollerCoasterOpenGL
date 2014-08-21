@@ -39,6 +39,7 @@ private:
 		glm::vec3 color;
 	};
 
+	GLuint BitmapLoader(ci_string file_path);
 	GLuint TextureID;
 	GLuint Texture;
 };

@@ -136,9 +136,6 @@
     <ClCompile Include="SkyBox.cpp">
       <Filter>Source Files\SkyBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\objloader.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>

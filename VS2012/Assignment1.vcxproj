@@ -147,7 +147,6 @@
     <ClCompile Include="..\Source\EventManager.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
     <ClCompile Include="..\Source\Model.cpp" />
-    <ClCompile Include="..\Source\texture.cpp" />
     <ClCompile Include="..\Source\TankModel.cpp" />
     <ClCompile Include="..\Source\TexturedCube.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
