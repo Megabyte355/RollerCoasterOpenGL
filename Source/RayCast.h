@@ -1,3 +1,7 @@
+// Contributors:
+//      Gary Chang
+//      Kevin Silva
+
 #pragma once
 
 using namespace glm;

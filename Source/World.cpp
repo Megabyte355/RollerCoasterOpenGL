@@ -1,11 +1,3 @@
-//
-// COMP 371 Assignment Framework
-//
-// Created by Nicolas Bergeron on 8/7/14.
-//
-// Copyright (c) 2014 Concordia University. All rights reserved.
-//
-
 // Contributors:
 //      Razvan Alin Cijov
 //      Gary Chang
@@ -13,6 +5,14 @@
 //      Shahrad Rezaei
 //      Dong Li
 //      Oleksandr Dymov
+
+//
+// COMP 371 Assignment Framework
+//
+// Created by Nicolas Bergeron on 8/7/14.
+//
+// Copyright (c) 2014 Concordia University. All rights reserved.
+//
 
 #include "World.h"
 #include "Renderer.h"

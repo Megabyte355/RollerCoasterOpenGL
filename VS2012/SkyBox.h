@@ -1,3 +1,6 @@
+// Contributors:
+//      Shahrad Rezaei
+
 #pragma once
 
 class SkyBox

@@ -1,3 +1,6 @@
+// Contributors:
+//      Gary Chang
+
 //
 // COMP 371 Assignment Framework
 //

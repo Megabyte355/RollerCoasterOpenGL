@@ -1,6 +1,7 @@
 // Contributors:
 //      Gary Chang
-//	Oleksandr Dymov
+//	    Oleksandr Dymov
+
 //
 // COMP 371 Assignment Framework
 //

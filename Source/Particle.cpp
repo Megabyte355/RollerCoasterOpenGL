@@ -1,6 +1,7 @@
 // Utility class used to perform Ray Casting and AABB collisions
 // Contributors:
 //      Kevin Silva
+//      Gary Chang
 
 #include <GLM/glm.hpp>
 #include "Particle.h"

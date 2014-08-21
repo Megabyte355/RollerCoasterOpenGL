@@ -1,6 +1,5 @@
-//
-// Contribution by Alin
-//
+// Contributors:
+//      Razvan Alin Cijov
 
 #include "Missile.h"
 #include "CubeModel.h"

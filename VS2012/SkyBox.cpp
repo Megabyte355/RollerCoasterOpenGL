@@ -1,3 +1,6 @@
+// Contributors:
+//      Shahrad Rezaei
+
 #define STB_IMAGE_IMPLEMENTATION
 
 #include <GL/glew.h>

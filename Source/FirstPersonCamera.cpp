@@ -1,7 +1,8 @@
-//
-// Contribution of Ly, Alin, Gary and Oleksandr
-// 
-
+// Contributors:
+//      Razvan Alin Cijov
+//      Gary Chang
+//      Dong Li
+//      Oleksandr Dymov
 
 #include "FirstPersonCamera.h"
 #include "RayCast.h"

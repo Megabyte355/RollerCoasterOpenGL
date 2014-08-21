@@ -1,3 +1,6 @@
+// Contributors:
+//      Gary Chang
+
 //
 // COMP 371 Assignment Framework
 //
@@ -5,9 +8,6 @@
 //
 // Copyright (c) 2014 Concordia University. All rights reserved.
 //
-
-// Contributors:
-//      Gary Chang
 
 #include "CubeModelSM.h"
 #include "CubeSMController.h"

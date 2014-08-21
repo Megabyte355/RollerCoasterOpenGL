@@ -1,6 +1,6 @@
 // Contributors:
+//      Oleksandr Dymov
 //      Gary Chang
-// 	Oleksandr Dymov
 
 #pragma once
 #include "SphereModel.h"

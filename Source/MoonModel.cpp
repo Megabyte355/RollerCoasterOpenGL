@@ -1,5 +1,5 @@
 // Contributors:
-// 	Oleksandr Dymov
+//      Oleksandr Dymov
 
 #include "MoonModel.h"
 

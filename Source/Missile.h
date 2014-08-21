@@ -1,3 +1,6 @@
+// Contributors:
+//      Razvan Alin Cijov
+
 #pragma once
 #include "Model.h"
 #include "TankModel.h"

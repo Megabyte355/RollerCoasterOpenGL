@@ -1,3 +1,7 @@
+// Contributors:
+//      Kevin Silva
+//      Shahrad Rezaei
+
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/common.hpp>

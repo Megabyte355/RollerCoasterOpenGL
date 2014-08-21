@@ -1,3 +1,11 @@
+// Contributors:
+//      Razvan Alin Cijov
+//      Gary Chang
+//      Kevin Silva
+//      Shahrad Rezaei
+//      Dong Li
+//      Oleksandr Dymov
+
 //
 // COMP 371 Assignment Framework
 //

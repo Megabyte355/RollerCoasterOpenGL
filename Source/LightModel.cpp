@@ -1,6 +1,6 @@
 // Contributors:
 //      Gary Chang
-// 	Oleksandr Dymov
+//  	Oleksandr Dymov
 
 #include "LightModel.h"
 #include "EventManager.h"
@@ -41,48 +41,9 @@ void LightModel::Init()
 
 void LightModel::Update(float dt)
 {
-    //float moveSpeed = 4.0f;
-    //glm::vec3 xDirection(1.0f, 0.0f, 0.0f);
-    //glm::vec3 yDirection(0.0f, 1.0f, 0.0f);
-    //glm::vec3 zDirection(0.0, 0.0f, 1.0f);
-
-    //// Update camera position
-    //vec3 delta = vec3(0.0f, 0.0f, 0.0f);
-    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_I) == GLFW_PRESS)
-    //{
-    //    delta += zDirection * dt * moveSpeed;
-    //}
-    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_K) == GLFW_PRESS)
-    //{
-    //    delta -= zDirection * dt * moveSpeed;
-    //}
-    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_J) == GLFW_PRESS)
-    //{
-    //    delta += xDirection * dt * moveSpeed;
-    //}
-    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_L) == GLFW_PRESS)
-    //{
-    //    delta -= xDirection * dt * moveSpeed;
-    //}
-    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_U) == GLFW_PRESS)
-    //{
-    //    delta -= yDirection * dt * moveSpeed;
-    //}
-    //if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_O) == GLFW_PRESS)
-    //{
-    //    delta += yDirection * dt * moveSpeed;
-    //}
-    //lightPosition += vec4(delta, 0);
-    //mPosition += delta;
-
-	//lightColor.x -= dt * 0.2f;
-
 	// Distinction between the light from the sun
 	if (mParent != nullptr) 
 	{
-		//lightPosition = vec4(this->mParent->GetPosition(), 0) + vec4(mPosition, lightPosition.w);
-		//lightPosition.y -= 15;
-		
 		// Calculation of angle between plane and sun position by the dot product method
 		sunAngle = acos(dot(vec3(lightPosition.x, lightPosition.y, lightPosition.z), vec3(0.0f, 1.0f, 0.0f)) 
 			/ (float (length(vec3(lightPosition.x, lightPosition.y, lightPosition.z)) * length(vec3(0.0f, 1.0f, 0.0f))))); 
@@ -109,8 +70,6 @@ void LightModel::Update(float dt)
 	{
 		lightPosition = vec4(mPosition, lightPosition.w);
 	}
-	
-	//World::GetModelsPtr
 
 	// Debug Purposes
 	//std::cout << "Sun angle: " << lightPosition.x << std::endl;

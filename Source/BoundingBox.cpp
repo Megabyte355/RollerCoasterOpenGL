@@ -1,3 +1,7 @@
+// Contributors:
+//      Kevin Silva
+//      Shahrad Rezaei
+
 #include "BoundingBox.h"
 
 BoundingBox::BoundingBox(Model* parentModel)

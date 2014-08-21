@@ -1,3 +1,7 @@
+// Contributors:
+//      Dong Li
+//      Oleksandr Dymov
+
 //
 // COMP 371 Assignment Framework
 //

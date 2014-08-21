@@ -1,6 +1,6 @@
 // Contributors:
+//      Oleksandr Dymov
 //      Gary Chang
-// 	Oleksandr Dymov
 
 #include "SunModel.h"
 
