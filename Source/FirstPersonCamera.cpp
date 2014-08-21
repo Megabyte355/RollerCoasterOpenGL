@@ -85,8 +85,9 @@ void FirstPersonCamera::Update(float dt)
         emitter2->SetLightSource(World::GetLightModelsPtr()->back());
         emitter2->GenerateParticles();
     }
-    // Shooting feature implementation - last minute 
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS)
+
+    // Implementation of the bullet shooting with a control for single bullet per key press
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS && buttonReleased)
 	{
         TankModel* tank = dynamic_cast<TankModel*>(mTarget);
        	// Checks if it is a Tank first
@@ -97,8 +98,13 @@ void FirstPersonCamera::Update(float dt)
             bullet->SetLightSource(World::GetLightModelsPtr()->back());
             bullet->SetCoordinates(tank->GetCanonTipPoint(), tank->GetCanonDirectionVector());
             World::GetModelsPtr()->push_back(bullet);
+            buttonReleased = false;
         }
 	}
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_RELEASE)
+    {
+        buttonReleased = true;
+    }
 }
 
 glm::mat4 FirstPersonCamera::GetViewMatrix() const

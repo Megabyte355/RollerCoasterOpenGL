@@ -87,8 +87,9 @@ void ThirdPersonCamera::Update(float dt)
         emitter2->SetLightSource(World::GetLightModelsPtr()->back());
         emitter2->GenerateParticles();
     }
-    // Shooting feature of the Tank - Last minute
-    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS)
+
+    // Implementation of the bullet shooting with a control for single bullet per key press
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_PRESS && buttonReleased)
     {
     	// Makes sure it is a Tank
         TankModel* tank = dynamic_cast<TankModel*>(mTarget);
@@ -99,7 +100,12 @@ void ThirdPersonCamera::Update(float dt)
             bullet->SetLightSource(World::GetLightModelsPtr()->back());
             bullet->SetCoordinates(tank->GetCanonTipPoint(), tank->GetCanonDirectionVector());
             World::GetModelsPtr()->push_back(bullet);
+            buttonReleased = false;
         }
+    }
+    if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_B) == GLFW_RELEASE)
+    {
+        buttonReleased = true;
     }
 }
 
