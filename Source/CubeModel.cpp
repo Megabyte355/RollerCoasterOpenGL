@@ -18,7 +18,6 @@
 
 using namespace glm;
 
-#include "texture.hpp"
 
 CubeModel::CubeModel(vec3 size)
 {
